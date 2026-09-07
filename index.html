@@ -1,1 +1,369 @@
-<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=Prototype.dc.html"><title>Caregiver prototype</title><a href="Prototype.dc.html">Open the prototype</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caregiver prototype</title>
+<meta name="description" content="What changed in the Caregiver family app prototype, why, and what is still open.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light dark;
+    --ink: #142428;
+    --ink-soft: #3a4f55;
+    --ink-mute: #56676c;
+    --paper: #f3efe6;
+    --paper-deep: #e7e0d2;
+    --line: rgba(20, 36, 40, .14);
+    --teal: #0f4c4a;
+    --teal-bright: #1a6b67;
+    --teal-ink: #f3efe6;
+    --mint: #8fd3c7;
+    --accent: #c45c26;
+    --accent-deep: #a84a1c;
+    --card: #ffffff;
+    --tag-you: #e0b13a;
+    --tag-assumed: #8fd3c7;
+    --focus: #1a6b67;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #ebe6da;
+      --ink-soft: #c5c9c1;
+      --ink-mute: #9aa8a5;
+      --paper: #101d1d;
+      --paper-deep: #17292a;
+      --line: rgba(235, 230, 218, .16);
+      --teal: #0b3736;
+      --teal-bright: #8fd3c7;
+      --teal-ink: #ebe6da;
+      --mint: #8fd3c7;
+      --accent: #e08553;
+      --accent-deep: #f0a074;
+      --card: #172a2b;
+      --tag-you: #e0b13a;
+      --tag-assumed: #8fd3c7;
+      --focus: #8fd3c7;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #ebe6da;
+    --ink-soft: #c5c9c1;
+    --ink-mute: #9aa8a5;
+    --paper: #101d1d;
+    --paper-deep: #17292a;
+    --line: rgba(235, 230, 218, .16);
+    --teal: #0b3736;
+    --teal-bright: #8fd3c7;
+    --teal-ink: #ebe6da;
+    --mint: #8fd3c7;
+    --accent: #e08553;
+    --accent-deep: #f0a074;
+    --card: #172a2b;
+    --tag-you: #e0b13a;
+    --tag-assumed: #8fd3c7;
+    --focus: #8fd3c7;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Sans 3', 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--teal-bright); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 500; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+  p { margin: 0; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-mute); }
+
+  /* Shell: rail plus column */
+  .shell { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 0; max-width: 1160px; margin: 0 auto; }
+  .rail { position: sticky; top: 0; align-self: start; height: 100vh; padding: 40px 24px 40px 32px; display: flex; flex-direction: column; gap: 28px; border-right: 1px solid var(--line); }
+  .wordmark { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 600; color: var(--ink); text-decoration: none; }
+  .wordmark small { display: block; font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 400; color: var(--ink-mute); letter-spacing: .02em; }
+  .toc { display: flex; flex-direction: column; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .toc a { display: block; padding: 8px 10px; border-radius: 8px; color: var(--ink-soft); text-decoration: none; font-weight: 600; font-size: 15px; border-left: 2px solid transparent; }
+  .toc a[aria-current="true"] { color: var(--ink); background: var(--paper-deep); border-left-color: var(--accent); }
+  .rail .cta { margin-top: auto; }
+
+  .col { padding: 0 48px 96px; }
+  .slide { padding: 72px 0 56px; border-bottom: 1px solid var(--line); scroll-margin-top: 24px; }
+  .slide:last-of-type { border-bottom: 0; }
+  .slide > .inner { max-width: 66ch; }
+  .slide h2 { font-size: 40px; line-height: 1.1; margin: 10px 0 20px; }
+  .slide .lede { font-size: 21px; line-height: 1.45; color: var(--ink-soft); margin-bottom: 28px; }
+  .prose { display: flex; flex-direction: column; gap: 16px; }
+  .prose p { max-width: 66ch; }
+
+  /* Opener */
+  .opener { background: var(--teal); color: var(--teal-ink); border-radius: 0 0 28px 28px; padding: 64px 48px 56px; margin: 0 -48px 8px; }
+  .opener .eyebrow { color: var(--mint); }
+  .opener h1 { font-size: 46px; line-height: 1.08; max-width: 18ch; margin: 12px 0 22px; }
+  .opener .lede { font-size: 20px; line-height: 1.5; max-width: 60ch; color: var(--teal-ink); opacity: .92; }
+  .opener .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-deep); }
+  .btn-ghost { background: transparent; color: var(--teal-ink); border-color: rgba(243, 239, 230, .45); }
+  .btn-ghost:hover { border-color: var(--teal-ink); }
+  .btn-outline { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-outline:hover { border-color: var(--ink-soft); }
+  .btn-primary.wide { width: 100%; justify-content: center; }
+
+  /* How to read: three plain steps */
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 36px; }
+  .step { display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 2px solid var(--line); }
+  .step b { font-size: 16px; }
+  .step p { font-size: 16px; color: var(--ink-soft); }
+
+  /* The map */
+  .map { display: flex; flex-direction: column; margin-top: 8px; }
+  .row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 8px 28px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .row:last-child { border-bottom: 1px solid var(--line); }
+  .was { font-family: 'Fraunces', Georgia, serif; font-size: 20px; line-height: 1.25; color: var(--ink); }
+  .was small { display: block; font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 4px; }
+  .now { display: flex; flex-direction: column; gap: 8px; }
+  .now .to { font-weight: 700; font-size: 18px; }
+  .now .to .arrow { color: var(--accent); font-weight: 600; margin-right: 6px; }
+  .now p { color: var(--ink-soft); font-size: 17px; max-width: 60ch; }
+  .frames { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .frame { font-size: 14px; font-weight: 600; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); color: var(--teal-bright); text-decoration: none; background: var(--card); }
+  .frame:hover { border-color: var(--teal-bright); }
+
+  /* The tab strip, drawn */
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 28px 0 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); overflow: hidden; }
+  .tab { padding: 14px 8px 12px; text-align: center; font-weight: 600; font-size: 15px; color: var(--ink-soft); border-right: 1px solid var(--line); position: relative; }
+  .tab:last-child { border-right: 0; }
+  .tab.on { color: var(--teal-bright); }
+  .tab .badge { position: absolute; top: 6px; right: calc(50% - 38px); min-width: 18px; height: 18px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 11px; line-height: 18px; text-align: center; padding: 0 5px; }
+  .caption { font-size: 14px; color: var(--ink-mute); margin-bottom: 24px; }
+
+  /* Open items */
+  .items { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .item { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 6px 22px; padding: 20px 0; border-top: 1px solid var(--line); }
+  .item:last-child { border-bottom: 1px solid var(--line); }
+  .tag { align-self: start; justify-self: start; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 9px; border-radius: 6px; color: #142428; margin-top: 3px; }
+  .tag.you { background: var(--tag-you); }
+  .tag.assumed { background: var(--tag-assumed); }
+  .tag.defect { background: var(--paper-deep); color: var(--ink); }
+  .item b { display: block; font-size: 18px; margin-bottom: 2px; }
+  .item p { color: var(--ink-soft); font-size: 17px; max-width: 60ch; }
+  .group { margin-top: 36px; }
+  .group h3 { font-size: 24px; margin-bottom: 4px; }
+  .group .sub { color: var(--ink-mute); font-size: 16px; margin-bottom: 10px; }
+
+  .close { margin-top: 48px; padding: 28px; border-radius: 18px; background: var(--paper-deep); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+  .close p { max-width: 44ch; color: var(--ink-soft); }
+  footer { padding: 32px 0 0; font-size: 14px; color: var(--ink-mute); max-width: 66ch; }
+
+  @media (max-width: 860px) {
+    body { font-size: 17px; }
+    .shell { display: block; }
+    .rail { position: sticky; top: 0; z-index: 5; height: auto; padding: 12px 16px; border-right: 0; border-bottom: 1px solid var(--line); background: var(--paper); display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; }
+    .wordmark small { display: none; }
+    .toc { flex-direction: row; gap: 2px; justify-self: end; }
+    .toc a { padding: 6px 8px; font-size: 13px; border-left: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0; }
+    .toc a[aria-current="true"] { background: transparent; border-bottom-color: var(--accent); }
+    .rail .cta { display: none; }
+    .col { padding: 0 20px 64px; }
+    .opener { margin: 0 -20px; padding: 44px 20px 40px; border-radius: 0 0 22px 22px; }
+    .opener h1 { font-size: 32px; }
+    .opener .lede { font-size: 18px; }
+    .slide { padding: 52px 0 40px; scroll-margin-top: 70px; }
+    .slide h2 { font-size: 30px; }
+    .slide .lede { font-size: 18px; }
+    .steps { grid-template-columns: 1fr; gap: 14px; }
+    .row, .item { grid-template-columns: 1fr; gap: 6px; }
+    .tab { font-size: 13px; padding: 12px 4px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="rail" aria-label="Sections">
+    <a class="wordmark" href="#top">Caregiver<small>Prototype notes, September 2026</small></a>
+    <nav>
+      <ul class="toc">
+        <li><a href="#what" aria-current="true">What this is</a></li>
+        <li><a href="#changed">What changed</a></li>
+        <li><a href="#open">Still open</a></li>
+      </ul>
+    </nav>
+    <div class="cta"><a class="btn btn-primary wide" href="Prototype.dc.html">Open the prototype</a></div>
+  </aside>
+
+  <main class="col" id="top">
+    <section class="slide" id="what">
+      <div class="opener">
+        <p class="eyebrow">Caregiver, the family app</p>
+        <h1>A prototype of the app, and why it looks different</h1>
+        <p class="lede">I took the family app apart and put it back together around what a family member opens it for. Nothing here is built yet. It is a clickable prototype of every screen and state, on a phone and on a desktop, drawn only from what the app does today. Where a screen shows something the app can't do yet, it is marked "rebuild behavior".</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="Prototype.dc.html">Open the prototype</a>
+          <a class="btn btn-ghost" href="Prototype.dc.html#index">Every screen, listed</a>
+        </div>
+      </div>
+      <div class="inner">
+        <div class="steps">
+          <div class="step"><b>Pick a width</b><p>The first page asks phone or desktop. Both share the same screens and the same household, so you can switch at any point and land on the same frame.</p></div>
+          <div class="step"><b>Tap through it like the app</b><p>Tabs, buttons, replies, reminders, and the composer all work. Typing, waiting, and sign-in are stood in for with a single tap.</p></div>
+          <div class="step"><b>Use the switcher for the rest</b><p>A small control at the edge of every screen changes the situation: device offline, session ended, texts off, a failed save. Every state is three choices away.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="changed">
+      <div class="inner">
+        <p class="eyebrow">What changed</p>
+        <h2>Seven pages became four tabs</h2>
+        <p class="lede">Most of the old pages were one job that belonged inside another page. The nav is now the four things a family member actually comes back to.</p>
+        <div class="prose">
+          <p>Alex opens this app between other things, usually for under a minute, to see three things: is the device on, did Daniel ask Stella to pass anything along, and what happened with the medication reminder. The old home page led with memoir progress. The new one leads with those answers, and the actions that follow from them.</p>
+        </div>
+        <div class="tabs" aria-hidden="true">
+          <div class="tab on">Today<span class="badge">2</span></div>
+          <div class="tab">Story</div>
+          <div class="tab">Profile</div>
+          <div class="tab">Settings</div>
+        </div>
+        <p class="caption">The new tab bar. A pill with Daniel's name sits in the header of every tab and opens his device.</p>
+
+        <div class="map">
+          <div class="row">
+            <div class="was"><small>Was</small>Home</div>
+            <div class="now">
+              <div class="to"><span class="arrow">now</span>Today</div>
+              <p>Replies from Daniel first, then today's reminders with what happened to each, the device with pause and night light, and the board. The memoir progress bar is gone; the chapters and memories it counted are on Story.</p>
+              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/today/F1">Today on a phone</a><a class="frame" href="Prototype.dc.html#desktop/today/F1">On a desktop</a></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="was"><small>Was</small>Notes</div>
+            <div class="now">
+              <div class="to"><span class="arrow">now</span>Split three ways</div>
+              <p>Notes held the composer, the device controls, and the text-message settings on one page. "Send something" on Today opens the composer for a message, a reminder, or a photo. Device controls sit on Today, with the full device screen under Settings. Text settings are under Settings.</p>
+              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/compose/C1">Send something</a><a class="frame" href="Prototype.dc.html#phone/device/D1">Device</a><a class="frame" href="Prototype.dc.html#phone/settings/S3">Texts</a></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="was"><small>Was</small>Chapters</div>
+            <div class="now">
+              <div class="to"><span class="arrow">now</span>Story</div>
+              <p>Same chapters, same private family notes at the end of each one. Set for reading, with a narrower line on desktop.</p>
+              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/chapters/S1">Chapters</a><a class="frame" href="Prototype.dc.html#phone/chapters/S4">A chapter open</a></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="was"><small>Was</small>Photos, Contribute, Activity</div>
+            <div class="now">
+              <div class="to"><span class="arrow">now</span>Story, one gallery</div>
+              <p>Three pages did one job. Upload lives on the gallery, recent memories sit under it, and any photo opens a viewer where you can send it to Daniel's screen with a note.</p>
+              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/photos/P1">Gallery</a><a class="frame" href="Prototype.dc.html#phone/photos/P7">A photo open</a></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="was"><small>Was</small>Profile</div>
+            <div class="now">
+              <div class="to"><span class="arrow">now</span>Profile</div>
+              <p>Same content, edited one section at a time, with a clear line on whether Stella has read the latest save.</p>
+              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/profile/PR1">Profile</a></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="was"><small>Was</small>Sign out</div>
+            <div class="now">
+              <div class="to"><span class="arrow">now</span>Settings</div>
+              <p>Sign out, the device, texts, and adding the app to a phone's home screen, in one place.</p>
+              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/settings/S1">Settings</a></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="was"><small>Was</small>Admin</div>
+            <div class="now">
+              <div class="to"><span class="arrow">now</span>Admin, same job</div>
+              <p>The users table, account creation, resets, and the person's settings. On desktop the table is grouped by person with a side panel instead of a long form.</p>
+              <div class="frames"><a class="frame" href="Prototype.dc.html#desktop/admin/AD1">Admin on a desktop</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose" style="margin-top:28px">
+          <p>On names: the app already calls itself Caregiver in the code, so the prototype does too. Legavo Inc. is the company and Stella is the assistant. The device is not named anywhere, on purpose. More on that below.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="open">
+      <div class="inner">
+        <p class="eyebrow">Still open</p>
+        <h2>What I decided, and what only you can</h2>
+        <p class="lede">I made calls where I had to keep moving. Every one is reversible. The first group needs your answer before the build; the second is what I assumed, and each is labeled "rebuild behavior" in the prototype.</p>
+
+        <div class="group">
+          <h3>Your call</h3>
+          <p class="sub">Questions the code can't answer.</p>
+          <div class="items">
+            <div class="item"><span class="tag you">You</span><div><b>Which names a family sees</b><p>Caregiver, Legavo, Companion, Conversationalist, and Stella all appear in the app today. The prototype uses Caregiver, Legavo Inc., and Stella, and never names the device. The text-message consent line still says "from Legavo" because that is what was registered with the carrier.</p></div></div>
+            <div class="item"><span class="tag you">You</span><div><b>What the device does with what we send</b><p>The app writes a request and the device picks it up on its own schedule. The prototype never claims the device did something unless the device reported it back. Confirming that reading needs the device code, which we haven't seen.</p></div></div>
+            <div class="item"><span class="tag you">You</span><div><b>Controls while the device is offline</b><p>The server accepts pause and night light while the device is off. The prototype shows them, and shows the request waiting. Whether to offer them at all is your call.</p></div></div>
+            <div class="item"><span class="tag you">You</span><div><b>Whether texting is live for families</b><p>Settings is drawn for both, set up and not set up on the server.</p></div></div>
+            <div class="item"><span class="tag you">You</span><div><b>What a viewer can do</b><p>The viewer role exists in the code with no consistent rule for what it blocks. The prototype shows a read-only Settings screen for it and nothing more.</p></div></div>
+          </div>
+        </div>
+
+        <div class="group">
+          <h3>Assumed</h3>
+          <p class="sub">Calls I made so the design could move. Cheap to reverse.</p>
+          <div class="items">
+            <div class="item"><span class="tag assumed">Assumed</span><div><b>One control waits at a time</b><p>Pausing voice or switching night light waits on that control only. Today one request locks the whole page.</p></div></div>
+            <div class="item"><span class="tag assumed">Assumed</span><div><b>Engagement counts memories, not conversations</b><p>The server has no per-day conversation count. The line reads "Stella saved two memories today", which is what the data supports.</p></div></div>
+            <div class="item"><span class="tag assumed">Assumed</span><div><b>No "add to home screen" on desktop</b><p>The invitation is phone only. Desktop browsers would offer it too; it isn't worth the space there.</p></div></div>
+            <div class="item"><span class="tag assumed">Assumed</span><div><b>Deleting a photo says what it deletes</b><p>Delete removes every copy, including ones the device added, with no undo. The confirmation says exactly that.</p></div></div>
+          </div>
+        </div>
+
+        <div class="group">
+          <h3>Found on the way</h3>
+          <p class="sub">Two defects in the current app, worth an engineer's hour before anything else.</p>
+          <div class="items">
+            <div class="item"><span class="tag defect">Defect</span><div><b>Password reset fails in production</b><p>A date comparison mixes two formats and every reset attempt errors out. The tests pass because they don't hit the real database. One-line fix.</p></div></div>
+            <div class="item"><span class="tag defect">Defect</span><div><b>Inbound texts are accepted unsigned</b><p>When the texting token is empty, the app accepts any post as a text from a family member and puts it on the person's screen. It should refuse instead.</p></div></div>
+          </div>
+        </div>
+
+        <div class="close">
+          <p>Start with Today on a phone, then use the switcher to flip the device offline and see what changes.</p>
+          <a class="btn btn-primary" href="Prototype.dc.html#phone/today/F1">Open Today</a>
+        </div>
+        <footer>Drawn from the Caregiver web app as of September 6, 2026. The household is fictional: Daniel Morgan, cared for by Alex and Ruth Morgan. Times are Central.</footer>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    if (!('IntersectionObserver' in window)) return;
+    var current = sections[0];
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) current = e.target; });
+      links.forEach(function (a, i) {
+        if (sections[i] === current) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function (s) { if (s) io.observe(s); });
+  })();
+</script>
+</body>
+</html>
