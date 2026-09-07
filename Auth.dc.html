@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}@keyframes spin{to{transform:rotate(360deg)}}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / Auth</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Sign in, first sign-in, forgot and reset password, session end</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Signed-out surfaces, so no tab bar. Logon ID and password only; email is for the reset link. Error strings are verbatim from the server; the phone adds &ldquo;Passwords do not match&rdquo; and its own connection error. Sign out lands on sign-in with a toast (matches <a href="Settings.dc.html#S14">Settings S14</a>); today&rsquo;s routing to the landing page is noted in the doc. The public landing page, Terms and Privacy are the next surface. Gap flagged in A11: the app cannot know whether the reset email was sent.</div>
+</div>
+<div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:-28px; max-width:720px">Header pass: case B on every form frame, replacing the old wordmark row; the back row sits beneath it. Signed out, so no Daniel pill and no tab bar. The opening splash keeps its large wordmark and has no header. Product name is Caregiver. Spec on <a href="Today.dc.html#F1">Today F1</a>.</div>
+</sc-if>
+<div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
+<sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1 0 100%; display:flex; align-items:center; gap:14px; margin-bottom:-12px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:390px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 12px/1.45 'Source Sans 3',sans-serif; color:rgba(20,36,40,.6); min-height:17px; margin-top:-4px">{{ s.sub }}</div>
+  </sc-if>
+
+  <div data-screen-label="{{ s.label }}" style="width:390px; height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+    <div style="position:absolute; inset:0; padding:0 20px 40px; overflow:auto; scrollbar-width:none; box-sizing:border-box; display:flex; flex-direction:column">
+
+      <sc-if value="{{ s.isOpening }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1; margin-top:54px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:700; font-size:34px; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div>
+          <div style="display:flex; align-items:center; gap:10px; color:#56676c; font-size:15px">{{ spinner }}<span>Opening</span></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s.isForm }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:none; margin:0 -20px; background:#f3efe6; padding:16px 20px 0; border-bottom:1px solid rgba(20,36,40,.1); position:sticky; top:0; z-index:2"><div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div></div></div>
+        <div style="display:flex; align-items:center; height:44px; flex:none; margin:12px 0 0 -8px">
+          <sc-if value="{{ s.back }}" hint-placeholder-val="{{ false }}"><a href="#A1" style="display:flex; align-items:center; gap:2px; color:#0f4c4a; text-decoration:none; font:600 16px 'Source Sans 3',sans-serif; height:44px; padding:0 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>{{ s.back }}</a></sc-if>
+          
+        </div>
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; letter-spacing:-.01em; margin-top:{{ s.titleTop }}; flex:none; text-wrap:pretty">{{ s.title }}</div>
+        <sc-if value="{{ s.intro }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:10px; text-wrap:pretty; flex:none">{{ s.intro }}</div></sc-if>
+
+        <sc-if value="{{ s.banner }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start; flex:none"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.bannerDot }}; flex:none; margin-top:7px"></span><div style="min-width:0"><div style="font-size:15px; line-height:1.45; text-wrap:pretty">{{ s.banner }}</div><sc-if value="{{ s.bannerNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px; line-height:1.45; color:#56676c; margin-top:2px; text-wrap:pretty">{{ s.bannerNote }}</div></sc-if></div></div>
+        </sc-if>
+
+        <sc-if value="{{ s.rules }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 16px; flex:none">
+            <sc-for list="{{ s.rules }}" as="r" hint-placeholder-count="2">
+              <div style="display:flex; gap:10px; align-items:flex-start; padding:5px 0"><span style="width:6px; height:6px; border-radius:50%; background:#8a979b; flex:none; margin-top:8px"></span><div style="font-size:14px; line-height:1.45; text-wrap:pretty; color:#142428">{{ r }}</div></div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s.fields }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:14px; flex:none; opacity:{{ s.formOpacity }}">
+            <sc-for list="{{ s.fields }}" as="f" hint-placeholder-count="2">
+              <div style="display:flex; flex-direction:column; gap:6px">
+                <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ f.label }}</div>
+                <div style="min-height:48px; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:0 14px; display:flex; align-items:center; gap:10px; box-sizing:border-box">
+                  <div style="flex:1; min-width:0; font-size:17px; line-height:1.4; color:{{ f.color }}; letter-spacing:{{ f.spacing }}; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ f.shown }}</div>
+                  <sc-if value="{{ f.eye }}" hint-placeholder-val="{{ false }}"><button style="flex:none; height:44px; margin:0 -10px 0 0; padding:0 8px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">{{ f.eye }}</button></sc-if>
+                </div>
+                <sc-if value="{{ f.hint }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.4; color:{{ f.hintColor }}; text-wrap:pretty">{{ f.hint }}</div></sc-if>
+              </div>
+            </sc-for>
+            <sc-if value="{{ s.error }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; gap:10px; align-items:flex-start; margin-top:-4px"><span style="width:8px; height:8px; border-radius:50%; background:#a8321c; flex:none; margin-top:7px"></span><div style="min-width:0"><div style="font-size:15px; line-height:1.45; color:#a8321c; font-weight:600; text-wrap:pretty">{{ s.error }}</div><sc-if value="{{ s.errorNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px; line-height:1.45; color:#56676c; margin-top:2px; text-wrap:pretty">{{ s.errorNote }}</div></sc-if></div></div>
+            </sc-if>
+            <button style="height:48px; border-radius:999px; border:0; background:{{ s.btnBg }}; color:{{ s.btnFg }}; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px">{{ s.btnSpinner }}<span>{{ s.button }}</span></button>
+            <sc-if value="{{ s.wait }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px; line-height:1.45; color:#56676c; text-align:center; text-wrap:pretty; margin-top:-4px">{{ s.wait }}</div></sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s.done }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:10px; flex:none">
+            <div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#0f4c4a; flex:none; margin-top:7px"></span><div style="font-size:16px; font-weight:600; line-height:1.4; text-wrap:pretty">{{ s.done.title }}</div></div>
+            <div style="font-size:15px; line-height:1.45; color:#142428; text-wrap:pretty">{{ s.done.body }}</div>
+            <div style="font-size:13px; line-height:1.45; color:#56676c; text-wrap:pretty">{{ s.done.note }}</div>
+            <button style="height:48px; margin-top:4px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.done.button }}</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s.secondary }}" hint-placeholder-val="{{ false }}">
+          <a href="{{ s.secondaryHref }}" style="align-self:center; margin-top:14px; height:44px; display:flex; align-items:center; padding:0 12px; color:#0f4c4a; text-decoration:none; font:600 15px 'Source Sans 3',sans-serif; flex:none">{{ s.secondary }}</a>
+        </sc-if>
+
+        <div style="flex:1"></div>
+        <div style="font-size:13px; line-height:1.5; color:#56676c; text-align:center; padding:16px 8px 0; text-wrap:pretty; flex:none">{{ s.foot }}<sc-if value="{{ s.footLinks }}" hint-placeholder-val="{{ true }}"><div style="margin-top:6px; display:flex; justify-content:center; gap:14px; flex-wrap:wrap"><a href="#" style="font-weight:600; text-decoration:none">About Caregiver</a><a href="#" style="font-weight:600; text-decoration:none">Texts opt-in</a><a href="#" style="font-weight:600; text-decoration:none">Terms</a><a href="#" style="font-weight:600; text-decoration:none">Privacy</a></div></sc-if></div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:12px; right:12px; bottom:120px; background:#fff; color:#142428; border-radius:14px; padding:14px 16px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.25)"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.toastDot }}; flex:none; margin-top:7px"></span><span style="flex:1; text-wrap:pretty">{{ s.toast }}</span></div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  field(label, value, o) {
+    const d = Object.assign({ placeholder: '', secret: false, eye: '', error: false, hint: '' }, o);
+    const shown = value ? (d.secret ? '\u2022'.repeat(value.length) : value) : d.placeholder;
+    return { label, shown, color: value ? '#142428' : 'rgba(20,36,40,.4)', spacing: value && d.secret ? '.12em' : '0', eye: d.eye, border: d.error ? '1.5px solid #a8321c' : '1px solid rgba(20,36,40,.14)', hint: d.hint, hintColor: '#56676c' };
+  }
+  screen(o) {
+    const d = Object.assign({ isForm: true, isOpening: false, back: '', wordmark: true, title: '', intro: '', banner: '', bannerDot: '#e0b13a', bannerNote: '', rules: null, fields: null, error: '', errorNote: '', button: '', busy: false, disabled: false, wait: '', done: null, secondary: '', secondaryHref: '#', foot: '', footLinks: false, toast: '', toastDot: '#0f4c4a' }, o);
+    const s = Object.assign({}, d); delete s.id; delete s.pw; delete s.pw2; delete s.tmp; delete s.shown; delete s.email;
+    s.titleTop = d.wordmark ? '28px' : '6px';
+    s.btnBg = d.disabled ? 'rgba(20,36,40,.12)' : '#0f4c4a';
+    s.btnFg = d.disabled ? 'rgba(20,36,40,.45)' : '#fff';
+    s.btnSpinner = d.busy ? this.spin('#fff') : null;
+    s.formOpacity = 1;
+    return s;
+  }
+  spin(color) {
+    return React.createElement('span', { style: { width: 16, height: 16, borderRadius: '50%', border: '2px solid ' + color, borderTopColor: 'transparent', animation: 'spin .8s linear infinite', display: 'inline-block', flex: 'none', opacity: .9 } });
+  }
+  renderVals() {
+    const id = 'alex.morgan', email = 'alex@example.com';
+    const F = (l, v, o) => this.field(l, v, o);
+    const signinFields = (o) => {
+      const d = Object.assign({ id: '', pw: '', shown: false, error: false }, o);
+      return [F('Logon ID', d.id, { placeholder: 'Your logon ID', error: d.error }), F('Password', d.pw, { placeholder: 'Password', secret: !d.shown, eye: d.shown ? 'Hide' : 'Show', error: d.error })];
+    };
+    const signinFoot = 'Accounts are set up by the Caregiver administrator. You stay signed in on this phone for 72 hours.';
+    const signin = (o) => this.screen(Object.assign({ title: 'Sign in', fields: signinFields(o), button: 'Sign in', secondary: 'Forgot your password?', secondaryHref: '#A10', foot: signinFoot, footLinks: true }, o));
+
+    const pwRules = ['At least 10 characters.', 'Not your logon ID, your email address, or the part of your email before the @.'];
+    const idRule = 'Logon ID: 3 to 64 characters. Letters, numbers, periods, underscores, or hyphens.';
+    const firstFields = (o) => {
+      const d = Object.assign({ id: '', tmp: '', pw: '', pw2: '', idError: false, pwError: false }, o);
+      return [F('New logon ID', d.id, { placeholder: 'Choose a logon ID', error: d.idError }), F('Temporary password', d.tmp, { placeholder: 'From your administrator', secret: true, eye: 'Show' }), F('New password', d.pw, { placeholder: 'At least 10 characters', secret: true, eye: 'Show', error: d.pwError }), F('Confirm new password', d.pw2, { placeholder: 'Type it again', secret: true, eye: 'Show', error: d.pwError })];
+    };
+    const first = (o) => this.screen(Object.assign({ wordmark: true, title: 'Welcome, Alex Morgan', intro: 'Before anything else, choose your own logon ID and password. The temporary ones from your administrator stop working once this is saved.', rules: [idRule].concat(pwRules), fields: firstFields(o), button: 'Save and continue', secondary: 'Sign out', secondaryHref: '#A1', foot: 'You are caring for Daniel Morgan.' }, o));
+
+    const forgot = (o) => this.screen(Object.assign({ back: 'Sign in', wordmark: false, title: 'Forgot your password?', intro: 'Enter the email on your account. If it is on file, a link that works once and expires in an hour goes to that address.', fields: [F('Email', o.email || '', { placeholder: 'name@example.com' })], button: 'Send reset link', foot: 'Your logon ID does not change. If you no longer have access to the email on your account, ask the Caregiver administrator.' }, o));
+
+    const resetFields = (o) => {
+      const d = Object.assign({ pw: '', pw2: '', error: false }, o);
+      return [F('New password', d.pw, { placeholder: 'At least 10 characters', secret: true, eye: 'Show', error: d.error }), F('Confirm new password', d.pw2, { placeholder: 'Type it again', secret: true, eye: 'Show', error: d.error })];
+    };
+    const reset = (o) => this.screen(Object.assign({ wordmark: true, title: 'Choose a new password', intro: 'Saving signs you in on this phone.', rules: pwRules, fields: resetFields(o), button: 'Save and sign in', foot: 'This link works once and expires an hour after it was sent.' }, o));
+    const resetBad = (o) => this.screen(Object.assign({ wordmark: true, title: 'Choose a new password', fields: null, foot: 'Reset links work once and expire an hour after they were sent. Requesting a new one cancels older links.' }, o));
+
+    const states = [
+      { heading: 'Sign in', headingNote: 'logon ID and password; server strings verbatim' },
+      { id: 'A1', label: 'Empty', sub: 'Wordmark, two fields, Show on the password, one button. Forgot password below; public pages in the foot. Logon ID is not case sensitive, so no hint about it. Nothing mentions the admin code.', ...signin({}) },
+      { id: 'A2', label: 'Password shown', sub: 'The control toggles Show and Hide; the value stays in the field.', ...signin({ id, pw: 'lakehouse-2019', shown: true }) },
+      { id: 'A3', label: 'Wrong logon ID or password', sub: 'Verbatim. The server does not say which, so both fields are marked and the typed values stay. The note points to the only recovery available.', ...signin({ id, pw: 'lakehouse-2019', error: 'Invalid logon ID or password.', errorNote: 'Check both. If you have forgotten your password, use the link below.', fields: signinFields({ id, pw: 'lakehouse-2019', error: true }) }) },
+      { id: 'A4', label: 'Too many attempts', sub: 'Verbatim (20 tries in 10 minutes). The note adds the wait the server actually applies. The button stays enabled; the server is the gate.', ...signin({ id, pw: 'lakehouse-2019', error: 'Too many login attempts. Try again later.', errorNote: 'Wait about 10 minutes before trying again.' }) },
+      { id: 'A5', label: 'Slow server', sub: 'Button reads Signing in with a spinner for as long as it takes. After a few seconds, the wait copy appears under it: a loose bound from the hosting plan, and a reason not to leave. Fields stay as typed.', ...signin({ id, pw: 'lakehouse-2019', busy: true, button: 'Signing in', wait: 'Still signing in. After a quiet stretch this can take up to a minute. Stay on this screen.' }) },
+      { id: 'A6', label: 'Request failed', sub: 'The phone thinks it is online but the request did not get through. Being offline shows the app-wide overlay instead, so this is a failed request, not a missing network.', ...signin({ id, pw: 'lakehouse-2019', error: 'Could not reach Caregiver. Check your connection and try again.', errorNote: 'Nothing you typed was lost.' }) },
+      { id: 'A21', label: 'User directory unavailable', sub: 'Verbatim server string. The directory behind sign-in is down; the values stay and the way out is to wait.', ...signin({ id, pw: 'lakehouse-2019', error: 'User directory unavailable.', errorNote: 'Sign-in is not possible right now. Try again in a few minutes.' }) },
+      { id: 'A18', label: 'Session ended mid-use', sub: 'Rebuild behavior: \u201cInvalid session\u201d from any request returns here with the address kept, and the banner says what happened. Today the app stays put with an error until reload. Same banner text as Today state 7, Compose C11e, Device D14, Settings S14, Admin AD20 and A0. Nothing names a chapter or a screen.', ...signin({ id, banner: 'Your session ended. Sign in to pick up where you were.', bannerDot: '#e0b13a', bannerNote: 'You will go back to where you were.' }) },
+
+      { heading: 'First sign-in', headingNote: 'must-change flag; one page before anything else' },
+      { id: 'A7', label: 'Empty, rules visible', sub: 'Welcome by name. Rules shown before typing, restated in words (the server string has an en dash). Four fields, Save, and Sign out. Nothing else is reachable until saved.', ...first({}) },
+      { id: 'A8', label: 'Password contains the logon ID', sub: 'Verbatim server string; both password fields marked. All four values stay so one field can be fixed without retyping the rest.', ...first({ id, tmp: 'Temp-9384', pw: 'alex.morgan2026', pw2: 'alex.morgan2026', error: 'Password must not contain the logon ID.', fields: firstFields({ id, tmp: 'Temp-9384', pw: 'alex.morgan2026', pw2: 'alex.morgan2026', pwError: true }) }) },
+      { id: 'A9', label: 'Logon ID already exists', sub: 'Verbatim. Only the logon ID field is marked; the passwords passed. The note suggests the obvious fix without inventing a suggestion the server does not make.', ...first({ id: 'alex', tmp: 'Temp-9384', pw: 'lakehouse-2019', pw2: 'lakehouse-2019', error: 'Logon ID already exists.', errorNote: 'Try adding your last name or a number.', fields: firstFields({ id: 'alex', tmp: 'Temp-9384', pw: 'lakehouse-2019', pw2: 'lakehouse-2019', idError: true }) }) },
+      { id: 'A19', label: 'Temporary password incorrect', sub: 'Verbatim. The likeliest first-run failure: a 16-character temporary password retyped from paper. Only that field is marked; the rest stays.', ...first({ id, tmp: 'Tq7mXk29pLw4Rz8B', pw: 'lakehouse-2019', pw2: 'lakehouse-2019', error: 'Current password is incorrect.', errorNote: 'Check the temporary password against what your administrator gave you. Show reveals it.', fields: [F('New logon ID', id, {}), F('Temporary password', 'Tq7mXk29pLw4Rz8B', { secret: true, eye: 'Show', error: true }), F('New password', 'lakehouse-2019', { secret: true, eye: 'Show' }), F('Confirm new password', 'lakehouse-2019', { secret: true, eye: 'Show' })] }) },
+      { id: 'A20', label: 'Passwords do not match', sub: 'The phone\u2019s own check, before the server is asked. Both password fields marked; the logon ID and temporary password passed.', ...first({ id, tmp: 'Temp-9384', pw: 'lakehouse-2019', pw2: 'lakehouse-2018', error: 'Passwords do not match.', fields: firstFields({ id, tmp: 'Temp-9384', pw: 'lakehouse-2019', pw2: 'lakehouse-2018', pwError: true }) }) },
+
+      { heading: 'Forgot password', headingNote: 'one field; same answer whether or not the email matched' },
+      { id: 'A10', label: 'Empty', sub: 'Pushed from Sign in. One field. The intro says what the link does and how long it lasts. The foot says what to do when the email is gone, since the app offers nothing else.', ...forgot({}) },
+      { id: 'A11', label: 'Submitted', sub: 'The same screen whether or not the email matched. Copy says \u201cif that email is on file\u201d and never claims the email was sent: when no email provider is configured the server sends nothing and the app cannot tell. Gap flagged. Send a new link cancels the earlier one.', ...forgot({ fields: null, intro: '', done: { title: 'If that email is on file, a link is on its way.', body: 'Check ' + email + '. The link works once and expires in an hour.', note: 'The earlier link stops working. Nothing arrived after a few minutes? Check spam, or ask the Caregiver administrator to confirm the email on your account.', button: 'Send a new link' } }) },
+      { id: 'A12', label: 'Too many requests', sub: 'Verbatim (5 in 10 minutes). The field keeps the email; the note gives the wait.', ...forgot({ email, error: 'Too many reset requests. Try again later.', errorNote: 'Wait about 10 minutes. Links already sent still work for an hour.' }) },
+
+      { heading: 'Reset password', headingNote: 'from the emailed link; logon ID does not change' },
+      { id: 'A13', label: 'Empty, valid link', sub: 'Two fields with the same two rules as first sign-in; the reset does not check against the temporary password. The page has only the token, so no account name is shown. Saving signs in on this phone and clears any must-change flag.', ...reset({}) },
+      { id: 'A14', label: 'Passwords do not match', sub: 'The one check the phone does itself, before the server is asked. Both fields marked.', ...reset({ pw: 'lakehouse-2019', pw2: 'lakehouse-2018', error: 'Passwords do not match.', fields: resetFields({ pw: 'lakehouse-2019', pw2: 'lakehouse-2018', error: true }) }) },
+      { id: 'A15', label: 'Link invalid or expired', sub: 'Verbatim. The app cannot know the link is bad when it opens; the refusal comes back after Save. So the filled form stays, the refusal sits under it, and the way out is a new link through Forgot password. Sign in stays reachable.', ...reset({ pw: 'lakehouse-2019', pw2: 'lakehouse-2019', error: 'Invalid or expired reset link.', errorNote: 'It may have been used already, or more than an hour has passed. Request a new link below.', secondary: 'Request a new link', secondaryHref: '#A10' }) },
+      { id: 'A16', label: 'Link missing its token', sub: 'Verbatim. Usually a link that was cut short when copied. Same way out.', ...resetBad({ banner: 'This reset link is missing a token.', bannerDot: '#a8321c', bannerNote: 'The link may have been cut short when it was copied. Open it again from the email, or request a new one.', done: { title: 'Request a new link', body: 'Enter the email on your account and we send a fresh link. Any older links stop working.', note: '', button: 'Request a new link' }, secondary: 'Back to sign in', secondaryHref: '#A1' }) },
+
+      { heading: 'Opening the app', headingNote: 'checking the saved session' },
+      { id: 'A17', label: 'Opening', sub: 'Brief moment while the phone checks its saved session. Valid: Today. Expired or invalid: the saved session is dropped and the person lands on Sign in with the A18 banner, the opened address kept (rebuild behavior). Today it lands on the landing page instead.', ...this.screen({ isForm: false, isOpening: true }) },
+      { id: 'A0', label: 'Session ended, toast', sub: 'From Settings S14: the session ends and the app lands here with the toast, the same text as the A18 banner. Rebuild behavior; today it lands on the landing page instead.', ...signin({ toast: 'Your session ended. Sign in to pick up where you were.' }) }
+    ];
+    return { ...this.embedVals(), states: this.pickFrame(states), spinner: this.spin('#0f4c4a') };
+  }
+}
+</script>
+</body>
+</html>

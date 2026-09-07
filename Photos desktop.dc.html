@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}@keyframes spin{to{transform:rotate(360deg)}}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / <a href="Photos.dc.html" style="text-decoration:none">Photos</a> / Desktop</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Photos desktop</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Desktop pass, Sep 6. 1440 wide, full height, the orange line at 1000 px. Frame IDs match the phone page. Shell per the spec beside <a href="Today desktop.dc.html#F1">Today desktop F1</a>; Story is the active pill and the Chapters and Photos switch sits above the content as on <a href="Chapters desktop.dc.html#S1">Chapters desktop</a>. The gallery is an auto-fill grid, eight across; the viewer is the lightbox already drawn on Today desktop A13 and A14. Upload uses the system file dialog (P3), which is left out. Queued fix from D62 applied: the viewer's primary action reads "Send to his screen". Photos are labelled placeholders.</div>
+</div>
+</sc-if>
+<div style="display:flex; flex-direction:column; gap:48px; align-items:flex-start">
+<sc-for list="{{ frames }}" as="s" hint-placeholder-count="2">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="width:1440px; display:flex; align-items:center; gap:14px; margin-bottom:-16px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:1440px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 13px/1.5 'Source Sans 3',sans-serif; color:rgba(20,36,40,.65); max-width:900px; margin-top:-4px; text-wrap:pretty">{{ s.sub }}</div>
+  </sc-if>
+  <div style="position:relative; width:1440px">
+    <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute; left:-12px; right:-12px; top:1000px; border-top:1.5px dashed rgba(196,92,38,.8); pointer-events:none; z-index:9"></div>
+    <div style="position:absolute; right:-70px; top:990px; font:600 12px 'Source Sans 3',sans-serif; color:#c45c26; pointer-events:none">1000 px</div>
+    </sc-if>
+  <div data-screen-label="{{ s.label }}" style="width:1440px; min-height:1000px; background:#f3efe6; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428; box-sizing:border-box">
+
+    <sc-if value="{{ s.isGallery }}" hint-placeholder-val="{{ true }}">
+    <div style="height:56px; background:#f3efe6; border-bottom:1px solid rgba(20,36,40,.1); display:flex; align-items:center; padding:0 24px; box-sizing:border-box; position:sticky; top:0; z-index:3">
+      <div style="width:1160px; margin:0 auto; display:flex; align-items:center; gap:32px">
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div>
+        <div style="flex:1; display:flex; justify-content:flex-end; gap:4px">
+          <a href="Today desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Today<span style="margin-left:8px; min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#c45c26; color:#fff; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box">2</span></a>
+          <a href="Chapters desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; background:#0f4c4a; color:#fff; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none">Story</a>
+          <a href="Profile desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Profile</a>
+          <a href="Settings desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Settings</a>
+        </div>
+        <a href="Device desktop.dc.html" aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(15,76,74,.4); background:transparent; color:#0f4c4a; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></a>
+      </div>
+    </div>
+
+    <div style="width:1160px; margin:0 auto; padding:32px 0 64px; box-sizing:border-box">
+      <div style="display:flex; align-items:center; gap:24px; height:44px">
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em; width:320px">Story</div>
+        <div style="display:flex; padding:3px; border-radius:999px; background:rgba(20,36,40,.08); width:280px; box-sizing:border-box">
+          <a href="Chapters desktop.dc.html" style="flex:1; height:36px; border-radius:999px; background:none; color:#56676c; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none; display:flex; align-items:center; justify-content:center" style-hover="color:#0f4c4a">Chapters</a>
+          <button style="flex:1; height:36px; border-radius:999px; border:0; background:#fff; color:#142428; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; box-shadow:0 1px 3px rgba(20,36,40,.15)">Photos</button>
+        </div>
+        <div style="flex:1"></div>
+        <button style="height:40px; padding:0 16px 0 12px; border-radius:999px; border:0; background:#0f4c4a; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; display:flex; align-items:center; gap:6px; outline:{{ s.addOutline }}; outline-offset:2px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Add photo</button>
+      </div>
+
+      <sc-if value="{{ s.isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:120px 0 0; max-width:480px; text-wrap:pretty">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">No photos yet</div>
+          <div style="font-size:15px; line-height:1.5; color:#56676c; margin-top:10px">Photos Daniel adds on the device and photos the family shares both appear here. Add one to start.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ s.galleryFailed }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:24px; max-width:560px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:16px; display:flex; flex-direction:column; align-items:flex-start; gap:10px"><div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#a8321c; flex:none; margin-top:7px"></span><div style="font-size:15px; line-height:1.45">The gallery did not load.</div></div><button style="height:44px; padding:0 20px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Try again</button></div>
+      </sc-if>
+      <sc-if value="{{ s.galleryLoading }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(132px, 1fr)); gap:18px 14px; margin-top:24px">
+          <sc-for list="{{ s.loadTiles }}" as="t" hint-placeholder-count="0">
+            <div style="display:flex; flex-direction:column; gap:7px">
+              <div style="aspect-ratio:1; border-radius:12px; background:#e9e4d8; border:1px solid rgba(20,36,40,.06); display:flex; align-items:center; justify-content:center"><sc-if value="{{ t }}" hint-placeholder-val="{{ false }}"><span style="width:22px; height:22px; border-radius:50%; border:2px solid rgba(15,76,74,.2); border-top-color:#0f4c4a; animation:spin 1s linear infinite"></span></sc-if></div>
+              <div style="height:12px; width:70%; border-radius:4px; background:#e9e4d8"></div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s.hasPhotos }}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{ s.pendingMsg }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:24px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#e0b13a; flex:none; margin-top:7px"></span><div style="font-size:14px; line-height:1.45">{{ s.pendingMsg }}</div></div>
+        </sc-if>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(132px, 1fr)); gap:18px 14px; margin-top:24px">
+          <sc-for list="{{ s.photos }}" as="p" hint-placeholder-count="0">
+            <div style="display:flex; flex-direction:column; gap:6px; cursor:pointer; outline:{{ p.outline }}; outline-offset:4px; border-radius:12px">
+              <div style="position:relative; aspect-ratio:1; border-radius:12px; overflow:hidden; background:{{ p.tileBg }}; border:1px solid rgba(20,36,40,.08); display:flex; align-items:center; justify-content:center; text-align:center; padding:10px; box-sizing:border-box">
+                <sc-if value="{{ p.uploading }}" hint-placeholder-val="{{ false }}"><span style="width:22px; height:22px; border-radius:50%; border:2px solid rgba(15,76,74,.2); border-top-color:#0f4c4a; animation:spin 1s linear infinite"></span></sc-if>
+                <sc-if value="{{ p.showLabel }}" hint-placeholder-val="{{ true }}"><span style="font:400 10px/1.4 ui-monospace,Menlo,monospace; color:rgba(20,36,40,.55)">{{ p.placeholder }}</span></sc-if>
+                <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; top:6px; left:6px; height:20px; padding:0 7px; border-radius:6px; background:rgba(20,36,40,.78); color:#fff; font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; display:inline-flex; align-items:center">{{ p.badge }}</span></sc-if>
+              </div>
+              <sc-if value="{{ p.caption }}" hint-placeholder-val="{{ true }}"><div style="font-size:13px; line-height:1.35; font-weight:600; color:{{ p.captionColor }}; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden">{{ p.caption }}</div></sc-if>
+              <div style="font-size:12px; line-height:1.3; color:{{ p.metaColor }}; margin-top:{{ p.metaTop }}">{{ p.meta }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s.showMemories }}" hint-placeholder-val="{{ false }}">
+        <div style="height:1px; background:rgba(20,36,40,.15); margin:36px 0 20px"></div>
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">Recent memories</div>
+        <div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:4px">The newest 30 memories and chapter updates.</div>
+        <sc-if value="{{ s.memFailed }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:14px; max-width:560px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:16px; display:flex; flex-direction:column; align-items:flex-start; gap:10px"><div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#a8321c; flex:none; margin-top:7px"></span><div style="font-size:15px; line-height:1.45">Recent memories did not load.</div></div><button style="height:44px; padding:0 20px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Try again</button></div>
+        </sc-if>
+        <sc-if value="{{ s.memEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:14px; max-width:560px; padding:22px 16px; border-radius:16px; border:1.5px dashed rgba(20,36,40,.18); font-size:15px; line-height:1.5; color:#56676c">No recent activity yet. When Daniel talks with Stella, what he remembers shows up here.</div>
+        </sc-if>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px">
+          <sc-for list="{{ s.memories }}" as="m" hint-placeholder-count="0">
+            <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:14px 16px">
+              <div style="font-size:13px; font-weight:600; color:#56676c">{{ m.eyebrow }}</div>
+              <sc-if value="{{ m.title }}" hint-placeholder-val="{{ true }}"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:18px; line-height:1.2; margin-top:3px">{{ m.title }}</div></sc-if>
+              <sc-if value="{{ m.isMemory }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px; font-weight:600; color:#8a979b; margin-top:8px; letter-spacing:.02em">From the recording</div></sc-if>
+              <div style="font-size:15px; line-height:1.45; margin-top:{{ m.previewTop }}; color:#3a4f55; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden">{{ m.preview }}</div>
+              <sc-if value="{{ m.status }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#56676c; margin-top:8px">{{ m.status }}</div></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ s.isPicker }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; z-index:7">
+        <div style="position:absolute; left:50%; top:200px; transform:translateX(-50%); width:640px; height:440px; box-sizing:border-box; border:2px dashed rgba(20,36,40,.35); border-radius:12px; background:rgba(243,239,230,.8); display:flex; align-items:center; justify-content:center; text-align:center; padding:40px; font:13px/1.5 ui-monospace,Menlo,monospace; color:#56676c">operating system file dialog, not drawn<br>one image at a time</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.isCaption }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; background:rgba(20,36,40,.45); z-index:7">
+        <div style="position:absolute; left:50%; top:72px; transform:translateX(-50%); width:560px; box-sizing:border-box; background:#f3efe6; border-radius:20px; overflow:hidden; box-shadow:0 24px 60px rgba(20,36,40,.35)">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 10px 0; height:44px">
+            <button style="height:44px; padding:0 12px; border:0; background:none; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Cancel</button>
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1">Add photo</div>
+            <div style="width:80px"></div>
+          </div>
+          <div style="padding:20px 24px 24px; display:flex; flex-direction:column">
+            <div style="height:300px; border-radius:16px; background:repeating-linear-gradient(135deg,#d9d3c4 0 10px,#e2ddd0 10px 20px); border:1px solid rgba(20,36,40,.08); display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; box-sizing:border-box"><span style="font:400 11px/1.4 ui-monospace,Menlo,monospace; color:rgba(20,36,40,.55)">picked photo, full size as uploaded</span></div>
+            <div style="font-size:15px; font-weight:600; margin-top:20px">Caption <span style="font-weight:400; color:#56676c">(optional)</span></div>
+            <div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:4px">Shown with the photo, on Today, and used when searching photos.</div>
+            <div style="background:#fff; border-radius:16px; border:1.5px solid #0f4c4a; padding:14px 16px; margin-top:8px; min-height:72px; font-size:16px; line-height:1.5; box-sizing:border-box">{{ s.capText }}</div>
+            <div style="font-size:13px; line-height:1.45; color:#56676c; margin-top:10px">Saves to the gallery only. Nothing goes to Daniel's screen until you send it from the photo.</div>
+            <sc-if value="{{ s.uploading }}" hint-placeholder-val="{{ false }}"><div style="display:flex; align-items:center; justify-content:center; gap:10px; height:52px; margin-top:16px; color:#56676c; font-size:15px"><span style="width:18px; height:18px; border-radius:50%; border:2px solid rgba(15,76,74,.2); border-top-color:#0f4c4a; animation:spin 1s linear infinite"></span>Uploading. Large photos take a moment.</div></sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.gToast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:50%; top:920px; transform:translateX(-50%); width:480px; box-sizing:border-box; background:#142428; color:#fff; border-radius:12px; padding:14px 18px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.3); z-index:8"><span style="width:8px; height:8px; border-radius:50%; background:#8fd3c7; flex:none; margin-top:7px"></span><span style="flex:1">{{ s.gToast }}</span></div>
+    </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ s.isViewer }}" hint-placeholder-val="{{ false }}">
+      <div style="min-height:1000px; background:#142428; color:#fff; display:flex; flex-direction:column; box-sizing:border-box; position:relative">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px 0">
+          <button style="height:44px; padding:0 12px; border:0; background:none; color:#fff; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Close</button>
+          <div style="font-size:14px; color:rgba(255,255,255,.6)">{{ s.position }}</div>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:space-between; padding:16px 24px">
+          <button aria-label="Previous photo" style="width:48px; height:48px; border-radius:50%; border:0; background:rgba(255,255,255,.1); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
+          <sc-if value="{{ s.imgOk }}" hint-placeholder-val="{{ true }}">
+            <div style="width:{{ s.imgW }}; height:640px; background:repeating-linear-gradient(135deg,#243a3e 0 8px,#1b2e32 8px 16px); display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; box-sizing:border-box; font:12px ui-monospace,Menlo,monospace; color:rgba(255,255,255,.6)">{{ s.viewerLabel }}</div>
+          </sc-if>
+          <sc-if value="{{ s.imgFail }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center; max-width:420px">
+              <div style="width:44px; height:44px; border-radius:12px; border:1.5px dashed rgba(255,255,255,.35); margin:0 auto 14px"></div>
+              <div style="font-size:17px; font-weight:600">{{ s.failTitle }}</div>
+              <div style="font-size:14px; line-height:1.45; color:rgba(255,255,255,.65); margin-top:6px">{{ s.failNote }}</div>
+              <sc-if value="{{ s.failRetry }}" hint-placeholder-val="{{ true }}"><button style="height:40px; padding:0 18px; margin-top:14px; border-radius:999px; border:1px solid rgba(255,255,255,.35); background:none; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Try again</button></sc-if>
+            </div>
+          </sc-if>
+          <button aria-label="Next photo" style="width:48px; height:48px; border-radius:50%; border:0; background:rgba(255,255,255,.1); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button>
+        </div>
+        <div style="width:960px; margin:0 auto; padding:0 0 36px; display:flex; gap:32px; align-items:flex-start">
+          <div style="flex:1; min-width:0">
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1.2; text-wrap:pretty">{{ s.vCaption }}</div>
+            <div style="font-size:14px; line-height:1.4; color:rgba(255,255,255,.65); margin-top:6px; min-height:20px">{{ s.vMeta }}</div>
+            <sc-if value="{{ s.noteOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:16px; background:rgba(255,255,255,.08); border:1.5px solid #8fd3c7; border-radius:16px; padding:12px 14px">
+                <div style="font-size:13px; font-weight:600; color:rgba(255,255,255,.7)">What should Stella say about this photo?</div>
+                <div style="font-size:16px; line-height:1.5; margin-top:6px; min-height:48px; color:{{ s.noteColor }}">{{ s.noteText }}</div>
+              </div>
+              <div style="font-size:13px; line-height:1.4; color:rgba(255,255,255,.65); margin-top:8px">{{ s.noteHint }}</div>
+            </sc-if>
+          </div>
+          <sc-if value="{{ s.noteOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; gap:8px; flex:none; margin-top:2px">
+              <button style="height:48px; padding:0 18px; border-radius:999px; border:1px solid rgba(255,255,255,.3); background:none; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Cancel</button>
+              <button style="height:48px; padding:0 22px; border-radius:999px; border:0; background:#8fd3c7; color:#101a1c; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.sendLabel }}</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ s.actions }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex; gap:8px; flex:none; margin-top:2px">
+              <button style="height:48px; padding:0 16px; border-radius:999px; border:1px solid rgba(255,255,255,.3); background:none; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Delete photo</button>
+              <button style="height:48px; padding:0 22px; border-radius:999px; border:0; background:#8fd3c7; color:#101a1c; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Send to his screen</button>
+            </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ s.confirm }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; inset:0; background:rgba(0,0,0,.55); z-index:7">
+            <div style="position:absolute; left:50%; top:360px; transform:translateX(-50%); width:440px; box-sizing:border-box; background:#f3efe6; color:#142428; border-radius:20px; padding:28px 28px 24px; box-shadow:0 24px 60px rgba(0,0,0,.4)">
+              <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">Delete this photo for Daniel?</div>
+              <div style="margin-top:10px; font-size:15px; line-height:1.45; color:#56676c">It leaves his gallery and search. A copy already on his screen stays until you remove it from Today. There is no undo.</div>
+              <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:24px">
+                <button style="height:44px; padding:0 16px; border-radius:999px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Keep</button>
+                <button style="height:44px; padding:0 20px; border-radius:999px; border:0; background:#a8321c; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Delete photo</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; left:50%; top:920px; transform:translateX(-50%); width:480px; box-sizing:border-box; background:#fff; color:#142428; border-radius:12px; padding:14px 18px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(0,0,0,.35); z-index:8"><span style="width:8px; height:8px; border-radius:50%; background:#0f4c4a; flex:none; margin-top:7px"></span><span style="flex:1">{{ s.toast }}</span></div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  photo(o) {
+    const p = Object.assign({ source: 'memoir', pending: false, uploading: false, by: '', caption: '', pendingNote: '', outline: 'none' }, o);
+    p.showLabel = !p.uploading;
+    p.tileBg = p.pending ? '#e9e4d8' : 'repeating-linear-gradient(135deg,#d9d3c4 0 10px,#e2ddd0 10px 20px)';
+    p.placeholder = p.pending ? 'uploaded original, not yet indexed' : p.ph;
+    p.badge = p.pending ? 'Pending' : (p.source === 'family' ? 'Family' : '');
+    p.captionColor = p.pending ? '#56676c' : '#142428';
+    p.metaColor = p.pending ? '#a84a1c' : '#56676c';
+    p.meta = p.pending ? (p.pendingNote || 'Pending \u00b7 ' + p.by) : p.added;
+    p.metaTop = p.caption ? '-2px' : '0';
+    return p;
+  }
+  gallery(o) {
+    return Object.assign({ isGallery: true, isViewer: false, isEmpty: false, hasPhotos: true, photos: [], pendingMsg: '', showMemories: false, memEmpty: false, memFailed: false, galleryFailed: false, galleryLoading: false, loadTiles: [], gToast: '', memories: [], isPicker: false, isCaption: false, addOutline: 'none' }, o);
+  }
+  viewer(p, o) {
+    const s = Object.assign({ isGallery: false, isViewer: true, imgOk: true, imgFail: false, failTitle: 'This photo did not load.', failNote: 'Try again, or check your connection.', failRetry: true, imgW: '853px', viewerLabel: p.ph + ' \u00b7 full photo, capped at 960 px wide', position: p.pos, vCaption: p.caption, actions: true, noteOpen: false, noteText: '', noteColor: '#fff', noteHint: 'Becomes the caption on Daniel\u2019s screen and on Today.', sendLabel: 'Send to his screen', confirm: false, toast: '' }, o);
+    s.vMeta = p.source === 'family' ? (p.by ? 'Shared by ' + p.by : 'Shared by family') : 'Added on the device';
+    if (s.noteOpen) s.actions = false;
+    return s;
+  }
+  renderVals() {
+    const margaret = this.photo({ caption: 'Margaret at the lake, 1966', ph: 'b&w print, woman on a dock', added: 'Added Sep 3 \u00b7 on the device', pos: '1 of 5' });
+    const walk = this.photo({ caption: 'Sunday walk at the lake, last spring', ph: 'phone photo, lakeside path', added: 'Added Aug 30', source: 'family', by: 'Alex Morgan', pos: '2 of 5' });
+    const farmhouse = this.photo({ caption: 'The Route 9 farmhouse, taken by Uncle Pete', ph: 'scanned print, white farmhouse', added: 'Added Aug 21', source: 'family', pos: '3 of 5' });
+    const fair = this.photo({ caption: 'The grandkids at the county fair', ph: 'phone photo, two children, ferris wheel', added: 'Added Sep 5 \u00b7 posted from Today', source: 'family', pos: '4 of 5' });
+    const nocap = this.photo({ caption: '', ph: 'phone photo, kitchen table', added: 'Added Sep 1 \u00b7 on the device', pos: '5 of 5' });
+    const pending = this.photo({ caption: 'Thanksgiving 2019', pending: true, by: 'Alex Morgan', source: 'family' });
+    const pendingNoIndex = this.photo({ caption: 'Thanksgiving 2019', pending: true, by: 'Alex Morgan', source: 'family', pendingNote: 'Photos cannot be indexed on this server yet.' });
+    const added = this.photo({ caption: 'Thanksgiving 2019', ph: 'phone photo, long table', source: 'family', by: 'Alex Morgan', added: 'Added just now', outline: '2px solid #0f4c4a' });
+    const five = [fair, nocap, margaret, walk, farmhouse];
+    const memories = [
+      { eyebrow: 'Memory \u00b7 today, 9:14 PM', title: 'Pete on the canning tray', isMemory: true, previewTop: '4px', preview: 'The youngest one, Pete, he was small enough to ride down the cellar stairs on the tray with the jars. Mother never caught him at it, or said she didn\u2019t.', status: 'Not yet in a chapter.' },
+      { eyebrow: 'Memory \u00b7 today, 6:02 PM', title: '', isMemory: true, previewTop: '4px', preview: 'There was a dog at the farm called Duke that would not come in for anyone but Pete.', status: 'Not yet in a chapter.' },
+      { eyebrow: 'Memory \u00b7 today, 3:40 PM', title: 'The barn roof, winter of 1957', isMemory: true, previewTop: '4px', preview: 'It came down after milking. Nobody was in there. The neighbors were in the yard by daylight, nobody called them.', status: 'In a chapter.' },
+      { eyebrow: 'Chapter updated \u00b7 Sep 4', title: 'The farm on Route 9', isMemory: false, previewTop: '6px', preview: 'Growing up on the dairy farm with four brothers, the winter the barn roof came down, and the year Daniel left for the Navy.', status: '' }
+    ];
+    const frames = [
+      { heading: 'Gallery', headingNote: 'the Photos section of Story; Add photo at the right of the title row' },
+      { id: 'P1', label: 'Gallery with photos', sub: 'Full note. The grid is auto-fill at a 132 px minimum with 14 px gaps, eight tiles across at 1160 px; tiles keep the phone\u2019s square shape, badge, two-line caption and meta line. The same five photos as the phone fill one row, so the page ends far above the fold and nothing is stretched to fill: width adds no photos. Add photo moves from beside the title to the right end of the title row, past the Chapters and Photos switch. Recent memories follows the gallery in a two-column grid of the phone\u2019s cards (P12). Every tile still fetches the full original, as the current app does. Rebuild behavior: the current app\u2019s grid is 140 px minimum in a 920 px column.', ...this.gallery({ photos: five }) },
+      { id: 'P2', label: 'Empty gallery', sub: 'Shell only. Title row and switch stay; the sentence sits at the left of the column, not centered in the window.', ...this.gallery({ isEmpty: true, hasPhotos: false }) },
+      { id: 'P15', label: 'Gallery loading', sub: 'Shell only. Eight tile placeholders, a spinner on each as its original loads.', ...this.gallery({ hasPhotos: false, galleryLoading: true, loadTiles: [true, true, true, false, false, false, false, false] }) },
+      { id: 'P14', label: 'One section failed', sub: 'Shell only. The failure card is capped at 560 px so it reads as a message, not a band.', ...this.gallery({ photos: [fair, nocap], showMemories: true, memFailed: true }) },
+      { heading: 'Upload', headingNote: 'system file dialog, one image, optional caption, gallery only' },
+      { id: 'P3', label: 'Picking a photo', sub: 'Shell only. Add photo opens the operating system\u2019s file dialog; it is the system\u2019s, so it is not drawn, only its footprint. The button stays outlined underneath. One image at a time.', ...this.gallery({ photos: [margaret, walk, farmhouse], isPicker: true, addOutline: '2px solid #8fd3c7' }) },
+      { id: 'P4', label: 'Caption, then upload in progress', sub: 'Shell only. The caption step is a 560 px centered dialog over the gallery, the same shape as the composer (Compose desktop C1): the picked image at 300 px, the caption prompt, the gallery-only line, then the progress line in place of the button.', ...this.gallery({ photos: [margaret, walk, farmhouse], isCaption: true, capText: 'Thanksgiving 2019', uploading: true }) },
+      { id: 'P16', label: 'Upload succeeded', sub: 'Shell only. New tile first, outlined; toast bottom center.', ...this.gallery({ photos: [added, fair, nocap, margaret, walk, farmhouse], gToast: 'Photo added to the family gallery.' }) },
+      { id: 'P5', label: 'Pending after indexing failed', sub: 'Shell only. The message card spans the column above the grid.', ...this.gallery({ photos: [pending, margaret, walk, farmhouse], pendingMsg: 'Thanksgiving 2019 is saved but not ready yet. Open it and send it to his screen to try again.' }) },
+      { id: 'P5b', label: 'Pending, indexing not set up', sub: 'Shell only.', ...this.gallery({ photos: [pendingNoIndex, margaret, walk, farmhouse] }) },
+      { heading: 'Viewer', headingNote: 'the lightbox from Today desktop A13 and A14; Previous and Next for the mouse, arrows and Escape for the keyboard' },
+      { id: 'P6', label: 'Device photo', sub: 'Full note. The lightbox the app already has, filling the window: Close top left, position top right, Previous and Next drawn for the mouse, image capped at 960 px wide (here 853 px for a 4:3 original at 640 px tall). Caption and source line sit under the image at 960 px; the actions sit at the right end of that row, Delete photo as the outlined button and Send to his screen as the filled one, so the eye finishes on the primary. Queued fix from D62 applied: the primary reads Send to his screen, since Caregiver is this app and the photo goes to the device.', ...this.viewer(margaret) },
+      { id: 'P7', label: 'Family photo', sub: 'Shell only. Portrait original, 480 px wide at 640 px tall; source line Shared by Alex Morgan.', ...this.viewer(walk, { imgW: '480px' }) },
+      { id: 'P8', label: 'Image failed to load', sub: 'Shell only. Caption and actions still show; plain words with a retry. Copy says connection, not phone.', ...this.viewer(farmhouse, { imgOk: false, imgFail: true }) },
+      { id: 'P8b', label: 'Original file missing', sub: 'Shell only. No retry.', ...this.viewer(farmhouse, { imgOk: false, imgFail: true, failTitle: 'The original file is missing.', failNote: 'The record is here, but the photo itself is gone from the server.', failRetry: false }) },
+      { heading: 'Send to his screen', headingNote: 'two clicks: reveal the note, then send' },
+      { id: 'P9', label: 'Note field open', sub: 'Shell only. The note opens under the caption in the left of the 960 px row; Cancel and Send take the actions\u2019 place on the right.', ...this.viewer(margaret, { noteOpen: true, noteText: 'This is Mom at Lake Storey the summer before you were married. You took this one.' }) },
+      { id: 'P9b', label: 'Sending with no note', sub: 'Shell only.', ...this.viewer(margaret, { noteOpen: true, noteText: 'What should Stella say about this photo?', noteColor: 'rgba(255,255,255,.4)', noteHint: 'With no note, the photo appears with no caption.', sendLabel: 'Send without a note' }) },
+      { id: 'P10', label: 'Sent', sub: 'Shell only. Toast bottom center, light on the dark viewer as on the phone.', ...this.viewer(margaret, { toast: 'Sent' }) },
+      { heading: 'Delete', headingNote: 'leaves the gallery and search, no undo' },
+      { id: 'P11', label: 'Delete confirmation', sub: 'Shell only. The phone\u2019s sheet becomes a 440 px centered dialog per the Today rule; Keep is the text button beside the red primary.', ...this.viewer(margaret, { confirm: true }) },
+      { heading: 'Recent memories', headingNote: 'below the gallery; the newest 30 items in two columns' },
+      { id: 'P12', label: 'With items', sub: 'Shell only. Two columns of the phone\u2019s cards under the gallery; with five photos the section starts well above the fold, so nothing is scrolled to.', ...this.gallery({ photos: five, showMemories: true, memories }) },
+      { id: 'P13', label: 'Empty', sub: 'Shell only. The empty sentence is capped at 560 px.', ...this.gallery({ photos: five, showMemories: true, memEmpty: true }) }
+    ];
+    return { ...this.embedVals(), frames: this.pickFrame(frames) };
+  }
+}
+</script>
+</body>
+</html>

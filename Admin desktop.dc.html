@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / <a href="Admin.dc.html" style="text-decoration:none">Admin</a> / Desktop</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Admin desktop</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Desktop pass, Sep 6. 1440 wide, full height, the orange line at 1000 px. Frame IDs match the phone page. Admin is a separate identity: no Daniel pill and no caregiver nav; the header is the wordmark, the word Admin, and Sign out, because Users and Sign out are the whole console. The column is 1400 px, as the current app's console is, since the console is the one page built desktop-first. Users return to a table grouped by person with an actions cell per row; the login detail is a right side panel. Notes on AD1, AD3 and AD12 say why. Sign-in is <a href="Auth desktop.dc.html#A1">Auth desktop A1</a> with the admin code. Times are Central, Sun, Sep 6.</div>
+</div>
+</sc-if>
+<div style="display:flex; flex-direction:column; gap:48px; align-items:flex-start">
+<sc-for list="{{ frames }}" as="s" hint-placeholder-count="2">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="width:1440px; display:flex; align-items:center; gap:14px; margin-bottom:-16px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:1440px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 13px/1.5 'Source Sans 3',sans-serif; color:rgba(20,36,40,.65); max-width:900px; margin-top:-4px; text-wrap:pretty">{{ s.sub }}</div>
+  </sc-if>
+  <div style="position:relative; width:1440px">
+    <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute; left:-12px; right:-12px; top:1000px; border-top:1.5px dashed rgba(196,92,38,.8); pointer-events:none; z-index:9"></div>
+    <div style="position:absolute; right:-70px; top:990px; font:600 12px 'Source Sans 3',sans-serif; color:#c45c26; pointer-events:none">1000 px</div>
+    </sc-if>
+  <div data-screen-label="{{ s.label }}" style="width:1440px; min-height:1000px; background:#f3efe6; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428; box-sizing:border-box">
+
+    <div style="height:56px; background:#f3efe6; border-bottom:1px solid rgba(20,36,40,.1); display:flex; align-items:center; padding:0 20px; box-sizing:border-box; position:sticky; top:0; z-index:3">
+      <div style="width:1400px; margin:0 auto; display:flex; align-items:center; gap:14px">
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div>
+        <div style="height:18px; width:1px; background:rgba(20,36,40,.2)"></div>
+        <div style="font-size:15px; font-weight:600; color:#56676c">Admin</div>
+        <div style="flex:1"></div>
+        <a href="Auth desktop.dc.html#A1" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Sign out</a>
+      </div>
+    </div>
+
+    <div style="width:1400px; margin:0 auto; padding:{{ s.padTop }} 0 64px; box-sizing:border-box">
+      <sc-if value="{{ s.back }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; align-items:center; height:44px; margin:0 0 12px -8px"><a href="{{ s.backHref }}" style="display:flex; align-items:center; gap:2px; color:#0f4c4a; text-decoration:none; font:600 16px 'Source Sans 3',sans-serif; height:44px; padding:0 8px; border-radius:999px" style-hover="background:#dfebe8"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>{{ s.back }}</a></div>
+      </sc-if>
+
+      <sc-if value="{{ s.isList }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:24px; height:44px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em">Users</div>
+          <a href="#AD5" style="height:40px; padding:0 18px 0 14px; border-radius:999px; background:#0f4c4a; color:#fff; font:600 15px 'Source Sans 3',sans-serif; display:flex; align-items:center; gap:6px; text-decoration:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>New account</a>
+        </div>
+        <div style="font-size:14px; line-height:1.45; color:#56676c; margin-top:4px">Signed in as the Caregiver administrator. {{ s.count }}</div>
+
+        <sc-if value="{{ s.empty }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:24px; max-width:560px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:20px">
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:19px; line-height:1.2">No caregiver users yet</div>
+            <div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:6px">Create the first account. Each account is one caregiver&rsquo;s login for one person; a temporary password is made for you to pass on.</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ s.listFailed }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:24px; max-width:560px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px 20px; display:flex; flex-direction:column; align-items:flex-start; gap:10px"><div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#a8321c; flex:none; margin-top:7px"></span><div style="font-size:15px; line-height:1.45">Users did not load.</div></div><button style="height:44px; padding:0 20px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Try again</button></div>
+        </sc-if>
+
+        <sc-if value="{{ s.groups }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:20px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; overflow:hidden">
+            <div style="display:grid; grid-template-columns:260px 180px 100px 260px 1fr 300px; gap:16px; padding:10px 20px; border-bottom:1px solid rgba(20,36,40,.1); font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#56676c">
+              <div>Caregiver</div><div>Logon ID</div><div>Role</div><div>Status</div><div>Temporary password</div><div style="text-align:right">Actions</div>
+            </div>
+            <sc-for list="{{ s.groups }}" as="grp" hint-placeholder-count="1">
+              <div style="display:flex; align-items:baseline; gap:10px; padding:14px 20px 6px; border-top:{{ grp.top }}"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:18px; line-height:1.2">{{ grp.person }}</div><div style="font-size:13px; color:#56676c">{{ grp.slug }}</div></div>
+              <sc-for list="{{ grp.users }}" as="u" hint-placeholder-count="3">
+                <div style="display:grid; grid-template-columns:260px 180px 100px 260px 1fr 300px; gap:16px; align-items:center; min-height:64px; padding:10px 20px; border-top:1px solid rgba(20,36,40,.08); outline:{{ u.outline }}; outline-offset:-2px; background:{{ u.bg }}" style-hover="background:#faf8f3">
+                  <div style="display:flex; align-items:center; gap:12px; min-width:0"><span style="width:36px; height:36px; border-radius:50%; background:{{ u.avBg }}; color:{{ u.avFg }}; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; flex:none">{{ u.initial }}</span><a href="{{ u.href }}" style="font-size:16px; font-weight:600; color:#142428; text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ u.name }}</a></div>
+                  <div style="font-size:15px; color:#142428; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ u.logon }}</div>
+                  <div><span style="height:22px; padding:0 8px; border-radius:6px; background:rgba(20,36,40,.07); color:#56676c; font-size:12px; font-weight:600; display:inline-flex; align-items:center">{{ u.role }}</span></div>
+                  <div style="display:flex; align-items:center; gap:6px; font-size:14px; line-height:1.35; color:{{ u.statusColor }}"><sc-if value="{{ u.dot }}" hint-placeholder-val="{{ false }}"><span style="width:8px; height:8px; border-radius:50%; background:{{ u.dot }}; flex:none"></span></sc-if><span>{{ u.status }}</span></div>
+                  <div style="min-width:0"><sc-if value="{{ u.tmp }}" hint-placeholder-val="{{ false }}"><div style="display:inline-flex; align-items:center; gap:10px; padding:0 12px; height:36px; border-radius:10px; background:#faf8f3; border:1px solid rgba(20,36,40,.1)"><span style="font-family:ui-monospace,Menlo,monospace; font-size:14px; letter-spacing:{{ u.tmpSpacing }}; color:#142428">{{ u.tmp }}</span><button style="border:0; background:none; padding:0; font:600 14px 'Source Sans 3',sans-serif; color:#0f4c4a; cursor:pointer">{{ u.tmpToggle }}</button></div></sc-if></div>
+                  <div style="display:flex; justify-content:flex-end; gap:2px; margin-right:-10px">
+                    <a href="{{ u.href }}" style="height:40px; padding:0 10px; display:flex; align-items:center; border-radius:999px; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap" style-hover="background:#dfebe8">Open</a>
+                    <a href="#AD10a" style="height:40px; padding:0 10px; display:flex; align-items:center; border-radius:999px; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap" style-hover="background:#dfebe8">Reset password</a>
+                    <a href="#AD11" style="height:40px; padding:0 10px; display:flex; align-items:center; border-radius:999px; color:#a8321c; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap" style-hover="background:#f7e6e1">Delete</a>
+                  </div>
+                </div>
+              </sc-for>
+            </sc-for>
+          </div>
+        </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ s.isCreate }}" hint-placeholder-val="{{ false }}">
+        <div style="width:640px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em">New account</div>
+          <div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:10px">One caregiver&rsquo;s login for one person. A temporary password is made when you save; the caregiver chooses their own at first sign-in.</div>
+          <sc-for list="{{ s.groups }}" as="g" hint-placeholder-count="2">
+            <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px 20px 20px; display:flex; flex-direction:column; gap:14px">
+              <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:19px; line-height:1.2">{{ g.title }}</div>
+              <sc-for list="{{ g.fields }}" as="f" hint-placeholder-count="3">
+                <div style="display:flex; flex-direction:column; gap:6px">
+                  <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ f.label }}</div>
+                  <sc-if value="{{ f.seg }}" hint-placeholder-val="{{ false }}"><div style="display:flex; gap:6px"><sc-for list="{{ f.seg }}" as="o" hint-placeholder-count="3"><div style="flex:1; height:40px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:600; background:{{ o.bg }}; color:{{ o.fg }}; border:{{ o.border }}; box-sizing:border-box">{{ o.label }}</div></sc-for></div></sc-if>
+                  <sc-if value="{{ f.box }}" hint-placeholder-val="{{ true }}"><div style="min-height:44px; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:0 14px; display:flex; align-items:center; font-size:16px; line-height:1.4; color:{{ f.color }}; box-sizing:border-box">{{ f.shown }}</div></sc-if>
+                  <sc-if value="{{ f.hint }}" hint-placeholder-val="{{ false }}"><div style="display:flex; gap:8px; align-items:flex-start; font-size:13px; line-height:1.4; color:{{ f.hintColor }}"><sc-if value="{{ f.hintDot }}" hint-placeholder-val="{{ false }}"><span style="width:8px; height:8px; border-radius:50%; background:{{ f.hintDot }}; flex:none; margin-top:5px"></span></sc-if><span>{{ f.hint }}</span></div></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+          <div style="display:flex; align-items:center; gap:16px; margin-top:20px">
+            <button style="height:44px; padding:0 24px; border-radius:999px; border:0; background:{{ s.saveBg }}; color:{{ s.saveFg }}; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; flex:none">Create account</button>
+            <div style="font-size:13px; line-height:1.45; color:#56676c">If another caregiver already has this person, the name on file is kept. New people start with the device agreement accepted.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s.isPerson }}" hint-placeholder-val="{{ false }}">
+        <div style="width:640px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em">{{ s.p.title }}</div>
+          <sc-if value="{{ s.p.blocked }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px 20px; display:flex; flex-direction:column; align-items:flex-start; gap:12px">
+              <div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#a8321c; flex:none; margin-top:7px"></span><div style="font-size:15px; line-height:1.45">{{ s.p.blocked }}</div></div>
+              <a href="#AD1" style="height:44px; padding:0 20px; border-radius:999px; border:1px solid rgba(20,36,40,.25); color:#142428; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none; display:inline-flex; align-items:center; box-sizing:border-box">Back to Users</a>
+            </div>
+          </sc-if>
+          <sc-if value="{{ s.p.ok }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:10px">Person settings for {{ s.p.slug }}, shared by every caregiver on this person. For the assistant fields, blank keeps the device&rsquo;s own value. Name is required.</div>
+            <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px 20px 20px; display:flex; flex-direction:column; gap:14px">
+              <sc-for list="{{ s.p.fields }}" as="f" hint-placeholder-count="5">
+                <div style="display:flex; flex-direction:column; gap:6px">
+                  <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ f.label }}</div>
+                  <sc-if value="{{ f.seg }}" hint-placeholder-val="{{ false }}"><div style="display:flex; gap:6px"><sc-for list="{{ f.seg }}" as="o" hint-placeholder-count="3"><div style="flex:1; height:40px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:600; background:{{ o.bg }}; color:{{ o.fg }}; border:{{ o.border }}; box-sizing:border-box">{{ o.label }}</div></sc-for></div></sc-if>
+                  <sc-if value="{{ f.box }}" hint-placeholder-val="{{ true }}"><div style="min-height:44px; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:0 14px; display:flex; align-items:center; font-size:16px; line-height:1.4; color:{{ f.color }}; box-sizing:border-box">{{ f.shown }}</div></sc-if>
+                  <sc-if value="{{ f.hint }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.4; color:{{ f.hintColor }}">{{ f.hint }}</div></sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:0 20px">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:10px 0">
+                <div style="font-size:16px; font-weight:600; line-height:1.3">Show the agreement at next start</div>
+                <div style="width:51px; height:31px; border-radius:16px; background:{{ s.p.swBg }}; position:relative; flex:none; cursor:pointer"><div style="position:absolute; top:2px; left:{{ s.p.swKnob }}; width:27px; height:27px; border-radius:50%; background:#fff; box-shadow:0 2px 4px rgba(20,36,40,.3)"></div></div>
+              </div>
+              <div style="border-top:1px solid rgba(20,36,40,.1); padding:12px 0 14px; font-size:14px; line-height:1.45; color:#56676c">{{ s.p.eulaNote }} This switch saves on its own, right away, separate from Save below.</div>
+            </div>
+            <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:14px 20px; display:flex; flex-direction:column; gap:6px">
+              <div style="font-size:15px; line-height:1.45">{{ s.p.readLine }}</div>
+              <div style="font-size:13px; line-height:1.45; color:#56676c">{{ s.p.savedLine }}</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:16px; margin-top:20px">
+              <button style="height:44px; padding:0 28px; border-radius:999px; border:0; background:#0f4c4a; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; flex:none">Save</button>
+              <div style="font-size:13px; line-height:1.45; color:#56676c">Saving renames every caregiver login for this person and the name the caregiver app shows.</div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ s.isDetail }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; background:rgba(20,36,40,.35); z-index:7">
+        <div style="position:absolute; right:0; top:0; bottom:0; width:460px; box-sizing:border-box; background:#f3efe6; box-shadow:-16px 0 48px rgba(20,36,40,.25); display:flex; flex-direction:column; padding:0 28px 28px; overflow:hidden">
+          <div style="height:56px; display:flex; align-items:center; margin:0 -12px; flex:none"><button style="display:flex; align-items:center; gap:4px; height:44px; padding:0 12px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>Close</button></div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:12px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:26px; line-height:1; letter-spacing:-.01em">{{ s.d.name }}</div><span style="height:22px; padding:0 8px; border-radius:6px; background:rgba(20,36,40,.07); color:#56676c; font-size:13px; font-weight:600; display:inline-flex; align-items:center">{{ s.d.role }}</span></div>
+          <div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:8px">Caregiver login for {{ s.d.person }}.</div>
+          <sc-if value="{{ s.d.tmpCard }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:10px">
+              <div style="display:flex; align-items:center; gap:8px"><span style="width:8px; height:8px; border-radius:50%; background:#e0b13a; flex:none"></span><div style="font-size:15px; font-weight:600">Temporary password, must change</div></div>
+              <div style="display:flex; align-items:center; gap:10px; padding:0 14px; min-height:44px; border-radius:12px; background:#faf8f3; border:1px solid rgba(20,36,40,.14)"><span style="flex:1; font-family:ui-monospace,Menlo,monospace; font-size:16px; letter-spacing:{{ s.d.tmpSpacing }}">{{ s.d.tmp }}</span><button style="height:40px; padding:0 4px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.d.tmpToggle }}</button></div>
+              <div style="font-size:14px; line-height:1.45; color:#56676c">{{ s.d.tmpNote }}</div>
+            </div>
+          </sc-if>
+          <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:0 16px">
+            <sc-for list="{{ s.d.rows }}" as="r" hint-placeholder-count="6"><div style="display:flex; justify-content:space-between; gap:16px; min-height:44px; padding:8px 0; border-top:{{ r.top }}; align-items:center"><span style="font-size:14px; color:#56676c; flex:none">{{ r.k }}</span><span style="font-size:15px; text-align:right; min-width:0; overflow-wrap:anywhere">{{ r.v }}</span></div></sc-for>
+          </div>
+          <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; overflow:hidden">
+            <a href="#AD12" style="min-height:56px; padding:8px 12px 8px 16px; display:flex; align-items:center; gap:10px; text-decoration:none; color:#142428" style-hover="background:#faf8f3"><div style="flex:1"><div style="font-size:16px; line-height:1.3; font-weight:600">Person settings</div><div style="font-size:13px; line-height:1.35; color:#56676c">{{ s.d.person }} &middot; shared by every caregiver on {{ s.d.slug }}</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a979b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></a>
+            <a href="#AD10a" style="min-height:48px; padding:0 16px; display:flex; align-items:center; border-top:1px solid rgba(20,36,40,.1); text-decoration:none; color:#0f4c4a; font-size:15px; font-weight:600" style-hover="background:#faf8f3">Reset password</a>
+            <a href="#AD11" style="min-height:48px; padding:0 16px; display:flex; align-items:center; border-top:1px solid rgba(20,36,40,.1); text-decoration:none; color:#a8321c; font-size:15px; font-weight:600" style-hover="background:#faf8f3">Delete this login</a>
+          </div>
+          <div style="font-size:13px; line-height:1.45; color:#56676c; margin-top:12px; padding:0 4px">A login cannot be edited once created. To change the logon ID, email, role or caregiver name, delete it and create a new one. The caregiver will need to set up texts again. The person&rsquo;s name is changed in Person settings.</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.dialog }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; background:rgba(20,36,40,.45); z-index:8">
+        <div style="position:absolute; left:50%; top:320px; transform:translateX(-50%); width:480px; box-sizing:border-box; background:#f3efe6; border-radius:20px; padding:28px 28px 24px; box-shadow:0 24px 60px rgba(20,36,40,.35)">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2; text-wrap:pretty">{{ s.dialog.title }}</div>
+          <div style="margin-top:10px; font-size:15px; line-height:1.45; color:#142428">{{ s.dialog.body }}</div>
+          <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:24px">
+            <sc-if value="{{ s.dialog.cancel }}" hint-placeholder-val="{{ true }}"><button style="height:44px; padding:0 16px; border-radius:999px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Cancel</button></sc-if>
+            <button style="height:44px; padding:0 20px; border-radius:999px; border:0; background:{{ s.dialog.bg }}; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.dialog.button }}</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:50%; top:920px; transform:translateX(-50%); width:480px; box-sizing:border-box; background:#142428; color:#fff; border-radius:12px; padding:14px 18px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.3); z-index:9"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.toastDot }}; flex:none; margin-top:7px"></span><span style="flex:1">{{ s.toast }}</span></div>
+    </sc-if>
+  </div>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  field(label, value, o) {
+    const d = Object.assign({ placeholder: '', error: '', hint: '', warn: false, seg: null, box: true }, o);
+    const hint = d.error || d.hint;
+    return { label, box: d.box && !d.seg, seg: d.seg, shown: value || d.placeholder, color: value ? '#142428' : 'rgba(20,36,40,.4)',
+      border: d.error ? '1.5px solid #a8321c' : '1px solid rgba(20,36,40,.14)',
+      hint, hintColor: d.error ? '#a8321c' : (d.warn ? '#142428' : '#56676c'), hintDot: d.error ? '#a8321c' : (d.warn ? '#e0b13a' : '') };
+  }
+  seg(options, value) { return options.map(l => l === value ? { label: l, bg: '#0f4c4a', fg: '#fff', border: '0' } : { label: l, bg: 'none', fg: '#142428', border: '1px solid rgba(20,36,40,.25)' }); }
+  base(o) { return Object.assign({ isList: false, isCreate: false, isPerson: false, isDetail: false, back: '', backHref: '', padTop: '32px', toast: '', toastDot: '#8fd3c7', dialog: null, groups: null }, o); }
+  list(o) {
+    const d = Object.assign({ users: [], toast: '', toastDot: '#8fd3c7', listFailed: false, hl: '', dialog: null, detail: null }, o);
+    const av = { A: ['#8fd3c7', '#0f4c4a'], R: ['#f2c9a8', '#7a3a10'], J: ['#d5d0e8', '#3d3560'], C: ['rgba(20,36,40,.1)', '#56676c'] };
+    const users = d.users.map(u => Object.assign({ initial: u.name[0], avBg: av[u.name[0]][0], avFg: av[u.name[0]][1], person: 'Daniel Morgan', slug: 'daniel_morgan', statusColor: u.dot ? '#142428' : '#56676c', tmpSpacing: u.tmpShown ? '0' : '.12em', tmpToggle: u.tmpShown ? 'Hide' : 'Show', outline: d.hl === u.logon ? '2px solid #0f4c4a' : 'none', bg: d.hl === u.logon ? '#faf8f3' : 'transparent' }, u));
+    const groups = [];
+    users.forEach(u => { let g = groups.find(x => x.slug === u.slug); if (!g) { g = { person: u.person, slug: u.slug, users: [], top: groups.length ? '1px solid rgba(20,36,40,.1)' : '0' }; groups.push(g); } g.users.push(u); });
+    return this.base(Object.assign({ isList: true, groups: groups.length ? groups : null, empty: !users.length && !d.listFailed, listFailed: d.listFailed, count: users.length ? users.length + ' caregiver logins, grouped by person, newest first.' : '', toast: d.toast, toastDot: d.toastDot, dialog: d.dialog }, d.detail ? this.detail(d.detail) : {}));
+  }
+  detail(d) {
+    const rows = [['Logon ID', d.logon], ['Email', d.email], ['Role', d.role], ['Person', 'Daniel Morgan'], ['Person identifier', 'daniel_morgan'], ['Created', d.created], ['Last sign-in', d.lastSignIn]].map((r, i) => ({ k: r[0], v: r[1], top: i ? '1px solid rgba(20,36,40,.1)' : '0' }));
+    return { isDetail: true, d: { name: d.name, role: d.role, person: 'Daniel Morgan', slug: 'daniel_morgan', rows, tmpCard: !!d.tmp, tmp: d.tmpShown ? d.tmp : '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022', tmpSpacing: d.tmpShown ? '0' : '.12em', tmpToggle: d.tmpShown ? 'Hide' : 'Show', tmpNote: d.first + ' must choose a new logon ID and password at first sign-in. The password disappears from here once they have.' } };
+  }
+  create(o) {
+    const d = Object.assign({ logon: '', email: '', caregiver: '', role: 'Member', person: '', slug: '', logonError: '', emailError: '' }, o);
+    const derived = d.person ? d.person.trim().toLowerCase().replace(/\s+/g, '_') : '';
+    let hint = 'The device derives its own identifier from the person\u2019s name: spaces to underscores, lowercase.', warn = false;
+    if (derived && d.slug) {
+      if (derived === d.slug) hint = 'The device derives ' + derived + ' from this name. Matches the identifier.';
+      else { hint = 'The device derives ' + derived + ' from this name, not ' + d.slug + '. Fine for a new person. For a device already running, memories are filed under the identifier its own setup derives, and the app cannot check which.'; warn = true; }
+    }
+    const groups = [
+      { title: 'Caregiver', fields: [
+        this.field('Logon ID', d.logon, { placeholder: 'e.g. alex.morgan', hint: '3 to 64 characters: letters, numbers, period, underscore, hyphen.', error: d.logonError }),
+        this.field('Email', d.email, { placeholder: 'For password reset links', error: d.emailError }),
+        this.field('Caregiver name', d.caregiver, { placeholder: 'Caregiver', hint: 'Blank saves as \u201cCaregiver.\u201d' }),
+        this.field('Role', '', { seg: this.seg(['Admin', 'Member', 'Viewer'], d.role), hint: 'Viewers cannot use Texts. Admin and Member behave the same today; Admin grants nothing extra.' }) ] },
+      { title: 'Person', fields: [
+        this.field('Person\u2019s name', d.person, { placeholder: 'As it is spoken, e.g. Daniel Morgan' }),
+        this.field('Person identifier', d.slug, { placeholder: 'e.g. daniel_morgan', hint, warn }) ] }
+    ];
+    const ready = d.logon && d.email && d.person && d.slug;
+    return this.base({ isCreate: true, back: 'Users', backHref: '#AD1', padTop: '12px', groups, saveBg: ready ? '#0f4c4a' : 'rgba(20,36,40,.12)', saveFg: ready ? '#fff' : 'rgba(20,36,40,.45)' });
+  }
+  person(o) {
+    const d = Object.assign({ name: 'Daniel Morgan', nameError: '', assistant: 'Stella', aliases: 'Stella, Stellar', aliasError: '', listener: 'Device default', timeout: '', timeoutError: '', eula: false, lastSaved: 'Sun, Aug 30', savedBy: 'the administrator', read: 'today, 7:02 AM', toast: '', blocked: '' }, o);
+    const fields = [
+      this.field('Name', d.name, { placeholder: 'Required', error: d.nameError, hint: 'Required. Up to 200 characters. The device derives its own identifier from this name: spaces to underscores, lowercase.' }),
+      this.field('Assistant name', d.assistant, { placeholder: 'Device\u2019s own', hint: 'Up to 40 characters. What the device calls itself.' }),
+      this.field('Wake aliases', d.aliases, { placeholder: 'Device\u2019s own', error: d.aliasError, hint: 'Other ways the name is heard, comma separated. Up to 10, each up to 40 characters.' }),
+      this.field('Listener', '', { seg: this.seg(['Device default', 'On', 'Off'], d.listener) }),
+      this.field('Listener idle timeout', d.timeout, { placeholder: 'Device\u2019s own', error: d.timeoutError, hint: '10 to 600 seconds, whole number.' })
+    ];
+    const who = d.assistant ? 'Stella' : 'The device';
+    const readLine = d.read ? who + ' has read this profile ' + d.read + '.' : who + ' has not read this profile yet.';
+    const savedLine = (d.read ? 'From legavo-daniel.local. ' : '') + 'Last saved ' + d.lastSaved + ' by ' + d.savedBy + '. Nothing confirms the device applied the settings; the read time is the only signal.';
+    return this.base({ isPerson: true, back: 'Users', backHref: '#AD1', padTop: '12px', p: { title: 'Daniel Morgan', slug: 'daniel_morgan', fields, ok: !d.blocked, blocked: d.blocked, swBg: d.eula ? '#0f4c4a' : 'rgba(20,36,40,.2)', swKnob: d.eula ? '22px' : '2px', eulaNote: d.eula ? 'Asks the device to show its agreement at its next start. The app cannot confirm that it did. Marked accepted by the administrator on Sun, Aug 16.' : 'Marked accepted by the administrator on Sun, Aug 16. Turn on to ask the device to show its agreement at its next start.', readLine, savedLine }, toast: d.toast });
+  }
+  renderVals() {
+    const tmp = 'Kq7mPx2vRt9wLn4B', tmp2 = 'Xw3nBq8zLp5tHv7D';
+    const alex = { name: 'Alex Morgan', logon: 'alex.morgan', email: 'alex@example.com', role: 'Member', created: 'Tue, Jun 9', lastSignIn: 'Today, 8:14 AM', first: 'Alex' };
+    const ruth = { name: 'Ruth Morgan', logon: 'ruth.morgan', email: 'ruth@example.com', role: 'Member', created: 'Today, 9:40 AM', lastSignIn: 'Never', first: 'Ruth', tmp };
+    const rows = (ruthShown) => [
+      { name: 'Ruth Morgan', logon: 'ruth.morgan', role: 'Member', status: 'Temporary password, must change. Never signed in.', dot: '#e0b13a', tmp: ruthShown ? tmp : '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022', tmpShown: ruthShown, href: '#AD4' },
+      { name: 'Alex Morgan', logon: 'alex.morgan', role: 'Member', status: 'Signed in today, 8:14 AM', href: '#AD3' },
+      { name: 'Joan Ellis', logon: 'joan.ellis', role: 'Viewer', status: 'Signed in Thu, Sep 3', href: '#AD3' }
+    ];
+    const degraded = { name: 'Caregiver', logon: 'for daniel_morgan', role: 'Member', status: 'Signed in Fri, Sep 4', href: '#AD3', person: 'daniel_morgan' };
+    const resetDlg = { title: 'Reset password for alex.morgan?', body: 'A new temporary password replaces the current one. Alex must choose new credentials at next sign-in, and any reset link already emailed stops working. If Alex is signed in right now, that session continues until it ends.', button: 'Reset password', bg: '#0f4c4a', cancel: true };
+    const delDlg = { title: 'Delete the login alex.morgan?', body: 'Alex will no longer be able to sign in. Their texts setup and consent record go with the login. Daniel\u2019s profile, memories, photos and notes are untouched. This cannot be undone; the only way back is a new account.', button: 'Delete login', bg: '#a8321c', cancel: true };
+    const delOnlyDlg = { title: 'Delete the login alex.morgan?', body: 'This is the only login for Daniel. After this, his settings cannot be opened here until a new account is created. Alex will no longer be able to sign in; their texts setup and consent record go with the login. Daniel\u2019s profile, memories, photos and notes are untouched. This cannot be undone.', button: 'Delete login', bg: '#a8321c', cancel: true };
+    const frames = [
+      { heading: 'Users', headingNote: 'a table grouped by person; the detail is a side panel' },
+      { id: 'AD1', label: 'Three logins, one person', sub: 'Full note. The console keeps its own shell: a 1400 px column, the wordmark with Admin beside it and Sign out at the right, no nav and no Daniel pill, because the administrator is not a caregiver and Users and Sign out are the whole console. Users return to a table, since an administrator scans logins and acts on rows, and that is what the console is today; the grouping by person from the phone stays as the row grouping, with the person\u2019s name and identifier as a group header. Columns: caregiver, logon ID, role, status, temporary password behind Show, and an actions cell with Open, Reset password and Delete, so each action is one click from the row. Newest first within a group. Rebuild behavior: the current table scrolls horizontally and has a separate actions cell; this one fits without scrolling.', ...this.list({ users: rows(false) }) },
+      { id: 'AD17', label: 'Degraded row', sub: 'Shell only. The caregiver name is missing and the person\u2019s name is identifier-shaped; the group header shows the identifier as stored.', ...this.list({ users: [degraded] }) },
+      { id: 'AD2', label: 'Empty', sub: 'Shell only. One card capped at 560 px; New account is the only action.', ...this.list() },
+      { id: 'AD19', label: 'Users failed to load', sub: 'Shell only.', ...this.list({ listFailed: true }) },
+      { id: 'AD20', label: 'Session ended', sub: 'Shell only. Rebuild behavior: the centered dialog from Today desktop state 7, one button; Sign in goes to Auth desktop A18 and returns here.', ...this.list({ users: rows(false), dialog: { title: 'Your session ended. Sign in to pick up where you were.', body: 'You will go back to where you were.', button: 'Sign in', bg: '#0f4c4a', cancel: false } }) },
+      { id: 'AD3', label: 'Login detail, credentials set', sub: 'Full note. Open, or a click on the name, opens the login as a right side panel, 460 px, window height, over a scrim: the table stays in view with the row outlined, the same rule as the reply panel on Today desktop A4, so resetting or deleting never loses the list. The panel holds the record, Person settings, Reset password and Delete, and the foot that says a login cannot be edited. Close or Escape returns to the table. Alex changed his credentials, so no temporary password card.', ...this.list({ users: rows(false), hl: 'alex.morgan', detail: alex }) },
+      { id: 'AD4', label: 'Login detail, must change', sub: 'Shell only. Ruth\u2019s panel leads with the temporary password card, dots until Show.', ...this.list({ users: rows(false), hl: 'ruth.morgan', detail: ruth }) },
+
+      { heading: 'New account', headingNote: 'a pushed page in a 640 px column; the identifier hint is a warning, not an error' },
+      { id: 'AD5', label: 'Empty', sub: 'Shell only. The form is one 640 px column at the left with the back row under the header; Create account and its note share one line at the end. Rebuild behavior: the current form is capped at 32 rem.', ...this.create() },
+      { id: 'AD6', label: 'Filled, identifier matches', sub: 'Shell only.', ...this.create({ logon: 'ruth.morgan', email: 'ruth@example.com', caregiver: 'Ruth Morgan', person: 'Daniel Morgan', slug: 'daniel_morgan' }) },
+      { id: 'AD7', label: 'Identifier does not match', sub: 'Shell only. Amber dot; nothing blocks.', ...this.create({ logon: 'ruth.morgan', email: 'ruth@example.com', caregiver: 'Ruth Morgan', person: 'Daniel Morgan', slug: 'richard_c._counts' }) },
+      { id: 'AD8', label: 'Refused: logon ID exists', sub: 'Shell only. Verbatim under the field.', ...this.create({ logon: 'alex.morgan', email: 'ruth@example.com', caregiver: 'Ruth Morgan', person: 'Daniel Morgan', slug: 'daniel_morgan', logonError: 'Logon ID already exists.' }) },
+      { id: 'AD21', label: 'Refused: email', sub: 'Shell only.', ...this.create({ logon: 'ruth.morgan', email: 'alex@example.com', caregiver: 'Ruth Morgan', person: 'Daniel Morgan', slug: 'daniel_morgan', emailError: 'Email already exists.' }) },
+      { id: 'AD9', label: 'Account created', sub: 'Shell only. Back on Users; the new row is first in its group, outlined, its temporary password revealed once in the table cell. Toast bottom center.', ...this.list({ users: rows(true), hl: 'ruth.morgan', toast: 'Account created for Ruth Morgan. Pass on the temporary password; they must change it at first sign-in.' }) },
+
+      { heading: 'Reset and delete', headingNote: 'centered dialogs, 480 px, from the row or from the panel; no undo on delete' },
+      { id: 'AD10a', label: 'Reset password, confirm', sub: 'Shell only. From the row\u2019s Reset password: the dialog opens over the table with the row outlined; from the panel it opens over the panel. Same title, body and primary as the phone sheet; Cancel is the text button beside it.', ...this.list({ users: rows(false), hl: 'alex.morgan', dialog: resetDlg }) },
+      { id: 'AD10b', label: 'Reset done', sub: 'Shell only. The panel opens on Alex with the new temporary password revealed once; toast bottom center.', ...this.list({ users: rows(false), hl: 'alex.morgan', detail: Object.assign({}, alex, { tmp: tmp2, tmpShown: true }), toast: 'Password reset. Alex must change it at next sign-in.' }) },
+      { id: 'AD11', label: 'Delete, confirm', sub: 'Shell only. Red primary.', ...this.list({ users: rows(false), hl: 'alex.morgan', dialog: delDlg }) },
+      { id: 'AD11b', label: 'Delete the only login for a person', sub: 'Shell only. One more consequence in the body.', ...this.list({ users: [rows(false)[1]], hl: 'alex.morgan', dialog: delOnlyDlg }) },
+
+      { heading: 'Person settings', headingNote: 'a pushed page in a 640 px column; blank keeps the device\u2019s own' },
+      { id: 'AD12', label: 'Loaded for Daniel', sub: 'Full note. Person settings belong to the person, not to a login, so on desktop they are a pushed page of their own, reached from the panel\u2019s Person settings row, with the back row returning to Users rather than to one login. One 640 px column, as on Profile: the fields are text and a segmented control, one switch that saves on its own, one status card, and Save with its note on one line. Nothing is wider because nothing here is compared side by side.', ...this.person() },
+      { id: 'AD16', label: 'Never read by the device', sub: 'Shell only.', ...this.person({ read: '', lastSaved: 'today, 9:40 AM', savedBy: 'the administrator' }) },
+      { id: 'AD13', label: 'Agreement at next start', sub: 'Shell only. The switch saves on its own, right away.', ...this.person({ eula: true }) },
+      { id: 'AD14', label: 'Name refused: looks like an identifier', sub: 'Shell only. The other three refusals use the same slot.', ...this.person({ name: 'daniel_morgan', nameError: 'That looks like an identifier, not a name. Enter the name as it is spoken, with a space, like Daniel Morgan.' }) },
+      { id: 'AD22', label: 'Timeout and alias refused', sub: 'Shell only.', ...this.person({ timeout: '5', timeoutError: '10 to 600 seconds.', aliases: 'Stella, Stellar, the assistant that lives in the kitchen by the window', aliasError: 'Each alias up to 40 characters.' }) },
+      { id: 'AD18', label: 'Cannot open: identifier contains PLACEHOLDER', sub: 'Shell only. The way back is Users, since the page is the person\u2019s, not a login\u2019s.', ...this.person({ blocked: 'These settings cannot be opened: the person\u2019s identifier still contains PLACEHOLDER. The device setup has to be finished before they can be edited here.' }) },
+      { id: 'AD15', label: 'Saved', sub: 'Shell only. Toast bottom center; the status line updates.', ...this.person({ lastSaved: 'today, 9:52 AM', savedBy: 'the administrator', toast: 'Saved. Every caregiver for Daniel now sees the new name.' }) }
+    ];
+    return { ...this.embedVals(), frames: this.pickFrame(frames) };
+  }
+}
+</script>
+</body>
+</html>

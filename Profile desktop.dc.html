@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / <a href="Profile.dc.html" style="text-decoration:none">Profile</a> / Desktop</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Profile desktop</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Desktop pass, Sep 6. 1440 wide, full height, the orange line at 1000 px. Frame IDs match the phone page. Shell per the spec beside <a href="Today desktop.dc.html#F1">Today desktop F1</a>; Profile is the active pill. The form is one 640 px column at the left of the 1160 column; the note on PR1 says why. Per-section save is rebuild behavior: the current app saves the whole profile at once in a 920 px column. Times are Daniel's (Central), Sun, Sep 6.</div>
+</div>
+</sc-if>
+<div style="display:flex; flex-direction:column; gap:48px; align-items:flex-start">
+<sc-for list="{{ frames }}" as="s" hint-placeholder-count="2">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="width:1440px; display:flex; align-items:center; gap:14px; margin-bottom:-16px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:1440px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 13px/1.5 'Source Sans 3',sans-serif; color:rgba(20,36,40,.65); max-width:900px; margin-top:-4px; text-wrap:pretty">{{ s.sub }}</div>
+  </sc-if>
+  <div style="position:relative; width:1440px">
+    <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute; left:-12px; right:-12px; top:1000px; border-top:1.5px dashed rgba(196,92,38,.8); pointer-events:none; z-index:9"></div>
+    <div style="position:absolute; right:-70px; top:990px; font:600 12px 'Source Sans 3',sans-serif; color:#c45c26; pointer-events:none">1000 px</div>
+    </sc-if>
+  <div data-screen-label="{{ s.label }}" style="width:1440px; min-height:1000px; background:#f3efe6; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428; box-sizing:border-box">
+
+    <div style="height:56px; background:#f3efe6; border-bottom:1px solid rgba(20,36,40,.1); display:flex; align-items:center; padding:0 24px; box-sizing:border-box; position:sticky; top:0; z-index:3">
+      <div style="width:1160px; margin:0 auto; display:flex; align-items:center; gap:32px">
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div>
+        <div style="flex:1; display:flex; justify-content:flex-end; gap:4px">
+          <a href="Today desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Today<span style="margin-left:8px; min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#c45c26; color:#fff; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box">2</span></a>
+          <a href="Chapters desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Story</a>
+          <a href="#PR1" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; background:#0f4c4a; color:#fff; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none">Profile</a>
+          <a href="Settings desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Settings</a>
+        </div>
+        <a href="Device desktop.dc.html" aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(15,76,74,.4); background:transparent; color:#0f4c4a; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></a>
+      </div>
+    </div>
+
+    <div style="width:1160px; margin:0 auto; padding:32px 0 64px; box-sizing:border-box">
+      <div style="width:640px; display:flex; flex-direction:column">
+        <div style="display:flex; align-items:center; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em">Profile</div></div>
+
+        <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:16px">
+          <div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.readDot }}; flex:none; margin-top:6px"></span><div style="font-size:14px; line-height:1.4; color:#142428; font-weight:600">{{ s.readLine }}<span style="font-weight:400; color:#56676c"> {{ s.readWhen }}</span></div></div>
+          <div style="font-size:14px; line-height:1.4; color:#56676c; white-space:nowrap">{{ s.savedLine }}</div>
+        </div>
+
+        <sc-if value="{{ s.nameMsg }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:10px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#e0b13a; flex:none; margin-top:7px"></span><div style="font-size:14px; line-height:1.45">{{ s.nameMsg }}</div></div>
+        </sc-if>
+
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px">
+        <sc-for list="{{ s.sections }}" as="sec" hint-placeholder-count="0">
+          <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; overflow:hidden">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:14px 20px; cursor:pointer" style-hover="background:#faf8f3">
+              <div style="min-width:0">
+                <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:19px; line-height:1.2">{{ sec.title }}</div>
+                <sc-if value="{{ sec.summary }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:3px">{{ sec.summary }}</div></sc-if>
+              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#56676c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none; margin-top:2px; transform:{{ sec.chev }}"><path d="M6 9l6 6 6-6"></path></svg>
+            </div>
+            <sc-if value="{{ sec.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:2px 20px 20px; display:flex; flex-direction:column; gap:14px">
+              <sc-for list="{{ sec.fields }}" as="f" hint-placeholder-count="0">
+                <div style="display:flex; flex-direction:column; gap:6px">
+                  <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ f.label }}<span style="font-weight:400"> {{ f.opt }}</span></div>
+                  <sc-if value="{{ f.isRO }}" hint-placeholder-val="{{ false }}"><div style="font-size:17px; line-height:1.4; color:{{ f.color }}">{{ f.shown }}</div></sc-if>
+                  <sc-if value="{{ f.isText }}" hint-placeholder-val="{{ false }}"><div style="min-height:44px; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:0 14px; display:flex; align-items:center; font-size:16px; line-height:1.4; color:{{ f.color }}; box-sizing:border-box">{{ f.shown }}</div></sc-if>
+                  <sc-if value="{{ f.isList }}" hint-placeholder-val="{{ false }}"><div style="min-height:72px; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:12px 14px; font-size:16px; line-height:1.5; color:{{ f.color }}; white-space:pre-line; box-sizing:border-box">{{ f.shown }}</div></sc-if>
+                  <sc-if value="{{ f.isNotes }}" hint-placeholder-val="{{ false }}"><div style="min-height:120px; max-height:260px; overflow:hidden; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:12px 14px; font-size:16px; line-height:1.5; color:{{ f.color }}; box-sizing:border-box">{{ f.shown }}</div></sc-if>
+                  <sc-if value="{{ f.isRows }}" hint-placeholder-val="{{ false }}">
+                    <div style="border-radius:12px; border:1px solid rgba(20,36,40,.14); background:#faf8f3; overflow:hidden">
+                      <sc-if value="{{ f.emptyRows }}" hint-placeholder-val="{{ false }}"><div style="min-height:44px; padding:0 14px; display:flex; align-items:center; font-size:16px; color:rgba(20,36,40,.4)">{{ f.emptyRows }}</div></sc-if>
+                      <sc-for list="{{ f.rows }}" as="r" hint-placeholder-count="0">
+                        <div style="min-height:52px; padding:9px 12px 9px 14px; display:flex; align-items:center; gap:10px; border-top:{{ r.top }}; cursor:pointer; background:{{ r.bg }}; outline:{{ r.outline }}; outline-offset:-2px" style-hover="background:#fff">
+                          <div style="flex:1; min-width:0"><div style="font-size:16px; line-height:1.3; font-weight:600">{{ r.primary }}</div><div style="font-size:13px; line-height:1.35; color:{{ r.secColor }}; margin-top:1px">{{ r.secondary }}</div></div>
+                          <sc-if value="{{ r.tag }}" hint-placeholder-val="{{ false }}"><span style="height:22px; padding:0 8px; border-radius:6px; background:rgba(20,36,40,.08); color:#56676c; font-size:12px; font-weight:600; display:inline-flex; align-items:center; flex:none">{{ r.tag }}</span></sc-if>
+                          <sc-if value="{{ r.chev }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a979b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M9 5l7 7-7 7"></path></svg></sc-if>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <sc-if value="{{ f.addLabel }}" hint-placeholder-val="{{ false }}"><button style="align-self:flex-start; height:40px; padding:0 4px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; display:flex; align-items:center; gap:6px; margin-top:-2px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>{{ f.addLabel }}</button></sc-if>
+                  </sc-if>
+                  <sc-if value="{{ f.foot }}" hint-placeholder-val="{{ false }}"><div style="display:flex; justify-content:space-between; gap:12px; font-size:12px; line-height:1.4; color:#56676c"><span>{{ f.hint }}</span><span style="flex:none; font-weight:600; color:{{ f.counterColor }}">{{ f.counter }}</span></div></sc-if>
+                </div>
+              </sc-for>
+              <sc-if value="{{ sec.msg }}" hint-placeholder-val="{{ false }}"><div style="background:#f3efe6; border-radius:12px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:{{ sec.msgDot }}; flex:none; margin-top:7px"></span><div style="font-size:14px; line-height:1.45">{{ sec.msg }}</div></div></sc-if>
+              <sc-if value="{{ sec.dirty }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:2px">
+                  <button style="height:44px; padding:0 18px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">{{ sec.discardLabel }}</button>
+                  <button style="height:44px; padding:0 24px; border-radius:999px; border:0; background:{{ sec.saveBg }}; color:{{ sec.saveFg }}; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">{{ sec.saveLabel }}</button>
+                </div>
+              </sc-if>
+            </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:50%; top:920px; transform:translateX(-50%); width:480px; box-sizing:border-box; background:#142428; color:#fff; border-radius:12px; padding:14px 18px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.3); z-index:8"><span style="width:8px; height:8px; border-radius:50%; background:#8fd3c7; flex:none; margin-top:7px"></span><span style="flex:1">{{ s.toast }}</span></div>
+    </sc-if>
+
+    <sc-if value="{{ s.sheet }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; background:rgba(20,36,40,.45); z-index:7">
+        <div style="position:absolute; left:50%; top:200px; transform:translateX(-50%); width:480px; box-sizing:border-box; background:#f3efe6; border-radius:20px; padding:10px 28px 24px; box-shadow:0 24px 60px rgba(20,36,40,.35)">
+          <div style="display:flex; align-items:center; justify-content:space-between; height:44px; margin:0 -12px">
+            <button style="height:44px; padding:0 12px; border:0; background:none; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Cancel</button>
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1">{{ s.sheet.title }}</div>
+            <button style="height:44px; padding:0 12px; border:0; background:none; color:#0f4c4a; font:700 16px 'Source Sans 3',sans-serif; cursor:pointer">Done</button>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px; margin-top:12px">
+            <sc-for list="{{ s.sheet.fields }}" as="f" hint-placeholder-count="0">
+              <div style="display:flex; flex-direction:column; gap:6px">
+                <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ f.label }}<span style="font-weight:400"> {{ f.opt }}</span></div>
+                <div style="min-height:44px; border-radius:12px; border:{{ f.border }}; background:#fff; padding:0 14px; display:flex; align-items:center; font-size:16px; line-height:1.4; color:{{ f.color }}; box-sizing:border-box">{{ f.shown }}</div>
+                <sc-if value="{{ f.hint }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px; line-height:1.4; color:#56676c">{{ f.hint }}</div></sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <button style="height:44px; margin:18px 0 0 -12px; padding:0 12px; border:0; background:none; color:#a8321c; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.sheet.remove }}</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  f(o) {
+    const f = Object.assign({ opt: '', value: '', ph: '', hint: '', ro: false, focus: false, limit: 500, used: 0 }, o);
+    f.isRO = f.ro; f.isText = !f.ro && !f.list && !f.notes && !f.rows; f.isList = !!f.list; f.isNotes = !!f.notes; f.isRows = !!f.rows;
+    f.shown = f.value || f.ph || (f.ro ? 'Not set' : '');
+    f.color = f.value ? '#142428' : 'rgba(20,36,40,.4)';
+    f.border = f.focus ? '1.5px solid #0f4c4a' : '1px solid rgba(20,36,40,.14)';
+    if (f.ro) { f.hint = f.hint || 'Set by your administrator'; if (!f.value) f.color = '#a84a1c'; }
+    if (f.used > f.limit * 0.8) { f.counter = f.used.toLocaleString() + ' / ' + f.limit.toLocaleString(); f.counterColor = f.used >= f.limit ? '#a8321c' : '#a84a1c'; }
+    f.foot = !!(f.hint || f.counter);
+    if (f.rows) {
+      f.rows = f.rows.map((r, i) => Object.assign({ top: i ? '1px solid rgba(20,36,40,.1)' : '0', bg: 'transparent', secColor: '#56676c', tag: '', outline: 'none' }, Object.assign({ chev: !r.tag }, r)));
+      if (!f.rows.length) f.emptyRows = f.ph;
+    }
+    return f;
+  }
+  txt(label, value, o) { return this.f(Object.assign({ label, value }, o)); }
+  list(label, lines, o) { return this.f(Object.assign({ label, list: true, value: (lines || []).join('\n'), ph: 'One per line' }, o)); }
+  rows(label, rows, addLabel, ph, o) { return this.f(Object.assign({ label, rows, addLabel, ph }, o)); }
+  sec(key, title, summary, fields, o) {
+    const s = Object.assign({ key, title, summary, fields, open: false, dirty: false, msg: '', msgDot: '#e0b13a', discardLabel: 'Discard', saveLabel: 'Save', saveDisabled: false }, o);
+    s.chev = s.open ? 'rotate(180deg)' : 'none';
+    s.saveBg = s.saveDisabled ? 'rgba(20,36,40,.12)' : '#0f4c4a';
+    s.saveFg = s.saveDisabled ? 'rgba(20,36,40,.45)' : '#fff';
+    if (s.open) s.summary = '';
+    return s;
+  }
+  build(d, o) {
+    const e = !!d.empty, pf = (v) => e ? '' : v;
+    const about = (x) => this.sec('about', 'About', e ? 'Nothing yet' : 'Dan \u00b7 born 1948, Galesburg \u00b7 Moline, Illinois', [
+      this.txt('Name', d.noName ? '' : 'Daniel Morgan', { ro: true, hint: d.noName ? 'Not set. Ask your administrator to set it.' : '' }),
+      this.txt('Assistant name', 'Stella', { ro: true }),
+      this.txt('What they like to be called', pf('Dan'), { ph: 'A first name or nickname' }),
+      this.txt('Birth date', pf('February 7, 1948'), { ph: 'Month, day, year' }),
+      this.txt('Birthplace', pf('Galesburg, Illinois')),
+      this.txt('Current residence', pf('Moline, Illinois'), { hint: 'City and state. Used for local weather.', focus: !!(x && x.focusRes) }),
+      this.txt('Profession', pf('Retired railway conductor')),
+      this.txt('Marriage year', pf('1963'))
+    ], x);
+    const family = (x) => this.sec('family', 'Family', e ? 'Nothing yet' : 'Margaret \u00b7 2 children \u00b7 2 grandchildren \u00b7 2 important people', [
+      this.txt('Spouse', pf('Margaret (died 2019)')),
+      this.txt('Father', ''), this.txt('Mother', ''),
+      this.list('Siblings', []),
+      this.rows('Children', e ? [] : [{ primary: 'Alex', secondary: 'Spouse Sam \u00b7 Maya, Leo', outline: x && x.hlAlex ? '2px solid #0f4c4a' : 'none' }, { primary: 'Ruth', secondary: 'No spouse listed' }], 'Add a child', 'No children added'),
+      this.list('Grandchildren', e ? [] : ['Maya', 'Leo']),
+      this.rows('Important people', e ? [] : [{ primary: 'Pete Morgan', secondary: 'Brother' }, { primary: 'Pastor Jim Hale', secondary: 'Church' }], 'Add a person', 'No one added yet')
+    ], x);
+    const life = (x) => this.sec('life', 'Life story', e ? 'Nothing yet' : 'Moline High School \u00b7 Burlington Northern \u00b7 Biscuit', [
+      this.rows('Education', e ? [] : [{ primary: 'Moline High School', secondary: 'Moline, Illinois \u00b7 1966' }], 'Add a school', 'No schools added'),
+      this.rows('Career', e ? [] : [{ primary: 'Burlington Northern', secondary: 'Galesburg, Illinois \u00b7 1971 to 1994' }], 'Add a job', 'No jobs added'),
+      this.txt('Military service', ''),
+      this.list('Places lived', e ? [] : ['Galesburg, Illinois', 'Moline, Illinois']),
+      this.txt('Faith or church', ''),
+      this.list('Languages', e ? [] : ['English']),
+      this.list('Interests and hobbies', e ? [] : ['The garden', 'Baseball']),
+      this.list('Notable achievements', []),
+      this.txt('Favorite music', ''), this.txt('Favorite foods', ''), this.txt('Favorite activities', ''), this.txt('Favorite places', ''),
+      this.rows('Pets', e ? [] : [{ primary: 'Biscuit', secondary: 'Dog \u00b7 sleeps by the back door' }], 'Add a pet', 'No pets added')
+    ], x);
+    const notesText = 'Hard of hearing on the left. Gets anxious about money. Loves being asked about the garden.';
+    const longNotes = notesText + ' Mornings are his best time; by late afternoon he tires and repeats himself more, so keep the questions short then. He still calls Margaret\u2019s chair \u201cher chair\u201d and that is fine. He likes to be asked what the weather is doing to the tomatoes. If he asks where his car is, the answer is that Alex has it for a service; do not say he no longer drives. He will not eat before he has had his coffee, so do not suggest breakfast first thing. The Cubs are his team; the Cardinals are not.';
+    const guidance = (x) => this.sec('guidance', 'Conversation guidance', e ? 'Nothing yet' : '4 topics he enjoys \u00b7 3 to avoid \u00b7 notes', [
+      this.list('Enjoys talking about', e ? [] : ['The farm', 'The railway', 'The garden', 'Baseball']),
+      this.list('Topics to avoid', e ? [] : ['Margaret\u2019s last year', 'Money', 'Driving']),
+      this.f({ label: 'Notes for Stella', notes: true, value: e ? '' : (x && x.longNotes ? longNotes : notesText), ph: notesText, limit: 2000, used: x && x.longNotes ? 1640 : 0, focus: !!(x && x.longNotes) })
+    ], x);
+    const custom = (x) => this.sec('custom', 'Custom facts', e ? 'Nothing yet' : '2 facts', [
+      this.rows('Facts', e ? [] : (x && x.badRow ? [
+        { primary: 'Favorite hymn', secondary: 'How Great Thou Art \u00b7 Text \u00b7 Preferences' },
+        { primary: 'Wedding church', secondary: 'First Lutheran, Galesburg \u00b7 Text \u00b7 Family', tag: 'Kept as stored' },
+        { primary: 'Profession', secondary: 'Conductor \u00b7 Text \u00b7 Biography \u00b7 Label matches a built-in field', secColor: '#a8321c', bg: 'rgba(168,50,28,.05)' }
+      ] : [{ primary: 'Favorite hymn', secondary: 'How Great Thou Art \u00b7 Text \u00b7 Preferences' }, { primary: 'Wedding church', secondary: 'First Lutheran, Galesburg \u00b7 Text \u00b7 Family', tag: 'Kept as stored' }]), 'Add a fact', 'No custom facts yet')
+    ], x);
+    const imported = (x) => this.sec('imported', 'Imported details', e ? 'Nothing carried over' : '3 values from an older setup. Read-only.', [
+      this.rows('Values', [{ primary: 'Hometown', secondary: 'Galesburg', chev: false }, { primary: 'Wedding church', secondary: 'First Lutheran, Galesburg', chev: false }, { primary: 'Nickname', secondary: 'Danny', chev: false }], '', '')
+    ], x);
+    const open = d.open || {};
+    return Object.assign({
+      savedLine: e ? 'Not saved yet' : 'Saved Sep 5, 8:42 PM',
+      readLine: e ? 'Stella has not read this profile yet' : 'Stella is using this profile',
+      readWhen: e ? '' : '\u00b7 read today, 7:02 AM',
+      readDot: e ? '#e0b13a' : '#0f4c4a',
+      nameMsg: '', toast: '', sheet: null,
+      sections: [about(open.about), family(open.family), life(open.life), guidance(open.guidance), custom(open.custom), imported(open.imported)]
+    }, o);
+  }
+  renderVals() {
+    const dflt = { about: { open: true }, family: { open: true }, guidance: { open: true } };
+    const conflict = 'Someone else saved this profile at 4:12 PM, after you started. Your edits are still here. Saving again replaces theirs; Discard keeps theirs.';
+    const frames = [
+      { heading: 'Loaded', headingNote: 'the Profile tab; status first, then the accordion' },
+      { id: 'PR1', label: 'Filled profile', sub: 'Full note. One 640 px column at the left of the 1160 column, not two: the fields are text and lists saved per section with a status line each, and the conflict banner (PR4) needs one obvious place; two columns would invite zigzag reading for no gain, and the phone\u2019s reading order stays intact. The right of the column is empty on purpose. The status card puts the two facts on one line, the read state left and the save time right. Same sections, same defaults open (About, Family, Conversation guidance), same read-only Name and Assistant name. Fields are 44 px tall; Save and Discard sit at the right end of the section, Save last. Rebuild behavior: the current app is one form in a 920 px column, saved whole.', ...this.build({ open: dflt }) },
+      { id: 'PR2', label: 'Editing, limit shown', sub: 'Shell only. The notes field caps at 260 px and scrolls inside; the amber counter sits under it at the right.', ...this.build({ open: { guidance: { open: true, dirty: true, longNotes: true } } }) },
+      { id: 'PR3', label: 'Section saved', sub: 'Shell only. Toast bottom center; the save time in the status card updates; the buttons fold away.', ...this.build({ open: { guidance: { open: true } } }, { savedLine: 'Saved just now', toast: 'Saved. Stella will use it from her next conversation.' }) },
+      { heading: 'Refused', headingNote: 'the draft stays on screen' },
+      { id: 'PR4', label: 'Someone else saved first', sub: 'Full note. The refusal stays inside the section that was refused, between its fields and its buttons, so it is read before Save again or Discard mine, which act on exactly this section. It is not a page banner: another section may be clean, and a banner under the header would sit far from the buttons on a tall page. The status card at the top updates to the other save\u2019s time, so the two facts agree. Keeping the draft is client behavior the rebuild can provide.', ...this.build({ open: { guidance: { open: true, dirty: true, longNotes: true, msg: conflict, discardLabel: 'Discard mine', saveLabel: 'Save again' } } }, { savedLine: 'Saved today, 4:12 PM' }) },
+      { id: 'PR5', label: 'Name not set', sub: 'Shell only. One message under the status; Save greyed in the section with edits.', ...this.build({ noName: true, open: { about: { open: true, dirty: true, focusRes: true, saveDisabled: true } } }, { nameMsg: 'Daniel\u2019s name is not set, so this profile cannot be saved yet. Ask your administrator to set it. You can still read and edit.' }) },
+      { id: 'PR6', label: 'Custom fact refused', sub: 'Shell only. The refused row is marked; the message sits above the buttons.', ...this.build({ open: { custom: { open: true, dirty: true, badRow: true, msg: '\u201cProfession\u201d is already part of the profile\u2019s own fields, so it cannot be a custom fact. Change that label and save again.', msgDot: '#a8321c' } } }) },
+      { heading: 'Status', headingNote: 'two facts on one line: read state, last save' },
+      { id: 'PR7', label: 'Empty profile, new person', sub: 'Shell only.', ...this.build({ empty: true, open: dflt }) },
+      { id: 'PR8', label: 'Saved, not yet read', sub: 'Shell only. Amber dot on the left of the status line.', ...this.build({ open: {} }, { readLine: 'Stella has not read this profile yet', readWhen: '', readDot: '#e0b13a' }) },
+      { heading: 'Row editor', headingNote: 'the sheet becomes a centered dialog' },
+      { id: 'PR9', label: 'Editing a child', sub: 'Shell only. The phone\u2019s sheet becomes a 480 px centered dialog per the Today rule; the row that opened it stays outlined in the list. Cancel and Done in the dialog head, Remove as a red text button at the bottom left. Escape cancels.', ...this.build({ open: { family: { open: true, hlAlex: true } } }, { sheet: { title: 'Child', remove: 'Remove Alex', fields: [
+        this.f({ label: 'Name', value: 'Alex' }),
+        this.f({ label: 'Spouse', opt: '(optional)', value: 'Sam' }),
+        this.f({ label: 'Their children', value: 'Maya, Leo', hint: 'Comma separated', focus: true })
+      ] } }) }
+    ];
+    return { ...this.embedVals(), frames: this.pickFrame(frames) };
+  }
+}
+</script>
+</body>
+</html>

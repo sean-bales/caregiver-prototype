@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}@keyframes spin{to{transform:rotate(360deg)}}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / <a href="Today.dc.html" style="text-decoration:none">Story</a> / Chapters</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Chapters</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">The Story tab's reading surface. The chapter list is the tab root; Story also holds <a href="Photos.dc.html">Photos</a> (gallery, upload, recent memories), so the list assumes a Chapters and Photos switch at the top without designing Photos. A chapter is pushed from the list with a way back. The family's note comes after the full text, since it is about what was just read. Times are Daniel's (Central), Sun, Sep 6; the unreported-timezone variant is drawn once on <a href="Today.dc.html#13">Today state 13</a>. Keyboards are omitted from the frames.</div>
+</div>
+<div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:-28px; max-width:720px">Header pass: case B on every frame. The Story list is a root tab, so the Daniel pill sits on the right; the chapter view is a pushed page, so the back row sits beneath the header and there is no pill. Spec on <a href="Today.dc.html#F1">Today F1</a>.</div>
+</sc-if>
+<div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
+<sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1 0 100%; display:flex; align-items:center; gap:14px; margin-bottom:-12px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:390px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 12px/1.45 'Source Sans 3',sans-serif; color:rgba(20,36,40,.6); min-height:17px; margin-top:-4px">{{ s.sub }}</div>
+  </sc-if>
+
+  <div data-screen-label="{{ s.label }}" style="width:390px; height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+
+    <sc-if value="{{ s.isList }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute; inset:0; padding:0 20px 110px; display:flex; flex-direction:column">
+        <div style="flex:none; margin:0 -20px; background:#f3efe6; padding:16px 20px 0; border-bottom:1px solid rgba(20,36,40,.1); position:sticky; top:0; z-index:2"><div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div><a href="Device.dc.html" aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(15,76,74,.4); background:transparent; color:#0f4c4a; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></a></div></div>
+        <div style="display:flex; align-items:center; height:44px; margin-top:16px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em">Story</div></div>
+        <div style="display:flex; padding:3px; margin-top:12px; border-radius:999px; background:rgba(20,36,40,.08)">
+          <button style="flex:1; height:36px; border-radius:999px; border:0; background:#fff; color:#142428; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; box-shadow:0 1px 3px rgba(20,36,40,.15)">Chapters</button>
+          <button style="flex:1; height:36px; border-radius:999px; border:0; background:none; color:#56676c; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Photos</button>
+        </div>
+        <sc-if value="{{ s.isEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 24px 80px">
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">No chapters yet</div>
+            <div style="font-size:15px; line-height:1.5; color:#56676c; margin-top:10px; text-wrap:pretty">As Daniel talks with Stella, what he remembers is woven into chapters. They will appear here.</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ s.listLoading }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:120px; color:#56676c; font-size:15px"><span style="width:18px; height:18px; border-radius:50%; border:2px solid rgba(15,76,74,.2); border-top-color:#0f4c4a; animation:spin 1s linear infinite"></span>Loading chapters</div>
+        </sc-if>
+        <sc-if value="{{ s.listFailed }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 24px 80px">
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">Chapters did not load</div>
+            <div style="font-size:15px; line-height:1.5; color:#56676c; margin-top:10px; text-wrap:pretty">Nothing has changed on Daniel’s side. Try again in a moment.</div>
+            <button style="height:48px; margin-top:18px; padding:0 24px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Try again</button>
+          </div>
+        </sc-if>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px">
+          <sc-for list="{{ s.chapters }}" as="c" hint-placeholder-count="0">
+            <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:16px; cursor:pointer">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px">
+                <div style="font-size:13px; font-weight:600; color:#56676c">{{ c.eyebrow }}</div>
+                <sc-if value="{{ c.locked }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:6px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border:1.5px dashed #3a4f55; color:#3a4f55; box-sizing:border-box">Locked</span></sc-if>
+              </div>
+              <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:21px; line-height:1.15; margin-top:4px">{{ c.title }}</div>
+              <div style="font-size:15px; line-height:1.45; margin-top:8px; color:{{ c.blurbColor }}; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden">{{ c.blurb }}</div>
+              <div style="font-size:13px; color:#56676c; margin-top:10px">{{ c.meta }}</div>
+              <sc-if value="{{ c.pendingText }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; font-weight:600; color:#a84a1c; margin-top:2px">{{ c.pendingText }}</div></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.isChapter }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; padding-bottom:98px; display:flex; flex-direction:column; justify-content:{{ s.justify }}; overflow:hidden">
+        <div style="flex:none; padding:166px 20px {{ s.padBottom }}">
+          <sc-if value="{{ s.notFound }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; align-items:center; text-align:center; padding:120px 12px 0">
+              <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">This chapter is no longer available.</div>
+              <div style="font-size:15px; line-height:1.5; color:#56676c; margin-top:10px; text-wrap:pretty">It may have been removed or renumbered. The list has what exists now.</div>
+              <a href="#S1" style="height:48px; margin-top:18px; padding:0 24px; border-radius:999px; border:1px solid rgba(20,36,40,.25); color:#142428; font:600 16px 'Source Sans 3',sans-serif; text-decoration:none; display:flex; align-items:center">Back to chapters</a>
+            </div>
+          </sc-if>
+          <sc-if value="{{ s.head }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px">
+            <div style="font-size:13px; font-weight:600; color:#56676c">{{ s.ch.eyebrow }}</div>
+            <sc-if value="{{ s.ch.locked }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:6px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border:1.5px dashed #3a4f55; color:#3a4f55; box-sizing:border-box">Locked</span></sc-if>
+          </div>
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:30px; line-height:1.1; margin-top:6px; letter-spacing:-.01em; text-wrap:pretty">{{ s.ch.title }}</div>
+          <div style="font-size:13px; color:#56676c; margin-top:10px">{{ s.ch.meta }}</div>
+          <sc-if value="{{ s.ch.pendingText }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; font-weight:600; color:#a84a1c; margin-top:2px">{{ s.ch.pendingText }}</div></sc-if>
+          </sc-if>
+
+          <sc-if value="{{ s.loading }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:120px; color:#56676c; font-size:15px"><span style="width:18px; height:18px; border-radius:50%; border:2px solid rgba(15,76,74,.2); border-top-color:#0f4c4a; animation:spin 1s linear infinite"></span>Opening chapter</div>
+          </sc-if>
+
+          <sc-if value="{{ s.body }}" hint-placeholder-val="{{ false }}">
+            <sc-if value="{{ s.ch.summary }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:Fraunces,Georgia,serif; font-weight:500; font-size:19px; line-height:1.4; margin-top:22px; text-wrap:pretty">{{ s.ch.summary }}</div>
+            </sc-if>
+            <div style="height:1px; background:rgba(20,36,40,.15); margin:24px 0"></div>
+            <div style="display:flex; flex-direction:column; gap:16px">
+              <sc-for list="{{ s.ch.paras }}" as="p" hint-placeholder-count="0"><div style="font-size:17px; line-height:1.55; text-wrap:pretty">{{ p }}</div></sc-for>
+            </div>
+
+            <div style="height:1px; background:rgba(20,36,40,.15); margin:36px 0 20px"></div>
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:19px; line-height:1.2">The family's note</div>
+            <div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:4px">One note on this chapter, shared by everyone caring for Daniel. Saving replaces it.</div>
+
+            <sc-if value="{{ s.noteEmpty }}" hint-placeholder-val="{{ false }}">
+              <button style="width:100%; height:56px; margin-top:14px; border-radius:16px; border:1.5px dashed rgba(15,76,74,.45); background:none; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Add a note</button>
+            </sc-if>
+            <sc-if value="{{ s.noteView }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:16px 16px 6px; margin-top:14px">
+                <div style="font-size:16px; line-height:1.5; white-space:pre-wrap">{{ s.noteText }}</div>
+                <div style="display:flex; justify-content:flex-end; margin:6px -10px 0 0"><button style="height:40px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">Edit</button></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ s.noteEdit }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff; border-radius:16px; border:1.5px solid {{ s.editBorder }}; padding:14px 16px 12px; margin-top:14px; display:flex; flex-direction:column; gap:12px">
+                <div style="font-size:16px; line-height:1.5; white-space:pre-wrap; min-height:120px; color:{{ s.editColor }}">{{ s.noteText }}</div>
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px">
+                  <div style="font-size:13px; color:{{ s.countColor }}; white-space:nowrap; font-weight:{{ s.countWeight }}">{{ s.noteCount }}</div>
+                  <div style="display:flex; gap:4px; align-items:center">
+                    <button style="height:40px; padding:0 12px; border:0; background:none; color:#56676c; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">Cancel</button>
+                    <button style="height:40px; padding:0 18px; border-radius:999px; border:0; background:{{ s.saveBg }}; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Save</button>
+                  </div>
+                </div>
+                <sc-if value="{{ s.editError }}" hint-placeholder-val="{{ false }}"><div style="display:flex; gap:10px; align-items:flex-start; margin-top:-4px"><span style="width:8px; height:8px; border-radius:50%; background:#a8321c; flex:none; margin-top:7px"></span><div style="font-size:14px; line-height:1.45; color:#a8321c; font-weight:600; text-wrap:pretty">{{ s.editError }}</div></div></sc-if>
+              </div>
+            </sc-if>
+          </sc-if>
+        </div>
+      </div>
+      <div style="position:absolute; top:0; left:0; right:0; background:#f3efe6; border-bottom:1px solid {{ s.barBorder }}"><div style="padding:16px 20px 0; border-bottom:1px solid rgba(20,36,40,.1)"><div style="display:flex; align-items:center; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div></div></div><div style="padding:0 10px; height:44px; margin-top:12px; display:flex; align-items:center">
+        <button style="height:44px; padding:0 10px 0 6px; border:0; background:none; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer; display:flex; align-items:center; gap:4px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>Chapters</button>
+      </div></div>
+    </sc-if>
+
+    <div style="position:absolute; left:0; right:0; bottom:0; background:#fff; border-top:1px solid rgba(20,36,40,.1); padding:10px 8px 12px; display:grid; grid-template-columns:repeat(4,1fr)">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c; position:relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Today</span>
+        <span style="position:absolute; top:0; left:calc(50% + 8px); min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#c45c26; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; box-sizing:border-box">2</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#0f4c4a">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"></path><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"></path></svg>
+        <span style="font-size:12px; font-weight:700">Story</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>
+        <span style="font-size:12px; font-weight:600">Profile</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="9" cy="7" r="2" fill="#fff"></circle><circle cx="15" cy="12" r="2" fill="#fff"></circle><circle cx="8" cy="17" r="2" fill="#fff"></circle></svg>
+        <span style="font-size:12px; font-weight:600">Settings</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:12px; right:12px; bottom:104px; background:#142428; color:#fff; border-radius:14px; padding:14px 16px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.3)"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.toastDot }}; flex:none; margin-top:7px"></span><span style="flex:1">{{ s.toast }}</span><sc-if value="{{ s.toastAction }}" hint-placeholder-val="{{ false }}"><button style="height:24px; margin:-3px -6px 0 0; padding:0 6px; border:0; background:none; color:#8fd3c7; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.toastAction }}</button></sc-if></div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  chapter(o) {
+    const c = Object.assign({ summary: '', pending: 0, locked: false, paras: [], title: '' }, o);
+    c.eyebrow = [c.n ? 'Chapter ' + c.n : '', c.period || ''].filter(Boolean).join(' \u00b7 ');
+    c.title = c.title || 'Untitled chapter';
+    c.blurb = c.summary || (c.paras[0] || '').slice(0, 280).trimEnd() + '\u2026';
+    c.blurbColor = c.summary ? '#142428' : '#3a4f55';
+    c.meta = c.woven + ' memories woven \u00b7 ' + c.updated;
+    c.pendingText = c.pending > 0 ? c.pending + ' waiting to be woven in' : '';
+    return c;
+  }
+  open(ch, o) {
+    const s = Object.assign({ isList: false, isChapter: true, ch, head: true, notFound: false, body: true, loading: false, justify: 'flex-start', barBorder: 'transparent', noteEmpty: false, noteView: false, noteEdit: false, noteText: '', noteCount: '', editBorder: '#0f4c4a', editColor: '#142428', saveBg: '#0f4c4a', editError: '', countColor: '#56676c', countWeight: 400, toast: '', toastDot: '#8fd3c7', toastAction: '' }, o);
+    if (s.justify === 'flex-end') s.barBorder = 'rgba(20,36,40,.1)';
+    s.padBottom = s.toast ? '96px' : '24px';
+    if (s.noteEdit) s.noteCount = s.noteText.length.toLocaleString('en-US') + ' of 8,000';
+    if (s.noteEdit && s.noteText.length >= 8000) { s.countColor = '#a8321c'; s.countWeight = 600; s.saveBg = 'rgba(20,36,40,.3)'; }
+    return s;
+  }
+  renderVals() {
+    const c1 = this.chapter({ n: 1, title: 'The farm on Route 9', period: '1948 to 1961', summary: 'Growing up on the dairy farm with four brothers, the winter the barn roof came down, and the year Daniel left for the Navy.', woven: 14, updated: 'Updated Sep 4', paras: [
+      'Daniel was born in the back bedroom of the farmhouse on Route 9 in the spring of 1948, the third of five boys. The farm ran forty head of Holsteins and a few acres of feed corn, and by the time he could carry a pail he was in the barn before school. His father milked at five and again at five, every day of the year, and the boys learned the rhythm before they learned much else.',
+      'His mother kept a garden along the south wall of the house and canned through August. He remembers the smell of the kitchen those weeks, the jars cooling on every flat surface, and being sent to the cellar with trays of them. The youngest brother, Pete, was small enough to ride down on the tray more than once.',
+      'The winter of 1957 the snow came early and did not stop. In January the roof of the old barn gave under the weight one night after milking. Nobody was inside. The cows were in the newer barn, but the hay and most of the tools were under the roof that fell. The neighbors came the next morning without being asked, and by March there was a new roof on it, built in the cold by men who had their own chores to get back to.',
+      'Daniel finished school in 1961. Two of his brothers were already working the farm and there was not room for a third. He took the bus to Rock Island in June and enlisted in the Navy the same afternoon. His mother packed him sandwiches for a trip that took an hour and a half.'
+    ] });
+    const c2 = this.chapter({ n: 2, title: 'Margaret', period: '1962 to 1970', woven: 9, pending: 2, updated: 'Updated yesterday', paras: [
+      'He met Margaret at a dance at the Legion hall in Moline the summer he came home on leave. She was there with her sister and did not want to dance with a sailor. He asked three times. On the third she said yes to get him to stop asking, and they were married fourteen months later in her mother\u2019s church. The first apartment was two rooms over a hardware store on Fifteenth Street, and the radiator knocked all winter. She taught second grade until the first baby came, and went back to it after the third. He still calls the hardware store by the name it had then, though it has been a bank for thirty years.'
+    ] });
+    const c4 = this.chapter({ n: 0, title: 'What the house sounded like', period: 'from 1948', woven: 3, updated: 'Updated Sep 5', paras: ['The radio was always on in the kitchen, tuned to WOC out of Davenport, and the farm report came on at noon whether anyone was listening or not.'] });
+    const c5 = this.chapter({ n: 4, title: '', woven: 2, updated: 'Updated Sep 6', paras: ['Stella has begun a chapter on the years after the railway but has not named it yet.'] });
+    const longNote = ('Dad always told the barn roof story at Thanksgiving. The brother he means when he says the youngest is Uncle Pete, not Uncle Ray. ').repeat(70).slice(0, 8000);
+    const c3 = this.chapter({ n: 3, title: 'The railway years', period: '1971 to 1994', summary: 'Thirty years on the Burlington line, the crews he ran with, and the derailment at Galesburg.', woven: 11, locked: true, updated: 'Updated Aug 21' });
+    const note = 'Dad always told the barn roof story at Thanksgiving. The brother he means when he says the youngest is Uncle Pete, not Uncle Ray. Ray was already in Peoria by then. The Legion dance is the one in the photo on the piano.';
+    const states = [
+      { heading: 'Chapter list', headingNote: 'the Story tab root; Photos is a sibling section, designed next' },
+      { id: 'S1', label: 'Five chapters', sub: 'Sorted by number. Each row: number and period, title, the summary or, when there is none, the first 280 characters of the text in a quieter ink. When a chapter has no number, the eyebrow shows the period alone (fourth row); a chapter with no title reads Untitled chapter (fifth row). The period is stored as text and shown as stored; when only a start exists, \u201cfrom 1948\u201d. Woven count and last update in the meta line; pending memories on their own line only when above zero; Locked as a chip with no explanation.', isList: true, isEmpty: false, chapters: [c1, c2, c3, c4, c5] },
+      { id: 'S2', label: 'Empty, new household', sub: 'The switch stays so the tab reads the same as it will once chapters exist. One sentence says where chapters come from and that nothing needs doing.', isList: true, isEmpty: true, chapters: [] },
+      { id: 'S11', label: 'List loading', sub: 'The switch is already there; the list area shows the app\u2019s own words with a spinner until the chapters arrive.', isList: true, isEmpty: false, listLoading: true, chapters: [] },
+      { id: 'S12', label: 'List failed to load', sub: 'The request failed on a connected phone. What happened, that nothing is lost, and Try again. Offline is handled by the app-wide overlay, not here.', isList: true, isEmpty: false, listFailed: true, chapters: [] },
+      { heading: 'Reading', headingNote: 'pushed from the list; the summary is a lede, then the text' },
+      { id: 'S3', label: 'Chapter loading', sub: 'Title, period and counts are already known from the list, so they show while the text is fetched. The app\u2019s own words, Opening chapter, with a spinner.', ...this.open(c1, { body: false, loading: true }) },
+      { id: 'S4', label: 'Chapter open, top', sub: 'Eyebrow, title, meta as on the list. The summary is set apart in the serif as a lede, and a rule marks where the chapter itself begins. Plain paragraphs, no images. Paragraph breaks depend on the chapter text carrying blank lines; this one does.', ...this.open(c1) },
+      { id: 'S5', label: 'Pending memories, no summary, one block', sub: 'Chapter 2 has no summary, so the text starts right after the rule. Its text carries no blank lines, so it renders as one block: the fallback. The pending line carries through from the list.', ...this.open(c2) },
+      { id: 'S13', label: 'Chapter not found', sub: 'The link or list entry points at a chapter the server no longer has. One message and the way back to the list; no title or meta, since nothing is known.', ...this.open({ eyebrow: '', title: '', meta: '', locked: false, pendingText: '' }, { head: false, body: false, notFound: true }) },
+      { heading: 'The family\u2019s note', headingNote: 'after the text; one note, last writer wins' },
+      { id: 'S6', label: 'End of chapter, no note yet', sub: 'The note follows the text under its own heading. The subline says who shares it and that saving replaces it, so nobody expects a private note or a history.', ...this.open(c1, { justify: 'flex-end', noteEmpty: true }) },
+      { id: 'S7', label: 'With an existing note', sub: 'Plain text in a card. No author and no time, because every caregiver shares one identity and the app cannot say who wrote it. Edit opens it in place.', ...this.open(c1, { justify: 'flex-end', noteView: true, noteText: note }) },
+      { id: 'S8', label: 'Editing the note', sub: 'Same card, focused. Character count against the 8,000 limit. Save is the only action that writes; Cancel puts the previous note back. The keyboard is omitted.', ...this.open(c1, { justify: 'flex-end', noteEdit: true, noteText: note }) },
+      { id: 'S8b', label: 'Note at its limit', sub: 'The counter turns red at 8,000 and Save is refused with the reason. The text stays; nothing is cut.', ...this.open(c1, { justify: 'flex-end', noteEdit: true, noteText: longNote, editBorder: '#a8321c', editError: 'The note is too long. Up to 8,000 characters.' }) },
+      { id: 'S9', label: 'Note saved', sub: 'Back to the reading card with the new text. Toast uses the app\u2019s word.', ...this.open(c1, { justify: 'flex-end', noteView: true, noteText: note, toast: 'Saved' }) },
+      { id: 'S10', label: 'Could not save, server failure', sub: 'Stays in the editor with the text intact. A server failure on a connected phone; offline is handled by the app-wide overlay. The app\u2019s words, that the edits are kept, and a retry.', ...this.open(c1, { justify: 'flex-end', noteEdit: true, noteText: note, toast: 'Could not save the note. Your edits are still here.', toastDot: '#e0b13a', toastAction: 'Try again' }) }
+    ];
+    return { ...this.embedVals(), states: this.pickFrame(states) };
+  }
+}
+</script>
+</body>
+</html>

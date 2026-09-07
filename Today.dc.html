@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}@keyframes sk{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}@keyframes spin{to{transform:rotate(360deg)}}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / Today</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Today</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Final holds approved frames. Working holds states and actions still being iterated; when one settles it moves up. State frames grow to show full content; action frames are fixed at one screen, scrolled to the acted-on row. Times are Daniel's (Central); state 13 draws the hero when the device has not reported its timezone, and the other surfaces reference it. Header pass (Sep 6): the app is called Caregiver. The thin header is drawn on F1, 5, 6, 7 and A4 here and, since approval, on every screen of the other nine pages; the note beside F1 is the spec. The photo viewer, the sign-in and wake screens are modal or signed-out and have no header.</div>
+</div>
+</sc-if>
+<div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
+<sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1 0 100%; display:flex; align-items:center; gap:14px; margin-bottom:-12px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.annot }}" hint-placeholder-val="{{ false }}">
+  <div id="{{ s.id }}" style="flex:none; width:340px; display:flex; flex-direction:column; gap:10px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#0f4c4a; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+    <div style="font:400 12px/1.45 'Source Sans 3',sans-serif; color:rgba(20,36,40,.6); min-height:17px; margin-top:-4px">{{ s.sub }}</div>
+  </sc-if>
+    <div style="display:flex; flex-direction:column; gap:14px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:18px 20px">
+      <sc-for list="{{ s.annot }}" as="a" hint-placeholder-count="0">
+        <div style="display:flex; flex-direction:column; gap:3px"><div style="font:700 13px/1.3 'Source Sans 3',sans-serif; color:#142428">{{ a.t }}</div><div style="font:400 13px/1.5 'Source Sans 3',sans-serif; color:#3a4f55; text-wrap:pretty">{{ a.b }}</div></div>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:390px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:{{ s.badge }}; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 12px/1.45 'Source Sans 3',sans-serif; color:rgba(20,36,40,.6); min-height:17px; margin-top:-4px">{{ s.sub }}</div>
+  </sc-if>
+  <sc-if value="{{ s.catalogue }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex; flex-direction:column; gap:12px; background:#f3efe6; border-radius:24px; padding:20px; box-shadow:0 2px 6px rgba(20,36,40,.12)">
+      <sc-for list="{{ s.catalogue }}" as="t" hint-placeholder-count="0">
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <div style="font-size:12px; font-weight:600; color:rgba(20,36,40,.55)">{{ t.when }}</div>
+          <div style="background:#142428; color:#fff; border-radius:14px; padding:14px 16px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.25)"><span style="width:8px; height:8px; border-radius:50%; background:{{ t.dot }}; flex:none; margin-top:7px"></span><span>{{ t.text }}</span></div>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s.isActPhone }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="{{ s.label }}" style="width:390px; height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+
+    <sc-if value="{{ s.photoView }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1; background:#142428; color:#fff; display:flex; flex-direction:column">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 12px 0 12px">
+          <button style="height:44px; padding:0 12px; border:0; background:none; color:#fff; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Close</button>
+          <button aria-label="Options" style="width:44px; height:44px; border:0; background:none; color:#fff; font:700 20px 'Source Sans 3',sans-serif; cursor:pointer; line-height:1">⋮</button>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:20px 0">
+          <sc-if value="{{ s.photoLoading }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 40px">
+              <div style="width:28px; height:28px; border-radius:50%; border:3px solid rgba(255,255,255,.25); border-top-color:#8fd3c7; animation:spin 1s linear infinite"></div>
+              <div style="margin-top:20px; font-size:15px; line-height:1.45; color:rgba(255,255,255,.75)">Getting the full-size photo. There are no small copies yet, so the first open can take a moment.</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ s.photoLoaded }}" hint-placeholder-val="{{ false }}">
+            <div style="width:390px; height:390px; background:repeating-linear-gradient(135deg,#243a3e 0 8px,#1b2e32 8px 16px); display:flex; align-items:center; justify-content:center; font:12px ui-monospace,Menlo,monospace; color:rgba(255,255,255,.6)">full photo</div>
+          </sc-if>
+        </div>
+        <div style="padding:0 20px 44px">
+          <div style="font-size:16px; line-height:1.45">Sunday walk at the lake, last spring.</div>
+          <div style="font-size:13px; color:rgba(255,255,255,.65); margin-top:4px">Posted 9:20 AM · pinned · also in the family gallery</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.showToday }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ s.pushed }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1; display:flex; flex-direction:column; padding-bottom:110px">
+      <div style="background:#f3efe6; padding:16px 20px 0; border-bottom:1px solid rgba(20,36,40,.1)"><div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div></div></div>
+      <div style="padding:0 20px">
+        <div style="display:flex; align-items:center; height:44px; margin:12px 0 0 -8px"><a href="#F1" style="display:flex; align-items:center; gap:2px; color:#0f4c4a; text-decoration:none; font:600 16px 'Source Sans 3',sans-serif; height:44px; padding:0 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>Today</a></div>
+        <div style="margin-top:8px; font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1.2; color:#142428">{{ s.pageKicker }}</div>
+        <div style="margin-top:10px; font-size:17px; line-height:1.5">{{ s.pageBody }}</div>
+        <sc-if value="{{ s.sheetAbout }}" hint-placeholder-val="{{ false }}"><div style="display:inline-flex; align-items:center; gap:6px; margin-top:12px; padding:4px 10px 4px 8px; border-radius:8px; background:#fff; font-size:13px; font-weight:600; color:#0f4c4a"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10 21a2 2 0 0 0 4 0"></path></svg>{{ s.sheetAbout }}</div></sc-if>
+        <button style="width:100%; height:50px; margin-top:24px; border-radius:999px; border:0; background:#0f4c4a; color:#fff; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.sheetPrimary }}</button>
+        <div style="margin-top:8px; font-size:13px; line-height:1.4; color:#56676c; text-align:center">{{ s.sheetNote }}</div>
+      </div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ s.notPushed }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1; display:flex; flex-direction:column; padding-bottom:110px; transform:translateY({{ s.scroll }})">
+      <div style="background:#0f4c4a; color:#fff; padding:16px 20px 24px">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:40px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div>
+          <button aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
+        </div>
+        <div style="margin-top:24px; font-size:13px; color:rgba(255,255,255,.7)">{{ s.dateLine }}</div>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:6px">
+          <span style="width:10px; height:10px; border-radius:50%; background:{{ s.dot }}; flex:none"></span>
+          <span style="font-size:18px; font-weight:600; line-height:1.3; flex:1; min-width:0">{{ s.status }}</span>
+        </div>
+        <div style="font-size:15px; line-height:1.4; color:rgba(255,255,255,.82); margin:2px 0 0 20px">{{ s.engage }}</div>
+        <sc-if value="{{ s.note }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:14px 0 0; font-size:14px; line-height:1.4; color:#fff; background:rgba(255,255,255,.14); border-radius:10px; padding:8px 12px">{{ s.note }}</div>
+        </sc-if>
+        <button style="width:100%; height:50px; margin-top:24px; border-radius:999px; border:0; background:#fff; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; white-space:nowrap"><span style="font-size:22px; line-height:1; margin-top:-2px">+</span>Send something</button>
+        <div style="display:flex; gap:10px; margin-top:10px">
+          <button style="flex:1; height:44px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:{{ s.voiceBg }}; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap; display:flex; align-items:center; justify-content:center; gap:8px"><sc-if value="{{ s.voicePending }}" hint-placeholder-val="{{ false }}"><span style="width:14px; height:14px; border-radius:50%; border:2px solid rgba(255,255,255,.3); border-top-color:#fff; animation:spin 1s linear infinite"></span></sc-if>{{ s.voiceLabel }}</button>
+          <button style="flex:1; height:44px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:{{ s.lightBg }}; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap; display:flex; align-items:center; justify-content:center; gap:8px"><sc-if value="{{ s.lightPending }}" hint-placeholder-val="{{ false }}"><span style="width:14px; height:14px; border-radius:50%; border:2px solid rgba(255,255,255,.3); border-top-color:#fff; animation:spin 1s linear infinite"></span></sc-if>{{ s.lightLabel }}</button>
+        </div>
+      </div>
+
+      <div style="padding:0 20px">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:44px; margin-top:24px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">Daniel said</div>
+          <button style="height:44px; margin-right:-10px; padding:0 10px; border:0; background:none; color:{{ s.markAllColor }}; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.markAll }}</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
+          <sc-for list="{{ s.replies }}" as="r" hint-placeholder-count="0">
+            <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:16px 16px 6px; display:flex; gap:12px; align-items:flex-start; outline:{{ r.outline }}; outline-offset:2px">
+              <span style="width:8px; height:8px; border-radius:50%; flex:none; margin-top:7px; background:{{ r.dot }}"></span>
+              <div style="flex:1; min-width:0">
+                <div style="font-size:16px; line-height:1.45; font-weight:{{ r.weight }}; display:-webkit-box; -webkit-line-clamp:{{ r.clamp }}; -webkit-box-orient:vertical; overflow:hidden">{{ r.body }}</div>
+                <sc-if value="{{ r.about }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:inline-flex; align-items:center; gap:6px; margin-top:8px; padding:4px 10px 4px 8px; border-radius:8px; background:#f3efe6; font-size:13px; font-weight:600; color:#0f4c4a"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10 21a2 2 0 0 0 4 0"></path></svg>{{ r.about }}</div>
+                </sc-if>
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:4px; min-height:40px">
+                  <div style="font-size:13px; color:#56676c">{{ r.meta }}</div>
+                  <sc-if value="{{ r.isUnread }}" hint-placeholder-val="{{ false }}"><button style="height:40px; margin-right:-10px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap; flex:none">Mark read</button></sc-if>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:space-between; height:44px; margin-top:24px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">Reminders</div>
+          <div style="font-size:14px; color:#56676c; white-space:nowrap">{{ s.remCount }}</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
+          <sc-for list="{{ s.reminders }}" as="m" hint-placeholder-count="0">
+            <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:16px 8px 16px 16px; display:flex; gap:8px; align-items:flex-start; opacity:{{ m.opacity }}; outline:{{ m.outline }}; outline-offset:2px">
+              <div style="flex:1; min-width:0">
+                <div style="font-size:16px; font-weight:600; line-height:1.3">{{ m.title }}</div>
+                <div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:2px">{{ m.meta }}</div>
+                <sc-if value="{{ m.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; gap:4px; margin:6px 0 -14px -10px">
+                    <button style="height:44px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Mark done</button>
+                    <button style="height:44px; padding:0 10px; border:0; background:none; color:#56676c; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Skip</button>
+                  </div>
+                </sc-if>
+              </div>
+              <span style="display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:7px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; background:{{ m.bg }}; color:{{ m.fg }}; border:{{ m.border }}; box-sizing:border-box; white-space:nowrap; flex:none; margin-top:-2px">{{ m.outcome }}</span>
+              <button aria-label="Options" style="width:44px; height:44px; margin:-10px 0 0 -4px; border:0; background:none; color:#56676c; font:700 20px 'Source Sans 3',sans-serif; cursor:pointer; flex:none; line-height:1">⋮</button>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:space-between; height:44px; margin-top:24px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">On the board</div>
+          <div style="font-size:14px; color:#56676c; white-space:nowrap">{{ s.boardCount }}</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
+          <sc-for list="{{ s.board }}" as="b" hint-placeholder-count="0">
+            <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:16px 8px 16px 16px; display:flex; gap:12px; align-items:flex-start; outline:{{ b.outline }}; outline-offset:2px">
+              <sc-if value="{{ b.photo }}" hint-placeholder-val="{{ false }}"><div style="width:56px; height:56px; border-radius:10px; flex:none; background:repeating-linear-gradient(135deg,#e7e0d2 0 6px,#f3efe6 6px 12px); display:flex; align-items:center; justify-content:center; font:11px ui-monospace,Menlo,monospace; color:#56676c">photo</div></sc-if>
+              <div style="flex:1; min-width:0">
+                <div style="font-size:16px; line-height:1.45">{{ b.body }}</div>
+                <div style="font-size:13px; color:#56676c; margin-top:4px">{{ b.meta }}</div>
+              </div>
+              <button aria-label="Options" style="width:44px; height:44px; margin:-10px 0 0 -4px; border:0; background:none; color:#56676c; font:700 20px 'Source Sans 3',sans-serif; cursor:pointer; flex:none; line-height:1">⋮</button>
+            </div>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ s.install }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:24px; border:1.5px dashed rgba(15,76,74,.35); border-radius:16px; padding:16px 16px 6px">
+            <div style="font-size:16px; font-weight:600; line-height:1.3">Keep Caregiver on your home screen</div>
+            <div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:2px">One tap to check on Daniel.</div>
+            <div style="display:flex; gap:4px; margin:4px 0 0 -10px">
+              <button style="height:44px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Show me how</button>
+              <button style="height:44px; padding:0 10px; border:0; background:none; color:#56676c; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Not now</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <div style="position:absolute; left:0; right:0; bottom:0; background:#fff; border-top:1px solid rgba(20,36,40,.1); padding:10px 8px 12px; display:grid; grid-template-columns:repeat(4,1fr)">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#0f4c4a; position:relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>
+        <span style="font-size:12px; font-weight:700">Today</span>
+        <sc-if value="{{ s.unread }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; top:0; left:calc(50% + 8px); min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#c45c26; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; box-sizing:border-box">{{ s.unread }}</span></sc-if>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"></path><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Story</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>
+        <span style="font-size:12px; font-weight:600">Profile</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="9" cy="7" r="2" fill="#fff"></circle><circle cx="15" cy="12" r="2" fill="#fff"></circle><circle cx="8" cy="17" r="2" fill="#fff"></circle></svg>
+        <span style="font-size:12px; font-weight:600">Settings</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:12px; right:12px; bottom:104px; background:#142428; color:#fff; border-radius:14px; padding:14px 16px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.3)"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.toastDot }}; flex:none; margin-top:7px"></span><span style="flex:1">{{ s.toast }}</span><sc-if value="{{ s.toastAction }}" hint-placeholder-val="{{ false }}"><button style="height:24px; margin:-3px -6px 0 0; padding:0 6px; border:0; background:none; color:#8fd3c7; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.toastAction }}</button></sc-if></div>
+    </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ s.sheet }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; background:rgba(20,36,40,.55); display:flex; flex-direction:column; justify-content:flex-end">
+        <div style="background:#f3efe6; border-radius:28px 28px 0 0; padding:10px 20px 40px; display:flex; flex-direction:column">
+          <div style="width:36px; height:4px; border-radius:2px; background:rgba(20,36,40,.2); align-self:center"></div>
+          <sc-if value="{{ s.sheetKicker }}" hint-placeholder-val="{{ false }}"><div style="margin-top:18px; font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1.2; color:#142428">{{ s.sheetKicker }}</div></sc-if>
+          <div style="margin-top:{{ s.sheetTitleGap }}; font-family:{{ s.sheetTitleFont }}; font-weight:{{ s.sheetTitleWeight }}; font-size:{{ s.sheetTitleSize }}; line-height:{{ s.sheetTitleLine }}">{{ s.sheet }}</div>
+          <sc-if value="{{ s.sheetMeta }}" hint-placeholder-val="{{ false }}"><div style="margin-top:4px; font-size:13px; color:#56676c">{{ s.sheetMeta }}</div></sc-if>
+          <sc-if value="{{ s.sheetBody }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px; font-size:{{ s.sheetBodySize }}; line-height:1.45; color:{{ s.sheetBodyColor }}">{{ s.sheetBody }}</div></sc-if>
+          <sc-if value="{{ s.sheetAbout }}" hint-placeholder-val="{{ false }}"><div style="display:inline-flex; align-self:flex-start; align-items:center; gap:6px; margin-top:12px; padding:4px 10px 4px 8px; border-radius:8px; background:#fff; font-size:13px; font-weight:600; color:#0f4c4a"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10 21a2 2 0 0 0 4 0"></path></svg>{{ s.sheetAbout }}</div></sc-if>
+          <sc-if value="{{ s.sheetSteps }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px">
+              <sc-for list="{{ s.sheetSteps }}" as="st" hint-placeholder-count="0">
+                <div style="display:flex; gap:12px; align-items:flex-start; background:#fff; border-radius:14px; padding:14px 16px"><span style="width:26px; height:26px; border-radius:50%; background:#0f4c4a; color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none">{{ st.n }}</span><span style="font-size:15px; line-height:1.45; padding-top:2px">{{ st.text }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ s.sheetItems }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:16px; background:#fff; border-radius:16px; overflow:hidden; display:flex; flex-direction:column">
+              <sc-for list="{{ s.sheetItems }}" as="it" hint-placeholder-count="0">
+                <button style="min-height:56px; padding:10px 16px; border:0; border-top:{{ it.divider }}; background:none; text-align:left; display:flex; flex-direction:column; justify-content:center; gap:2px; cursor:pointer; color:{{ it.color }}"><span style="font:600 16px 'Source Sans 3',sans-serif">{{ it.label }}</span><sc-if value="{{ it.sub }}" hint-placeholder-val="{{ false }}"><span style="font:400 13px/1.35 'Source Sans 3',sans-serif; color:#56676c">{{ it.sub }}</span></sc-if></button>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ s.sheetPrimary }}" hint-placeholder-val="{{ false }}"><button style="width:100%; height:50px; margin-top:20px; border-radius:999px; border:0; background:{{ s.sheetPrimaryBg }}; color:#fff; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.sheetPrimary }}</button></sc-if>
+          <sc-if value="{{ s.sheetNote }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px; font-size:13px; line-height:1.4; color:#56676c; text-align:center">{{ s.sheetNote }}</div></sc-if>
+          <button style="width:100%; height:48px; margin-top:{{ s.sheetCancelGap }}; border-radius:999px; border:0; background:none; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.sheetCancel }}</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ s.isTodayPhone }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="{{ s.label }}" style="width:390px; min-height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+
+    <sc-if value="{{ s.isWake }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1; background:#0f4c4a; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px">
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:34px; letter-spacing:-.01em">Caregiver</div>
+        <div style="margin-top:32px; width:28px; height:28px; border-radius:50%; border:3px solid rgba(255,255,255,.25); border-top-color:#8fd3c7; animation:spin 1s linear infinite"></div>
+        <div style="margin-top:20px; font-size:17px; font-weight:600">Waking up</div>
+        <div style="margin-top:6px; font-size:15px; line-height:1.45; color:rgba(255,255,255,.75); max-width:260px">The first open after a quiet spell can take about a minute.</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.isSignin }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1; display:flex; flex-direction:column; padding:16px 20px 40px">
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div>
+        <div style="margin-top:72px; font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.15">Sign in</div>
+        <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#e0b13a; flex:none; margin-top:7px"></span><div><div style="font-size:15px; line-height:1.45">{{ s.signinBanner }}</div><div style="font-size:14px; line-height:1.45; color:#56676c; margin-top:2px">You will go back to where you were.</div></div></div>
+        <div style="margin-top:32px; display:flex; flex-direction:column; gap:12px">
+          <div style="height:52px; border-radius:14px; background:#fff; border:1px solid rgba(20,36,40,.14); display:flex; align-items:center; padding:0 16px; font-size:16px; color:#142428">alex.family</div>
+          <div style="height:52px; border-radius:14px; background:#fff; border:1px solid rgba(20,36,40,.14); display:flex; align-items:center; padding:0 16px; font-size:16px; color:#8a969a">Password</div>
+          <button style="height:50px; border-radius:999px; border:0; background:#0f4c4a; color:#fff; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Sign in</button>
+        </div>
+        <button style="margin-top:8px; height:44px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; align-self:flex-start; padding:0">Forgot password</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.isMain }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1; display:flex; flex-direction:column; padding-bottom:110px">
+      <sc-if value="{{ s.hdr }}" hint-placeholder-val="{{ false }}">
+        <!-- app header, dark case: transparent over the teal block -->
+        <div style="background:#0f4c4a; color:#fff; padding:16px 20px 0">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:44px">
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div>
+            <button aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ s.banner }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#142428; color:#fff; padding:{{ s.bannerPad }}; font-size:14px; line-height:1.4; display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#e0b13a; flex:none; margin-top:6px"></span><span>{{ s.banner }}</span></div>
+      </sc-if>
+      <!-- hero -->
+      <div style="background:#0f4c4a; color:#fff; padding:{{ s.headerPad }}">
+        <sc-if value="{{ s.noHdr }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:40px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div>
+          <button aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
+        </div>
+        </sc-if>
+        <div style="margin-top:{{ s.dateTop }}; font-size:13px; color:rgba(255,255,255,.7)">{{ s.dateLine }}</div>
+        <sc-if value="{{ s.tzNote }}" hint-placeholder-val="{{ false }}"><div style="margin-top:4px; font-size:13px; line-height:1.4; color:rgba(255,255,255,.7)">{{ s.tzNote }}</div></sc-if>
+        <sc-if value="{{ s.status }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; align-items:center; gap:10px; margin-top:6px">
+            <span style="width:10px; height:10px; border-radius:50%; background:{{ s.dot }}; flex:none"></span>
+            <span style="font-size:18px; font-weight:600; line-height:1.3; flex:1; min-width:0">{{ s.status }}</span>
+          </div>
+          <sc-if value="{{ s.loading }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:8px 0 0 20px; height:16px; width:250px; border-radius:6px; background:rgba(255,255,255,.14); animation:sk 1.4s ease-in-out infinite"></div>
+          </sc-if>
+          <sc-if value="{{ s.engage }}" hint-placeholder-val="{{ true }}"><div style="font-size:15px; line-height:1.4; color:rgba(255,255,255,.82); margin:2px 0 0 20px">{{ s.engage }}</div></sc-if>
+        </sc-if>
+        <sc-if value="{{ s.note }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:14px 0 0; font-size:14px; line-height:1.4; color:#fff; background:rgba(255,255,255,.14); border-radius:10px; padding:8px 12px">{{ s.note }}</div>
+        </sc-if>
+        <button style="width:100%; height:50px; margin-top:24px; border-radius:999px; border:0; background:#fff; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; white-space:nowrap"><span style="font-size:22px; line-height:1; margin-top:-2px">+</span>Send something</button>
+        <div style="display:flex; gap:10px; margin-top:10px; opacity:{{ s.ctrlOpacity }}">
+          <button style="flex:1; height:44px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.voiceLabel }}</button>
+          <button style="flex:1; height:44px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.lightLabel }}</button>
+        </div>
+      </div>
+
+      <div style="padding:0 20px">
+        <!-- replies -->
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:44px; margin-top:24px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">Daniel said</div>
+          <sc-if value="{{ s.markAll }}" hint-placeholder-val="{{ true }}"><button style="height:44px; margin-right:-10px; padding:0 10px; border:0; background:none; color:{{ s.markAllColor }}; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.markAll }}</button></sc-if>
+        </div>
+        <sc-if value="{{ s.loading }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
+            <div style="height:88px; border-radius:16px; background:rgba(20,36,40,.07); animation:sk 1.4s ease-in-out infinite"></div>
+            <div style="height:72px; border-radius:16px; background:rgba(20,36,40,.07); animation:sk 1.4s ease-in-out infinite"></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ s.repliesEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:4px; padding:16px; border-radius:16px; border:1.5px dashed rgba(20,36,40,.18); font-size:15px; line-height:1.45; color:#56676c">{{ s.repliesEmpty }}</div>
+        </sc-if>
+        <sc-if value="{{ s.repliesError }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:4px; padding:16px 16px 6px; border-radius:16px; background:#fff; border:1px solid rgba(20,36,40,.08); display:flex; gap:12px; align-items:flex-start">
+            <span style="width:8px; height:8px; border-radius:50%; background:#c45c26; flex:none; margin-top:7px"></span>
+            <div style="flex:1">
+              <div style="font-size:16px; line-height:1.45">{{ s.repliesError }}</div>
+              <div style="display:flex; margin:4px 0 0 -10px"><button style="height:44px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">Try again</button></div>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
+          <sc-for list="{{ s.replies }}" as="r" hint-placeholder-count="0">
+            <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:16px 16px 6px; display:flex; gap:12px; align-items:flex-start">
+              <span style="width:8px; height:8px; border-radius:50%; flex:none; margin-top:7px; background:{{ r.dot }}"></span>
+              <div style="flex:1; min-width:0">
+                <div style="font-size:16px; line-height:1.45; font-weight:{{ r.weight }}">{{ r.body }}</div>
+                <sc-if value="{{ r.about }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:inline-flex; align-items:center; gap:6px; margin-top:8px; padding:4px 10px 4px 8px; border-radius:8px; background:#f3efe6; font-size:13px; font-weight:600; color:#0f4c4a"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10 21a2 2 0 0 0 4 0"></path></svg>{{ r.about }}</div>
+                </sc-if>
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:4px; min-height:40px">
+                  <div style="font-size:13px; color:#56676c">{{ r.meta }}</div>
+                  <sc-if value="{{ r.isUnread }}" hint-placeholder-val="{{ false }}"><button style="height:40px; margin-right:-10px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap; flex:none">Mark read</button></sc-if>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- reminders -->
+        <div style="display:flex; align-items:center; justify-content:space-between; height:44px; margin-top:24px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">Reminders</div>
+          <div style="font-size:14px; color:#56676c; white-space:nowrap">{{ s.remCount }}</div>
+        </div>
+        <sc-if value="{{ s.loading }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
+            <div style="height:72px; border-radius:16px; background:rgba(20,36,40,.07); animation:sk 1.4s ease-in-out infinite"></div>
+            <div style="height:72px; border-radius:16px; background:rgba(20,36,40,.07); animation:sk 1.4s ease-in-out infinite"></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ s.remError }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:4px; padding:16px 16px 6px; border-radius:16px; background:#fff; border:1px solid rgba(20,36,40,.08); display:flex; gap:12px; align-items:flex-start">
+            <span style="width:8px; height:8px; border-radius:50%; background:#c45c26; flex:none; margin-top:7px"></span>
+            <div style="flex:1">
+              <div style="font-size:16px; line-height:1.45">{{ s.remError }}</div>
+              <div style="display:flex; margin:4px 0 0 -10px"><button style="height:44px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">Try again</button></div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ s.remEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:4px; padding:16px; border-radius:16px; border:1.5px dashed rgba(20,36,40,.18); font-size:15px; line-height:1.45; color:#56676c">{{ s.remEmpty }}</div>
+        </sc-if>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
+          <sc-for list="{{ s.reminders }}" as="m" hint-placeholder-count="0">
+            <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:16px; display:flex; gap:12px; align-items:flex-start; opacity:{{ m.opacity }}">
+              <div style="flex:1; min-width:0">
+                <div style="font-size:16px; font-weight:600; line-height:1.3">{{ m.title }}</div>
+                <div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:2px">{{ m.meta }}</div>
+                <sc-if value="{{ m.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; gap:4px; margin:6px 0 -14px -10px">
+                    <button style="height:44px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Mark done</button>
+                    <button style="height:44px; padding:0 10px; border:0; background:none; color:#56676c; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Skip</button>
+                  </div>
+                </sc-if>
+              </div>
+              <span style="display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:7px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; background:{{ m.bg }}; color:{{ m.fg }}; border:{{ m.border }}; box-sizing:border-box; white-space:nowrap; flex:none; margin-top:-2px">{{ m.outcome }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- board -->
+        <div style="display:flex; align-items:center; justify-content:space-between; height:44px; margin-top:24px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">On the board</div>
+          <div style="font-size:14px; color:#56676c; white-space:nowrap">{{ s.boardCount }}</div>
+        </div>
+        <sc-if value="{{ s.loading }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:4px; height:72px; border-radius:16px; background:rgba(20,36,40,.07); animation:sk 1.4s ease-in-out infinite"></div>
+        </sc-if>
+        <sc-if value="{{ s.boardEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:4px; padding:16px; border-radius:16px; border:1.5px dashed rgba(20,36,40,.18); font-size:15px; line-height:1.45; color:#56676c">{{ s.boardEmpty }}</div>
+        </sc-if>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
+          <sc-for list="{{ s.board }}" as="b" hint-placeholder-count="0">
+            <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:16px 8px 16px 16px; display:flex; gap:12px; align-items:flex-start">
+              <sc-if value="{{ b.photo }}" hint-placeholder-val="{{ false }}"><div style="width:56px; height:56px; border-radius:10px; flex:none; background:repeating-linear-gradient(135deg,#e7e0d2 0 6px,#f3efe6 6px 12px); display:flex; align-items:center; justify-content:center; font:11px ui-monospace,Menlo,monospace; color:#56676c">photo</div></sc-if>
+              <div style="flex:1; min-width:0">
+                <div style="font-size:16px; line-height:1.45">{{ b.body }}</div>
+                <div style="font-size:13px; color:#56676c; margin-top:4px">{{ b.meta }}</div>
+              </div>
+              <sc-if value="{{ b.chip }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:7px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; background:#fff; color:#3a4f55; border:1.5px dashed #3a4f55; box-sizing:border-box; white-space:nowrap; flex:none; margin-top:-2px">{{ b.chip }}</span></sc-if>
+              <button aria-label="Options" style="width:44px; height:44px; margin:-10px 0 0 -4px; border:0; background:none; color:#56676c; font:700 20px 'Source Sans 3',sans-serif; cursor:pointer; flex:none; line-height:1">⋮</button>
+            </div>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ s.install }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:24px; border:1.5px dashed rgba(15,76,74,.35); border-radius:16px; padding:16px 16px 6px">
+            <div style="font-size:16px; font-weight:600; line-height:1.3">Keep Caregiver on your home screen</div>
+            <div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:2px">One tap to check on Daniel.</div>
+            <div style="display:flex; gap:4px; margin:4px 0 0 -10px">
+              <button style="height:44px; padding:0 10px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Show me how</button>
+              <button style="height:44px; padding:0 10px; border:0; background:none; color:#56676c; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">Not now</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <!-- nav -->
+    <div style="position:absolute; left:0; right:0; bottom:0; background:#fff; border-top:1px solid rgba(20,36,40,.1); padding:10px 8px 12px; display:grid; grid-template-columns:repeat(4,1fr)">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#0f4c4a; position:relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>
+        <span style="font-size:12px; font-weight:700">Today</span>
+        <sc-if value="{{ s.unread }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; top:0; left:calc(50% + 8px); min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#c45c26; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; box-sizing:border-box">{{ s.unread }}</span></sc-if>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"></path><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Story</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>
+        <span style="font-size:12px; font-weight:600">Profile</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="9" cy="7" r="2" fill="#fff"></circle><circle cx="15" cy="12" r="2" fill="#fff"></circle><circle cx="8" cy="17" r="2" fill="#fff"></circle></svg>
+        <span style="font-size:12px; font-weight:600">Settings</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ s.sheet }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; background:rgba(20,36,40,.55); display:flex; flex-direction:column; justify-content:flex-end">
+        <div style="background:#f3efe6; border-radius:28px 28px 0 0; padding:24px 20px 40px">
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">{{ s.sheet }}</div>
+          <div style="margin-top:8px; font-size:15px; line-height:1.45; color:#56676c">{{ s.sheetBody }}</div>
+          <button style="width:100%; height:50px; margin-top:20px; border-radius:999px; border:0; background:#0f4c4a; color:#fff; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Sign in</button>
+        </div>
+      </div>
+    </sc-if>
+    </sc-if>
+  </div>
+  </sc-if>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  chip(outcome) {
+    return {
+      'Done': { bg: '#dfebe8', fg: '#0f4c4a', border: '0' },
+      'Skipped': { bg: '#ece8df', fg: '#3a4f55', border: '0' },
+      'No response': { bg: '#a84a1c', fg: '#ffffff', border: '0' },
+      'Never heard': { bg: '#142428', fg: '#ffffff', border: '0' },
+      'Waiting': { bg: '#ffffff', fg: '#3a4f55', border: '1.5px dashed #3a4f55' },
+      'Tomorrow': { bg: '#ffffff', fg: '#56676c', border: '1.5px dashed rgba(86,103,108,.5)' }
+    }[outcome];
+  }
+  rem(outcome, title, meta, open, opacity) { return { outcome, title, meta, open: !!open, opacity: opacity || 1, ...this.chip(outcome) }; }
+  reply(body, meta, unread, about) { return { body, meta: unread ? meta : meta + ' · read', isUnread: !!unread, dot: unread ? '#c45c26' : 'transparent', weight: unread ? 600 : 400, about: about || '' }; }
+  base(o) {
+    const s = Object.assign({
+      isMain: true, isTodayPhone: true, isActPhone: false, catalogue: null, headerPad: '16px 20px 24px', hdr: false, noHdr: true, dateTop: '24px', bannerPad: '16px 20px 14px', dateLine: 'Sun, Sep 6 · Central', tzNote: '', dot: '#8fd3c7',
+      status: 'Online, voice active', engage: '', note: '', ctrlOpacity: 1, voiceLabel: 'Pause voice', lightLabel: 'Night light',
+      markAll: 'Mark all read', markAllColor: '#0f4c4a', replies: [], repliesEmpty: '', repliesError: '', reminders: [], remCount: '', remError: '', remEmpty: '',
+      board: [], boardCount: '', boardEmpty: '', install: false, loading: false, banner: '', sheet: '', sheetBody: '', signinBanner: 'Your session ended. Sign in to pick up where you were.'
+    }, o);
+    if (s.unread === undefined) s.unread = s.replies.filter(r => r.isUnread).length || 0;
+    if (s.hdr) Object.assign(s, { noHdr: false, headerPad: '0 20px 24px', dateTop: '24px', bannerPad: '12px 20px 12px' });
+    return s;
+  }
+  quiet(o) {
+    return this.base(Object.assign({
+      dateLine: 'Sun, Sep 6 · 6:30 PM Central',
+      engage: 'No memories saved yet today. Last saved yesterday at 6:10 PM.',
+      markAll: 'All read', markAllColor: '#56676c',
+      replies: [this.reply('Tell Alex I liked the soup.', 'Yesterday, 5:48 PM', false)],
+      reminders: [this.rem('Done', 'Morning medication', 'He pressed it · 8:02 AM')], remCount: '1 today',
+      boardEmpty: 'Nothing on the screen right now.'
+    }, o));
+  }
+  busy(allRead) {
+    const u = !allRead;
+    return this.base({
+      dateLine: 'Sun, Sep 6 · 11:52 PM Central',
+      engage: 'Stella saved five memories today, last at 9:14 PM.',
+      note: allRead ? '' : 'Night light requested. The device can take up to 50 seconds to confirm.',
+      lightLabel: allRead ? 'Night light' : 'Turning on…',
+      markAll: allRead ? 'All read' : 'Mark all read', markAllColor: allRead ? '#56676c' : '#0f4c4a',
+      replies: [
+        this.reply('I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.', '9:20 PM', u),
+        this.reply('I took the pills but I could not find the blue ones.', '12:41 PM', u, 'Lunch medication'),
+        this.reply('I already had my walk this morning.', '10:02 AM', false, 'About a reminder that is no longer on the board.'),
+        this.reply('Good morning to you too.', '8:30 AM', false)
+      ],
+      reminders: [
+        this.rem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true),
+        this.rem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'),
+        this.rem('No response', 'Call Alex', 'Reminded · ended 4:00 PM'),
+        this.rem('Skipped', 'Lunch medication', 'He pressed it · 12:35 PM'),
+        this.rem('Done', 'Morning medication', 'He said so · 8:15 AM'),
+        this.rem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)
+      ], remCount: '5 today · 1 tomorrow',
+      board: [
+        { photo: true, body: 'Sunday walk at the lake, last spring.', meta: 'Photo · pinned · posted 9:20 AM' },
+        { body: 'Sleep well, Dad. I will call in the morning.', meta: 'Message · posted 11:50 PM · clears in 9 min' },
+        { body: 'Good morning! Breakfast is on the table.', meta: 'Message · posted 7:05 AM', chip: 'Kept' }
+      ], boardCount: '3 on screen',
+      install: true
+    });
+  }
+
+  arem(outcome, title, meta, open, opacity, hl) { return { outcome, title, meta, open: !!open, opacity: opacity || 1, outline: hl ? '2px solid #0f4c4a' : 'none', ...this.chip(outcome) }; }
+  areply(body, meta, unread, about, hl) { return { body, meta: unread ? meta : meta + ' · read', isUnread: !!unread, dot: unread ? '#c45c26' : 'transparent', weight: unread ? 600 : 400, about: about || '', clamp: 3, outline: hl ? '2px solid #0f4c4a' : 'none' }; }
+  aboard(o) { return Object.assign({ outline: o.hl ? '2px solid #0f4c4a' : 'none' }, o); }
+  abase(o) {
+    return Object.assign({
+      isMain: false, isTodayPhone: false, isActPhone: true, showToday: true, dateLine: 'Sun, Sep 6 · 11:52 PM Central', dot: '#8fd3c7',
+      status: 'Online, voice active', engage: 'Stella saved five memories today, last at 9:14 PM.', note: '',
+      voiceLabel: 'Pause voice', lightLabel: 'Night light', voiceBg: 'transparent', lightBg: 'transparent', voicePending: false, lightPending: false,
+      markAll: 'Mark all read', markAllColor: '#0f4c4a', unread: 2,
+      replies: [
+        this.areply('I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.', '9:20 PM', true),
+        this.areply('I took the pills but I could not find the blue ones.', '12:41 PM', true, 'Lunch medication'),
+        this.areply('Good morning to you too.', '8:30 AM', false)
+      ],
+      reminders: [
+        this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true),
+        this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'),
+        this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)
+      ], remCount: '5 today · 1 tomorrow',
+      board: [
+        this.aboard({ photo: true, body: 'Sunday walk at the lake, last spring.', meta: 'Photo · pinned · posted 9:20 AM' }),
+        this.aboard({ body: 'Sleep well, Dad. I will call in the morning.', meta: 'Message · posted 11:50 PM · clears in 9 min' })
+      ], boardCount: '3 on screen', install: false,
+      toast: '', toastDot: '#e0b13a', toastAction: '',
+      sheet: '', sheetKicker: '', sheetTitleGap: '18px', sheetTitleFont: 'Fraunces,Georgia,serif', sheetTitleWeight: 600, sheetTitleSize: '22px', sheetTitleLine: 1.2, sheetMeta: '', sheetBody: '', sheetBodySize: '15px', sheetBodyColor: '#56676c', sheetAbout: '', sheetSteps: null, sheetItems: null, sheetPrimary: '', sheetPrimaryBg: '#0f4c4a', sheetCancel: 'Cancel', sheetCancelGap: '8px', sheetNote: '',
+      photoView: false, photoLoading: false, photoLoaded: false, catalogue: null, scroll: '0px', pushed: false, notPushed: true
+    }, o);
+  }
+  items(list) { return list.map((it, i) => ({ label: it[0], sub: it[1] || '', color: it[2] || '#142428', divider: i ? '1px solid rgba(20,36,40,.08)' : '0' })); }
+  renderVals() {
+    const red = '#a84a1c';
+    const fail = 'Removing deletes it from Daniel\u2019s device and from Caregiver. There is no undo.';
+    const actions = [
+      { heading: 'Device controls', headingNote: 'one pending request per switch, up to 50 s, nothing else blocked' },
+      { id: 'A1', label: 'Voice and screen both pending', sub: 'Tapped button fills and spins; label says what is happening. One note explains the wait. The rest of the screen stays live.', ...this.abase({
+        voiceLabel: 'Pausing…', lightLabel: 'Turning on…', voicePending: true, lightPending: true, voiceBg: 'rgba(255,255,255,.14)', lightBg: 'rgba(255,255,255,.14)',
+        note: 'Waiting for the device. It can take up to 50 seconds to confirm.'
+      }) },
+      { id: 'A2', label: 'Device did not confirm', sub: 'Status is re-read and still says active, so the button returns to Pause voice. Toast says what happened and offers the retry.', ...this.abase({
+        toast: 'Daniel\u2019s device did not confirm the pause. Voice is still on.', toastAction: 'Try again'
+      }) },
+      { heading: 'Sending', headingNote: 'entry point only; composer is a later document' },
+      { id: 'A3', label: 'Send something', sub: 'Three choices, each with where it lands so the caregiver knows what to expect on Today afterwards.', ...this.abase({
+        sheet: 'Send Daniel something', sheetItems: this.items([
+          ['Message', 'Shows on his screen and under On the board'],
+          ['Reminder', 'It shows under Reminders at the time you set'],
+          ['Photo', 'A new or saved photo for his screen']
+        ]), sheetCancelGap: '12px'
+      }) },
+      { heading: 'Replies', headingNote: 'mark read is immediate, no undo' },
+      { id: 'A4', label: 'Reply opened', sub: 'Header pass: drawn as a pushed page so the light header and the back control are visible together (the header brief calls this frame a pushed page; A5 keeps the sheet). Full text, the reminder it was about, and Mark read. Read state is shared, so the line under the button says so. Going back without marking keeps it unread.', ...this.abase({ pushed: true, notPushed: false,
+        replies: [this.areply('I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.', '9:20 PM', true, '', true), this.areply('I took the pills but I could not find the blue ones.', '12:41 PM', true, 'Lunch medication'), this.areply('Good morning to you too.', '8:30 AM', false)],
+        pageKicker: 'Daniel said · 9:20 PM', pageBody: 'I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.',
+        sheetPrimary: 'Mark read', sheetNote: 'Marked read for the whole family.'
+      }) },
+      { id: 'A5', label: 'Reply about a reminder', sub: 'Same sheet with the reminder title attached. Marking read drops the tab count by one for every caregiver; the line under the button says so. When the reminder has since been removed, the tag reads “About a reminder that is no longer on the board.”', ...this.abase({
+        replies: [this.areply('I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.', '9:20 PM', true), this.areply('I took the pills but I could not find the blue ones.', '12:41 PM', true, 'Lunch medication', true), this.areply('Good morning to you too.', '8:30 AM', false)],
+        sheetKicker: 'Daniel said · 12:41 PM', sheet: 'I took the pills but I could not find the blue ones.', sheetTitleGap: '8px', sheetTitleFont: "'Source Sans 3',Helvetica,Arial,sans-serif", sheetTitleWeight: 400, sheetTitleSize: '17px', sheetTitleLine: 1.5, sheetAbout: 'About: Lunch medication',
+        sheetPrimary: 'Mark read', sheetCancel: 'Close', sheetNote: 'Marked read for the whole family.'
+      }) },
+      { heading: 'Reminders', headingNote: 'done and skip on any state; remove deletes' },
+      { id: 'A6', label: 'Reminder options', sub: 'From ⋮ on any reminder row (new; Mark done and Skip stay inline on waiting ones). Remove is the only red item.', ...this.abase({ scroll: '-560px',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true, 1, true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)],
+        sheet: 'Bedtime medication', sheetMeta: 'Waiting · set for 11:00 PM, until 11:59 PM · Daily', sheetItems: this.items([
+          ['Mark done', 'Shows as Done, marked by you.'],
+          ['Skip', 'Shows as Skipped, marked by you.'],
+          ['Remove reminder', 'Deletes it from the device and from Caregiver', red]
+        ]), sheetCancelGap: '12px'
+      }) },
+      { id: 'A7', label: 'Skip confirmation', sub: 'The brief asks for one. Names the reminder, states the effect and the missing undo. Primary is the action, not Cancel.', ...this.abase({ scroll: '-560px',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true, 1, true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)],
+        sheet: 'Skip bedtime medication tonight?', sheetBody: 'Shows as Skipped, marked by you. This cannot be undone.',
+        sheetPrimary: 'Skip tonight', sheetPrimaryBg: '#142428'
+      }) },
+      { id: 'A8', label: 'After Mark done', sub: 'No toast; the row is the feedback. Outcome reads "You marked it" with the time. Options stay available, so a mistaken tap can be corrected by Skip (history is kept).', ...this.abase({ scroll: '-560px',
+        reminders: [this.arem('Done', 'Bedtime medication', 'You marked it · 11:53 PM'), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)]
+      }) },
+      { id: 'A9', label: 'Remove a reminder', sub: 'Same confirmation shape, red primary. A coming-up reminder has no outcome, so the copy is only about deletion.', ...this.abase({ scroll: '-560px',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, 1, true)],
+        sheet: 'Remove "Dentist at 11"?', sheetBody: fail, sheetPrimary: 'Remove reminder', sheetPrimaryBg: red
+      }) },
+      { id: 'A10', label: 'Removed', sub: 'The row is gone, so a toast confirms it. No undo, so no undo button.', ...this.abase({ scroll: '-560px',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM')], remCount: '5 today',
+        toast: 'Removed "Dentist at 11".', toastDot: '#8fd3c7'
+      }) },
+      { heading: 'Board items', headingNote: 'pin sorts first; remove deletes from the screen' },
+      { id: 'A11', label: 'Board item options', sub: 'From ⋮. Pin copy promises only what the app can vouch for. Photo rows add Open photo.', ...this.abase({ scroll: '-1100px',
+        board: [this.aboard({ photo: true, body: 'Sunday walk at the lake, last spring.', meta: 'Photo · pinned · posted 9:20 AM', hl: true }), this.aboard({ body: 'Sleep well, Dad. I will call in the morning.', meta: 'Message · posted 11:50 PM · clears in 9 min' })],
+        sheet: 'Sunday walk at the lake, last spring.', sheetMeta: 'Photo · pinned · posted 9:20 AM', sheetItems: this.items([
+          ['Open photo', 'Full size'],
+          ['Unpin', 'Pinned items stay at the top of this list'],
+          ['Remove from the board', 'It stays in the family gallery', red]
+        ]), sheetCancelGap: '12px'
+      }) },
+      { id: 'A12', label: 'Remove a photo', sub: 'Confirmation notes the gallery copy survives. For a message the last sentence is dropped.', ...this.abase({ scroll: '-1100px',
+        board: [this.aboard({ photo: true, body: 'Sunday walk at the lake, last spring.', meta: 'Photo · pinned · posted 9:20 AM', hl: true }), this.aboard({ body: 'Sleep well, Dad. I will call in the morning.', meta: 'Message · posted 11:50 PM · clears in 9 min' })],
+        sheet: 'Remove this photo from Daniel\u2019s screen?', sheetBody: 'It comes off the board. There is no undo. The photo stays in the family gallery.',
+        sheetPrimary: 'Remove from the board', sheetPrimaryBg: red
+      }) },
+      { id: 'A13', label: 'Photo, first open', sub: 'Full-screen viewer. No thumbnails exist, so the first load is slow; the copy says why.', ...this.abase({ showToday: false, photoView: true, photoLoading: true }) },
+      { id: 'A14', label: 'Photo loaded', sub: 'Caption and posting facts below. ⋮ gives the same Unpin and Remove as the row.', ...this.abase({ showToday: false, photoView: true, photoLoaded: true }) },
+      { heading: 'Install invitation', headingNote: 'depends on the phone' },
+      { id: 'A15', label: 'Show me how, iPhone', sub: 'The app cannot trigger install on iPhone, so it teaches the two taps. Same instruction as Settings S1, without the browser name.', ...this.abase({ install: true, unread: 0, replies: [], reminders: [], board: [], remCount: '', boardCount: '',
+        sheet: 'Add Caregiver to your home screen', sheetBody: 'Tap Share, then Add to Home Screen.', sheetSteps: [{ n: 1, text: 'Tap Share at the bottom of the screen (the square with an arrow).' }, { n: 2, text: 'Scroll and tap Add to Home Screen, then Add.' }],
+        sheetCancel: 'Done', sheetCancelGap: '16px'
+      }) },
+      { id: 'A16', label: 'Show me how, Android with Chrome offer', sub: 'Chrome offers install, so one button opens the phone\u2019s own dialog. Once the app is installed, the invitation no longer shows.', ...this.abase({ install: true, unread: 0, replies: [], reminders: [], board: [], remCount: '', boardCount: '',
+        sheet: 'Add Caregiver to your home screen', sheetBody: 'Your phone can install it directly. It opens like any other app.',
+        sheetPrimary: 'Install Caregiver', sheetCancel: 'Not now'
+      }) },
+      { id: 'A17', label: 'Show me how, Android without offer', sub: 'Fallback to browser-menu instructions. Not now hides the invitation permanently on this phone; Settings keeps the option.', ...this.abase({ install: true, unread: 0, replies: [], reminders: [], board: [], remCount: '', boardCount: '',
+        sheet: 'Add Caregiver to your home screen', sheetBody: 'From the browser menu:', sheetSteps: [{ n: 1, text: 'Tap the menu (three dots) at the top right.' }, { n: 2, text: 'Tap Add to Home screen or Install app.' }],
+        sheetCancel: 'Done', sheetCancelGap: '16px'
+      }) },
+      { heading: 'Failure feedback', headingNote: 'plain words, never codes' },
+      { id: 'A18', label: 'Action failed, phone offline', sub: 'The tap did nothing; the row does not change. Toast names the cause and, when a retry can help, offers it.', ...this.abase({ scroll: '-300px',
+        toast: 'Could not mark it read. Your phone is offline.', toastAction: 'Try again'
+      }) },
+      { id: 'A19', label: 'Toast catalogue', sub: 'Every failure the system can report today, plus the two successes that need a toast because nothing is left on screen to show. No device-offline toast: state 5 disables the controls with the reason inline, so it can never appear. The server refusal shown is the empty-text one; the until-time check happens on the phone (Compose C7).', ...this.abase({ isActPhone: false, catalogue: [
+        { when: 'Device did not confirm in time', dot: '#e0b13a', text: 'Daniel\u2019s device did not confirm the pause. Voice is still on.' },
+        { when: 'Phone offline', dot: '#e0b13a', text: 'Could not mark it read. Your phone is offline.' },
+        { when: 'Session ended (rebuild behavior)', dot: '#e0b13a', text: 'Your session ended. Sign in to pick up where you were.' },
+        { when: 'Server refused the request', dot: '#e0b13a', text: 'Message text is required.' },
+        { when: 'Reminder removed', dot: '#8fd3c7', text: 'Removed "Dentist at 11".' },
+        { when: 'Board item removed', dot: '#8fd3c7', text: 'Removed.' }
+      ] }) }
+    ];
+    const finals = [
+      { id: 'F1', label: 'Today, approved layout', sub: 'Header pass: the thin header is the hero\u2019s first row, transparent over the teal. From canvas-1 · 4a. Two unread replies (badge on the Today tab), three reminders, four board items, install invitation. The board header says when it clears; kept items carry a Kept marker and do not clear. A message dated later carries Scheduled for its time. A photo row shows its caption; with no caption it reads Photo and nothing else. The engagement line counts memories, not conversations; when nothing was saved today it reads “No memories saved yet today.”', ...this.base({
+        dateLine: 'Sun, Sep 6 · Central', engage: 'Stella saved two memories today, last at 3:40 PM.',
+        replies: [this.reply('Tell Alex the roses out front are blooming again. She should come see them.', '2:12 PM', true), this.reply('I found the photo of your mother at the lake. It is on the fridge now.', '11:05 AM', true)],
+        reminders: [this.rem('Done', 'Morning medication', 'He said so · 8:15 AM'), this.rem('No response', 'Lunch', 'Reminded at 12:30 PM · ended 1:30 PM'), this.rem('Waiting', 'Call Alex', 'Set for 6:00 PM, until 7:00 PM', true)], remCount: '3 today',
+        board: [{ body: 'Good morning! Breakfast is on the table.', meta: 'Message · posted 7:05 AM', chip: 'Kept' }, { photo: true, body: 'Margaret at the lake, 1966', meta: 'Photo · posted 9:20 AM' }, { photo: true, body: 'Photo', meta: 'Posted 10:15 AM' }, { body: 'Ruth is coming by after lunch.', meta: 'Message · posted 3:52 PM', chip: 'Scheduled for 7:00 AM' }], boardCount: 'Clears at 11:59 PM',
+        install: true, hdr: true
+      }) },
+      { id: 'F1 · spec', label: 'Header', sub: 'Applies to every screen once approved. Dimensions, the two cases, and the rule for which screens get which.', annot: [
+        { t: 'Bar', b: '44 px tall, 16 px below the top of the viewport; no status-area allowance. 20 px side padding, the same column as the content below, so the wordmark lines up with the section titles. Left: the wordmark, Caregiver, in the display face at 20 px (text only; a logo mark is a later decision). Right: a slot for one control, 36 px tall, or nothing. Below the bar on case B pages: 16 px before a page title, 12 px before a back row.' },
+        { t: 'Case A, over a teal block (Today, Device)', b: 'No fill, no border. White wordmark. The bar is the first row of the block, so it scrolls away with it; nothing is left floating over the page. This is why the header is not fixed on Today: a fixed bar over a scrolling teal block would need its own fill, which is the white cap the brief rules out.' },
+        { t: 'Case B, plain background (every other screen)', b: 'Fill is the page background, #f3efe6, with a 1 px line beneath at rgba(20,36,40,.1). Wordmark in teal, #0f4c4a. Sticks to the top while the page scrolls, as the current app\u2019s top bar does. See A4.' },
+        { t: 'Rule', b: 'A screen gets case A when it opens with a teal block at the top and case B otherwise. One component, one prop.' },
+        { t: 'What sits on the right', b: 'The Daniel pill, the entry to Daniel\u2019s device, on every root tab screen: Today, Story (Chapters and Photos), Profile, Settings. On Today it was already the hero\u2019s top row, so nothing moves there. No pill on pushed pages (Device, a chapter, Texts, an opened reply), none when signed out, none for the administrator. Nothing else goes in the slot: there is no account menu, notifications or search; sign out stays on Settings; the unread count stays on the Today tab badge and is not repeated. Alex\u2019s name is not shown: one login is tied to one person and there is nothing to switch, so the name would only be confirmation.' },
+        { t: 'Back control', b: 'Never in the header, so the wordmark sits in the same place on every screen. Pushed pages draw the back control as the first row under the header, 44 px, chevron plus the screen it came from, as Device already does (A4).' },
+        { t: 'Stacking', b: 'Status area, header, then any banner (state 6), then the page. Sheets, dialogs, the install invitation and the offline overlay draw above all of it and are unchanged (state 7).' },
+        { t: 'Not drawn', b: 'State 13: the header does not depend on the hero\u2019s height, so it is skipped.' }
+      ] }
+    ];
+    const working = [
+      { id: '1', label: 'Quiet day', sub: 'Online. No memories saved today, so the engagement line reads “No memories saved yet today.” with the last save from yesterday. One read reply, one reminder done, board empty.', ...this.quiet() },
+      { id: '2', label: 'Busy day', sub: '11:52 PM. Night light pending; only that button waits. Four replies: one long, one linked to a reminder, one about a reminder that is no longer on the board. One reminder per outcome plus one queued for tomorrow; the No response row is the variant where the device recorded that it spoke but gave no time. Three board items, one Kept.', ...this.busy(false) },
+      { id: '3', label: 'All replies read by another caregiver', sub: 'Same as busy day; every reply already read. The app cannot say who marked them.', ...this.busy(true) },
+      { id: '4', label: 'Voice paused, night light on, schedule on', sub: 'Controls offer the reverse actions. The status line adds Schedule on after the screen state.', ...this.quiet({ status: 'Online, voice paused', engage: 'Screen is in night light. Schedule on. No memories saved yet today; last saved yesterday at 6:10 PM.', voiceLabel: 'Resume voice', lightLabel: 'Wake screen' }) },
+      { id: '5', label: 'Device offline', sub: 'Header pass: chosen over state 1 because the taller hero with the amber dot and the inline note is the harder case for the header to sit on. No word since 4:10 PM. Last known voice/screen state is stale. Controls visible but unusable, with the reason inline, so no offline toast exists.', ...this.base({
+        dateLine: 'Sun, Sep 6 · 6:30 PM Central', dot: '#e0b13a', status: 'Offline since 4:10 PM',
+        engage: 'Voice and screen state unknown. Stella saved one memory today, at 1:22 PM.',
+        note: 'Pause and night light need the device online. Anything you send is saved.',
+        ctrlOpacity: .4,
+        replies: [this.reply('The mailman left a package on the step.', '3:50 PM', true)],
+        reminders: [this.rem('Waiting', 'Evening medication', 'Set for 6:00 PM, until 7:00 PM · device offline', true), this.rem('Done', 'Morning medication', 'He said so · 8:15 AM')], remCount: '2 today',
+        board: [{ body: 'Soup is in the fridge, second shelf.', meta: 'Message · sent 5:40 PM · not yet on the device' }], boardCount: '1 not yet on the device', hdr: true
+      }) },
+      { id: '12', label: 'Device never seen', sub: 'Online false and no last-seen time, so no Offline since. Status reads Not seen yet; controls unusable with the reason. Device D12 is the same state.', ...this.base({
+        dateLine: 'Sun, Sep 6 · Central', dot: '#e0b13a', status: 'Not seen yet.',
+        engage: 'This device has never reported in. Voice and screen state unknown.',
+        note: 'Pause and night light need the device online. Anything you send is saved.',
+        ctrlOpacity: .4, markAll: '', replies: [], repliesEmpty: 'When Daniel asks Stella to pass something along, it shows up here.', reminders: [], remEmpty: 'No reminders today.', boardEmpty: 'Nothing on the screen right now.'
+      }) },
+      { id: '13', label: 'Timezone not reported', sub: 'The device has not reported its timezone, so the header cannot say Central. Times are shown as the device gives them, with the line saying so. Every other surface that says Central has this variant; it is drawn once here.', ...this.quiet({ dateLine: 'Sun, Sep 6 · 6:30 PM', tzNote: 'Times are the device\u2019s. It has not reported its timezone yet.' }) },
+      { id: '6', label: 'App offline', sub: 'Rebuild behavior: the current app covers the screen with a fixed overlay; the redesign draws a banner instead. Header pass: the banner sits beneath the header, above the hero. Phone has no connection. Whatever loaded stays; actions fail until it returns.', ...this.quiet({ hdr: true, headerPad: '16px 20px 24px', banner: 'No connection. Showing what loaded at 6:30 PM. Actions will fail until you are back online.' }) },
+      { id: '7', label: 'Session ended', sub: 'Header pass: the sheet draws above the header, unchanged. Rebuild behavior: after 72 hours any action fails with an authorization error, and the shared banner (Auth A18) says so. Today the app stays on a dead screen.', ...this.quiet({ hdr: true, sheet: 'Your session ended. Sign in to pick up where you were.', sheetBody: 'You will go back to where you were.' }) },
+      { id: '8', label: 'Opened from a link, session ended', sub: 'Rebuild behavior: the opened address is kept and the shared banner sits on sign-in. Today the app lands on the landing page instead.', ...this.base({ isMain: false, isSignin: true }) },
+      { id: '9', label: 'First open after server idle', sub: 'Free-plan hosting only. First request can take about a minute; nothing is loaded yet.', ...this.base({ isMain: false, isWake: true }) },
+      { id: '10a', label: 'Loading', sub: 'Four sources load separately: device status, replies, notes, memories. Reminders and the board arrive in one request. While the first device status loads, the status line reads Checking the device rather than an empty skeleton.', ...this.base({ loading: true, status: 'Checking the device', dot: 'rgba(255,255,255,.4)', engage: '', markAll: '', remCount: '', unread: 0, voiceLabel: 'Pause voice' }) },
+      { id: '10b', label: 'One request failed', sub: 'Replies failed to load while everything else loaded. Plain words, no codes, Try again in place. Reminders and the board arrive together, so one cannot fail without the other.', ...this.quiet({ markAll: '', replies: [], unread: 0, repliesError: 'Could not load Daniel\u2019s replies.' }) },
+      { id: '11', label: 'Empty sections, new household', sub: 'No reminders today, nothing on the board, no replies ever.', ...this.quiet({ engage: 'No memories saved yet.', markAll: '', replies: [], repliesEmpty: 'When Daniel asks Stella to pass something along, it shows up here.', reminders: [], remCount: '', remEmpty: 'No reminders today.', install: true }) }
+    ];
+    const states = [
+      { heading: 'Final', headingNote: finals.length + ' approved' },
+      ...finals.map(s => ({ ...s, badge: '#0f4c4a' })),
+      { heading: 'Working', headingNote: working.length + ' in progress · states from the brief' },
+      ...working.map(s => ({ ...s, badge: '#142428' })),
+      ...actions.map(s => s.heading ? { ...s, heading: 'Actions · ' + s.heading } : { ...s, badge: '#142428' })
+    ];
+    return { ...this.embedVals(), states: this.pickFrame(states) };
+  }
+}
+</script>
+</body>
+</html>

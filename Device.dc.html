@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}@keyframes spin{to{transform:rotate(360deg)}}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / Device</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Device</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Daniel&rsquo;s device, reached from Settings and from the device controls on Today. One scroll: status and modes in the teal block, then levels, sleep schedule and live conversation. Modes use Today&rsquo;s model: current state, one reverse action, and Off while the screen is normal; one pending request per switch, voice or screen; nothing else waits while it is pending; up to 50 seconds to confirm. Levels and schedule save as they change and show what was requested, never what the device applied, because nothing confirms them. Live conversation is Daniel&rsquo;s setting; the copy says who can read the lines. Times are Daniel&rsquo;s (Central), Sun, Sep 6; the unreported variant is D8b.</div>
+</div>
+<div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:-28px; max-width:720px">Header pass: case A, transparent over the teal block, as on Today. Device is a pushed page, so the back row sits beneath the header and there is no Daniel pill (it would open the page you are on). Spec on <a href="Today.dc.html#F1">Today F1</a>.</div>
+</sc-if>
+<div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
+<sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1 0 100%; display:flex; align-items:center; gap:14px; margin-bottom:-12px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:390px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 12px/1.45 'Source Sans 3',sans-serif; color:rgba(20,36,40,.6); min-height:17px; margin-top:-4px">{{ s.sub }}</div>
+  </sc-if>
+
+  <div data-screen-label="{{ s.label }}" style="width:390px; height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+    <div data-scroll="{{ s.scrollTo }}" style="position:absolute; inset:0; padding:0 0 110px; overflow:auto; scrollbar-width:none; box-sizing:border-box; display:flex; flex-direction:column">
+
+      <div style="background:#0f4c4a; color:#fff; padding:16px 20px 20px; flex:none">
+        <div style="display:flex; align-items:center; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div></div>
+        <div style="display:flex; align-items:center; height:44px; margin:12px 0 0 -8px"><a href="#" style="display:flex; align-items:center; gap:2px; color:#fff; text-decoration:none; font:600 16px 'Source Sans 3',sans-serif; height:44px; padding:0 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>Settings</a></div>
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em; margin-top:6px">Daniel&rsquo;s device</div>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:22px">
+          <span style="width:10px; height:10px; border-radius:50%; background:{{ s.dot }}; flex:none"></span>
+          <span style="font-size:18px; font-weight:600; line-height:1.3; flex:1; min-width:0">{{ s.status }}</span>
+        </div>
+        <div style="font-size:15px; line-height:1.4; color:rgba(255,255,255,.82); margin:2px 0 0 20px; text-wrap:pretty">{{ s.engage }}</div>
+        <sc-if value="{{ s.note }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:14px 0 0; font-size:14px; line-height:1.4; color:#fff; background:rgba(255,255,255,.14); border-radius:10px; padding:8px 12px; text-wrap:pretty">{{ s.note }}</div>
+        </sc-if>
+
+        <div style="margin-top:22px; padding-top:16px; border-top:1px solid rgba(255,255,255,.18); display:flex; flex-direction:column; gap:16px">
+          <sc-for list="{{ s.modes }}" as="m" hint-placeholder-count="2">
+            <div style="display:flex; align-items:center; gap:12px">
+              <div style="flex:1; min-width:0"><div style="font-size:13px; color:rgba(255,255,255,.7)">{{ m.name }}</div><div style="font-size:18px; font-weight:600; line-height:1.3">{{ m.state }}</div></div>
+              <div style="display:flex; gap:8px; flex:none">
+                <sc-for list="{{ m.btns }}" as="b" hint-placeholder-count="1">
+                  <button style="height:44px; padding:0 16px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:{{ b.bg }}; opacity:{{ b.opacity }}; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap; display:flex; align-items:center; justify-content:center; gap:8px"><sc-if value="{{ b.pending }}" hint-placeholder-val="{{ false }}"><span style="width:14px; height:14px; border-radius:50%; border:2px solid rgba(255,255,255,.3); border-top-color:#fff; animation:spin 1s linear infinite"></span></sc-if>{{ b.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="padding:0 20px; display:flex; flex-direction:column; gap:12px; flex:none">
+        <div data-anchor="levels" style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; margin-top:28px">Levels</div>
+        <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:6px 16px">
+          <sc-for list="{{ s.levels }}" as="l" hint-placeholder-count="4">
+            <div style="padding:14px 0; border-top:{{ l.top }}; display:flex; flex-direction:column; gap:10px">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px"><div style="font-size:16px; font-weight:600">{{ l.name }}<span style="font-weight:400; color:#56676c"> {{ l.sub }}</span></div><div style="font-size:17px; font-weight:700; font-variant-numeric:tabular-nums; flex:none">{{ l.value }}</div></div>
+              <div style="position:relative; height:28px; display:flex; align-items:center">
+                <div style="position:absolute; left:0; right:0; height:6px; border-radius:3px; background:rgba(20,36,40,.14)"></div>
+                <sc-if value="{{ l.show }}" hint-placeholder-val="{{ true }}">
+                <div style="position:absolute; left:0; width:{{ l.pct }}; height:6px; border-radius:3px; background:#0f4c4a"></div>
+                <div style="position:absolute; left:calc({{ l.pct }} - 14px); width:28px; height:28px; border-radius:50%; background:#fff; box-shadow:0 1px 4px rgba(20,36,40,.35); box-sizing:border-box; border:1px solid rgba(20,36,40,.08)"></div>
+                </sc-if>
+              </div>
+              <sc-if value="{{ l.minLabel }}" hint-placeholder-val="{{ false }}"><div style="display:flex; justify-content:space-between; font-size:12px; color:#8a979b; margin-top:-6px; font-variant-numeric:tabular-nums"><span>{{ l.minLabel }}</span><span>100</span></div></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-size:13px; line-height:1.45; color:#56676c; padding:0 2px; text-wrap:pretty">Each change is sent when you let go. The device does not report the level it is using, so this shows what was last requested.</div>
+
+        <div data-anchor="schedule" style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; margin-top:20px">Sleep schedule</div>
+        <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:0 16px">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:8px 0">
+            <div style="font-size:16px; font-weight:600">Sleep schedule <span style="font-weight:400; color:#56676c">{{ s.schedState }}</span></div>
+            <div style="width:51px; height:31px; border-radius:16px; background:{{ s.schedBg }}; position:relative; flex:none; cursor:pointer"><div style="position:absolute; top:2px; left:{{ s.schedKnob }}; width:27px; height:27px; border-radius:50%; background:#fff; box-shadow:0 2px 4px rgba(20,36,40,.3)"></div></div>
+          </div>
+          <sc-if value="{{ s.schedOn }}" hint-placeholder-val="{{ false }}">
+            <div style="border-top:1px solid rgba(20,36,40,.1); min-height:52px; display:flex; align-items:center; justify-content:space-between; gap:12px; cursor:pointer"><div style="font-size:16px">Sleep at</div><div style="display:flex; align-items:center; gap:6px; font-size:17px; font-weight:600; color:#0f4c4a">{{ s.sleepTime }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a979b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></div></div>
+            <div style="border-top:1px solid rgba(20,36,40,.1); min-height:52px; display:flex; align-items:center; justify-content:space-between; gap:12px; cursor:pointer"><div style="font-size:16px">Wake at</div><div style="display:flex; align-items:center; gap:6px; font-size:17px; font-weight:600; color:#0f4c4a">{{ s.wakeTime }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a979b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></div></div>
+            <div style="border-top:1px solid rgba(20,36,40,.1); padding:12px 0 14px; display:flex; flex-direction:column; gap:10px">
+              <div style="font-size:16px">During sleep, screen is</div>
+              <div style="display:flex; gap:8px">
+                <button style="flex:1; height:44px; border-radius:999px; border:1.5px solid {{ s.nightBorder }}; background:{{ s.nightBg }}; color:{{ s.nightFg }}; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Night light</button>
+                <button style="flex:1; height:44px; border-radius:999px; border:1.5px solid {{ s.offBorder }}; background:{{ s.offBg }}; color:{{ s.offFg }}; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Off</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <div style="font-size:13px; line-height:1.45; color:#56676c; padding:0 2px; text-wrap:pretty">{{ s.schedFoot }}</div>
+
+        <div data-anchor="live" style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; margin-top:20px">Live conversation</div>
+        <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:0 16px">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:8px 0">
+            <div style="font-size:16px; font-weight:600">Live conversation <span style="font-weight:400; color:#56676c">{{ s.liveState }}</span></div>
+            <div style="width:51px; height:31px; border-radius:16px; background:{{ s.liveBg }}; position:relative; flex:none; cursor:pointer"><div style="position:absolute; top:2px; left:{{ s.liveKnob }}; width:27px; height:27px; border-radius:50%; background:#fff; box-shadow:0 2px 4px rgba(20,36,40,.3)"></div></div>
+          </div>
+          <div style="border-top:1px solid rgba(20,36,40,.1); padding:12px 0 14px; font-size:14px; line-height:1.45; color:#142428; text-wrap:pretty">This is Daniel&rsquo;s setting. While it is on, everything he and Stella say is written down and every caregiver on Daniel can read it here as it happens. Any caregiver can turn it off. Lines already written stay stored after the switch goes off.</div>
+          <sc-if value="{{ s.liveOn }}" hint-placeholder-val="{{ false }}">
+            <div style="border-top:1px solid rgba(20,36,40,.1); padding:14px 0 16px; display:flex; flex-direction:column; gap:12px">
+              <sc-if value="{{ s.liveEmpty }}" hint-placeholder-val="{{ false }}"><div style="display:flex; align-items:center; gap:10px; color:#56676c; font-size:15px"><span style="width:14px; height:14px; border-radius:50%; border:2px solid rgba(20,36,40,.15); border-top-color:#0f4c4a; animation:spin 1s linear infinite; flex:none"></span>{{ s.liveEmpty }}</div></sc-if>
+              <sc-for list="{{ s.lines }}" as="ln" hint-placeholder-count="0">
+                <div style="display:flex; flex-direction:column; gap:2px; align-items:{{ ln.align }}"><div style="font-size:12px; font-weight:700; color:#56676c; letter-spacing:.02em">{{ ln.who }}</div><div style="max-width:86%; padding:10px 14px; border-radius:16px; background:{{ ln.bg }}; color:{{ ln.fg }}; font-size:16px; line-height:1.4; text-wrap:pretty">{{ ln.text }}</div></div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      <sc-if value="{{ s.scrollTo }}" hint-placeholder-val="{{ false }}"><div style="height:640px; flex:none"></div></sc-if>
+    </div>
+
+    <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:12px; right:12px; bottom:104px; background:#fff; color:#142428; border-radius:14px; padding:14px 16px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.25)"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.toastDot }}; flex:none; margin-top:7px"></span><span style="flex:1; text-wrap:pretty">{{ s.toast }}</span><sc-if value="{{ s.toastAction }}" hint-placeholder-val="{{ false }}"><button style="border:0; background:none; padding:0; color:#0f4c4a; font:700 15px 'Source Sans 3',sans-serif; cursor:pointer; flex:none; white-space:nowrap">{{ s.toastAction }}</button></sc-if></div>
+    </sc-if>
+
+    <div style="position:absolute; left:0; right:0; bottom:0; background:#fff; border-top:1px solid rgba(20,36,40,.1); padding:10px 8px 12px; display:grid; grid-template-columns:repeat(4,1fr)">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c; position:relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Today</span>
+        <span style="position:absolute; top:0; left:calc(50% + 8px); min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#c45c26; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; box-sizing:border-box">2</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"></path><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Story</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>
+        <span style="font-size:12px; font-weight:600">Profile</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#0f4c4a">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="9" cy="7" r="2" fill="#fff"></circle><circle cx="15" cy="12" r="2" fill="#fff"></circle><circle cx="8" cy="17" r="2" fill="#fff"></circle></svg>
+        <span style="font-size:12px; font-weight:700">Settings</span>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  componentDidMount() { this.scrollAll(); setTimeout(() => this.scrollAll(), 400); setTimeout(() => this.scrollAll(), 1500); }
+  componentDidUpdate() { this.scrollAll(); }
+  scrollAll() {
+    document.querySelectorAll('[data-scroll]').forEach(c => {
+      const k = c.getAttribute('data-scroll'); if (!k) return;
+      const a = c.querySelector('[data-anchor="' + k + '"]'); if (!a) return;
+      c.scrollTop = a.offsetTop - 54 - 4;
+    });
+  }
+  btn(label, o) { return Object.assign({ label, bg: 'transparent', opacity: 1, pending: false }, o); }
+  build(o) {
+    const d = Object.assign({ voice: 'active', screen: 'normal', online: true, seen: true, lastSeen: '', pendingBtn: '', pendingLabel: '', schedOn: false, sleepMode: 'night', sleepTime: '8:30 PM', wakeTime: '6:30 AM', tzKnown: true, liveOn: false, lines: null, levels: [80, 10, 50, 35], levelSub: {}, scrollTo: '', toast: '', toastAction: '', toastDot: '#e0b13a', note: '', status: '', engage: '', lastKnown: false, dot: '' }, o);
+    const voicePending = d.pendingBtn === 'Pause voice' || d.pendingBtn === 'Resume voice';
+    const screenPending = !!d.pendingBtn && !voicePending;
+    const mk = (label, rowPending) => this.btn(label, d.pendingBtn === label ? { pending: true, bg: 'rgba(255,255,255,.14)', label: d.pendingLabel } : { opacity: (rowPending || !d.online) ? .4 : 1 });
+    const voiceBtns = [mk(d.voice === 'active' ? 'Pause voice' : 'Resume voice', voicePending)];
+    const screenBtns = d.screen === 'normal' ? [mk('Night light', screenPending), mk('Off', screenPending)] : [mk('Wake', screenPending)];
+    const screenName = { normal: 'Normal', night: 'Night light', off: 'Off' }[d.screen];
+    const voiceName = d.voice === 'active' ? 'Active' : 'Paused';
+    const modes = [
+      { name: 'Voice', state: d.online ? voiceName : (d.lastKnown ? 'Last known: ' + voiceName.toLowerCase() : 'Unknown'), btns: voiceBtns },
+      { name: 'Screen', state: d.online ? screenName : (d.lastKnown ? 'Last known: ' + screenName.toLowerCase() : 'Unknown'), btns: screenBtns }
+    ];
+    const names = ['Brightness', 'Sleep brightness', 'Speaker', 'Mic'];
+    const levels = names.map((name, i) => {
+      const v = d.levels ? d.levels[i] : null, mic = name === 'Mic';
+      return { name, show: v !== null, value: v === null ? '' : String(v), pct: v === null ? '0%' : (mic ? Math.round((v - 1) / 99 * 100) : v) + '%', top: i ? '1px solid rgba(20,36,40,.1)' : '0', sub: d.levelSub[name] || '', minLabel: mic ? '1' : '' };
+    });
+    const schedOn = d.schedOn, night = d.sleepMode === 'night';
+    const sel = { bg: '#0f4c4a', fg: '#fff', border: '#0f4c4a' }, un = { bg: 'transparent', fg: '#142428', border: 'rgba(20,36,40,.25)' };
+    const n = night ? sel : un, f = night ? un : sel;
+    const lines = (d.lines || []).map(l => l.who === 'Stella'
+      ? { who: 'Stella', text: l.text, align: 'flex-start', bg: '#f3efe6', fg: '#142428' }
+      : { who: 'Someone', text: l.text, align: 'flex-end', bg: '#0f4c4a', fg: '#fff' });
+    const offStatus = d.seen ? 'Offline since ' + d.lastSeen : 'Not seen yet.';
+    const offEngage = d.seen ? 'No word from the device since ' + d.lastSeen + '.' : 'This device has never reported in. Voice and screen state unknown.';
+    return {
+      dot: d.dot || (d.online ? '#8fd3c7' : '#e0b13a'),
+      status: d.status || (d.online ? ('Online, voice ' + d.voice) : offStatus),
+      engage: d.engage || (d.online ? ('Screen ' + screenName.toLowerCase() + '. Sleep schedule ' + (schedOn ? 'on' : 'off') + '.') : offEngage),
+      note: d.note, modes, levels,
+      schedOn, schedState: schedOn ? 'On' : 'Off', schedBg: schedOn ? '#0f4c4a' : 'rgba(20,36,40,.2)', schedKnob: schedOn ? '22px' : '2px',
+      sleepTime: d.sleepTime, wakeTime: d.wakeTime, nightBg: n.bg, nightFg: n.fg, nightBorder: n.border, offBg: f.bg, offFg: f.fg, offBorder: f.border,
+      schedFoot: schedOn ? (d.tzKnown ? 'Times are in the device\u2019s timezone, Central.' : 'Times are in the device\u2019s timezone, which it has not reported yet.') + ' Saved as you change it. Nothing reports whether the device follows the schedule.' : 'Off. Turn it on to set sleep and wake times. Saved as you change it; nothing reports whether the device follows it.',
+      liveOn: d.liveOn, liveState: d.liveOn ? 'On' : 'Off', liveBg: d.liveOn ? '#0f4c4a' : 'rgba(20,36,40,.2)', liveKnob: d.liveOn ? '22px' : '2px',
+      lines, liveEmpty: d.liveOn && !lines.length ? 'Waiting for conversation' : '',
+      scrollTo: d.scrollTo, toast: d.toast, toastAction: d.toastAction, toastDot: d.toastDot
+    };
+  }
+  renderVals() {
+    const states = [
+      { heading: 'Modes', headingNote: 'Today\u2019s model: current state, one reverse action, Off while normal' },
+      { id: 'D1', label: 'Online, everything default', sub: 'The back chevron returns to wherever the screen was opened from, Today or Settings; the tab bar stays so either is one tap away. Teal block carries status and the two mode rows. Voice offers Pause; Screen offers Night light and Off. Levels at 80, 10, 50, 35; Mic runs 1 to 100. Schedule and live conversation off.', ...this.build({}) },
+      { id: 'D13', label: 'Loading, first status not yet in', sub: 'Checking the device until the first status arrives. The level tracks are blank: the defaults 80, 10, 50, 35 must not appear before the device\u2019s values do.', ...this.build({ status: 'Checking the device', engage: 'Waiting for the first status report.', levels: null, dot: 'rgba(255,255,255,.4)' }) },
+      { id: 'D2', label: 'Pending: Off requested', sub: 'Tapped button fills and spins; the label says what is happening. Only the Screen row\u2019s buttons wait; the Voice row, the levels and the schedule stay usable. No elapsed count: the app has no stored request time to show after a reload, so the note repeats the 50-second limit only.', ...this.build({ pendingBtn: 'Off', pendingLabel: 'Turning off\u2026', note: 'Off requested. The device can take up to 50 seconds to confirm.' }) },
+      { id: 'D3', label: 'Confirmed: screen off', sub: 'Status re-read says screen off. The row shows Off and offers Wake; no toast, the change is on screen.', ...this.build({ screen: 'off' }) },
+      { id: 'D4', label: 'Did not confirm after 50 s', sub: 'Device still online; status still says normal, so the buttons return. Toast says what happened and offers the retry. The wish stays stored, so the device may still act later; the copy does not promise either way.', ...this.build({ toast: 'Daniel\u2019s device did not confirm. The screen is still on.', toastAction: 'Try again' }) },
+      { id: 'D5', label: 'Offline, last seen 9:12 AM', sub: 'Amber dot, last-seen time, and the device\u2019s last report kept as Last known. Mode buttons visible and unusable with the reason. Levels and schedule still save; the note says so.', ...this.build({ online: false, lastSeen: '9:12 AM', lastKnown: true, note: 'Pause, night light and off need the device online. Level and schedule changes are still saved.' }) },
+      { id: 'D12', label: 'Never seen', sub: 'Online false and no last-seen time, so no Offline since. Status reads Not seen yet; controls unusable with the reason. Levels show what was last requested from this app, if anything.', ...this.build({ online: false, seen: false, note: 'Pause, night light and off need the device online. Level and schedule changes are still saved.' }) },
+      { id: 'D6', label: 'Voice paused, night light', sub: 'Reverse actions: Resume voice, Wake. Resume confirms when voice reads active; Wake confirms when the screen reads normal. Each confirms on its own switch. The current app requires both, so neither can confirm from this state; the rebuild fixes the rule.', ...this.build({ voice: 'paused', screen: 'night' }) },
+      { id: 'D14', label: 'Session ended on a device write', sub: 'Rebuild behavior: a write that comes back Invalid session lands on sign-in with the shared banner (Auth A18). Today the app stays on a dead screen. Shown here as the moment before the hand-off.', ...this.build({ toast: 'Your session ended. Sign in to pick up where you were.', toastDot: '#e0b13a' }) },
+      { heading: 'Levels and schedule', headingNote: 'saved as changed, shown as requested, never applied' },
+      { id: 'D7', label: 'Speaker moved to 60', sub: 'Slider, number at 17px beside it, one request on release. Requested just now is a transient message that fades, not a lasting state; the footnote explains the device does not report the level it uses. Mic\u2019s track starts at 1.', ...this.build({ levels: [80, 10, 60, 35], levelSub: { Speaker: '\u00b7 Requested just now' }, scrollTo: 'levels' }) },
+      { id: 'D15', label: 'Level change refused', sub: 'The server refused the write. Plain words, the slider returns to the last saved value, and Try again resends. The same pattern serves a schedule change: Could not change the schedule.', ...this.build({ scrollTo: 'levels', toast: 'Could not change the level. Try again.', toastAction: 'Try again' }) },
+      { id: 'D8a', label: 'Schedule just turned on', sub: 'First time on: the defaults 7:00 PM, 7:00 AM and Night light appear and are saved as they stand.', ...this.build({ schedOn: true, sleepTime: '7:00 PM', wakeTime: '7:00 AM', scrollTo: 'schedule' }) },
+      { id: 'D8', label: 'Schedule on', sub: 'Sleep 8:30 PM, wake 6:30 AM, Night light selected. Timezone named in the footnote. Each field saves on change; nothing confirms the device follows it, so nothing here says it does.', ...this.build({ schedOn: true, scrollTo: 'schedule' }) },
+      { id: 'D8b', label: 'Schedule on, timezone not reported', sub: 'Same frame; the footnote says the device has not reported its timezone. Today draws the header variant as state 13.', ...this.build({ schedOn: true, tzKnown: false, scrollTo: 'schedule' }) },
+      { heading: 'Live conversation', headingNote: 'Daniel\u2019s setting; the paragraph says who can read it' },
+      { id: 'D9', label: 'Off, with the explanation', sub: 'The paragraph is always shown, on or off: it is not a personal preference. Any caregiver, including a viewer, can flip it. Lines already written stay stored after it goes off.', ...this.build({ scrollTo: 'live' }) },
+      { id: 'D10', label: 'On, three lines', sub: 'Lines labeled Stella and Someone, newest at the bottom, arriving every 2.5 seconds. The recording carries a role, not a person: anyone in the room can be speaking. Last 200 kept for the session.', ...this.build({ liveOn: true, scrollTo: 'live', lines: [
+        { who: 'Stella', text: 'Good morning, Dan. Did you sleep all right?' },
+        { who: 'Someone', text: 'Not bad. Is it going to rain?' },
+        { who: 'Stella', text: 'Cloudy till noon, then sun. Good day for the tomatoes.' }
+      ] }) },
+      { id: 'D11', label: 'On, no lines yet', sub: 'Waiting for conversation with a quiet spinner; the app keeps checking.', ...this.build({ liveOn: true, scrollTo: 'live', lines: [] }) }
+    ];
+    return { ...this.embedVals(), states: this.pickFrame(states) };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / Public</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Landing page, text opt-in, Terms, Privacy</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Pages anyone can open without signing in. Written for the carrier reviewer first, a family member second. Signed-out root is <a href="Auth.dc.html#A1">Sign in</a>; the landing page is reached by link. Shared shell: the header (Caregiver, with Legavo Inc. beside it), title, content, footer links, copyright. The product is Caregiver throughout and the company is Legavo Inc.; the consent paragraph is the only string kept verbatim. Product naming in the copyright and the consent copy are pending founder question 5.1. Opt-in here takes consent before the code and turns texts on at confirmation, the reverse of <a href="Settings.dc.html">Settings</a>; not smoothed over. Contact details are placeholders.</div>
+</div>
+<div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:-28px; max-width:720px">Header pass: case B on every frame. The brand block is the header: Caregiver with Legavo Inc. beside it. Signed out, so no Daniel pill. The consent sentence still says Legavo because it is verbatim from the constraints doc; Legavo Inc. stays wherever it names the company. Spec on <a href="Today.dc.html#F1">Today F1</a>.</div>
+</sc-if>
+<div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
+<sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1 0 100%; display:flex; align-items:center; gap:14px; margin-bottom:-12px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:390px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 12px/1.45 'Source Sans 3',sans-serif; color:rgba(20,36,40,.6); min-height:17px; margin-top:-4px">{{ s.sub }}</div>
+  </sc-if>
+
+  <div data-screen-label="{{ s.label }}" style="width:390px; height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+    <div data-scroll="{{ s.scrollTo }}" style="position:absolute; inset:0; padding:0 20px 40px; overflow:auto; scrollbar-width:none; box-sizing:border-box; display:flex; flex-direction:column">
+      <div style="flex:none; margin:0 -20px; background:#f3efe6; padding:16px 20px 0; border-bottom:1px solid rgba(20,36,40,.1); position:sticky; top:0; z-index:2"><div style="display:flex; align-items:baseline; gap:10px; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div><div style="font-size:13px; color:#56676c; white-space:nowrap">Legavo Inc.</div></div></div>
+      <div style="display:flex; align-items:center; height:44px; flex:none; margin:12px 0 0 -8px">
+        <sc-if value="{{ s.back }}" hint-placeholder-val="{{ false }}"><a href="{{ s.backHref }}" style="display:flex; align-items:center; gap:2px; color:#0f4c4a; text-decoration:none; font:600 16px 'Source Sans 3',sans-serif; height:44px; padding:0 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>{{ s.back }}</a></sc-if>
+        
+      </div>
+
+      <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; letter-spacing:-.01em; margin-top:{{ s.titleTop }}; flex:none; text-wrap:pretty">{{ s.title }}</div>
+      <sc-if value="{{ s.updated }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; color:#56676c; margin-top:8px; flex:none">{{ s.updated }}</div></sc-if>
+      <sc-if value="{{ s.intro }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:10px; text-wrap:pretty; flex:none">{{ s.intro }}</div></sc-if>
+
+      <sc-if value="{{ s.banner }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start; flex:none"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.bannerDot }}; flex:none; margin-top:7px"></span><div style="min-width:0"><div style="font-size:15px; line-height:1.45; text-wrap:pretty">{{ s.banner }}</div><sc-if value="{{ s.bannerNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px; line-height:1.45; color:#56676c; margin-top:2px; text-wrap:pretty">{{ s.bannerNote }}</div></sc-if></div></div>
+      </sc-if>
+
+      <sc-if value="{{ s.actions }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; gap:8px; margin-top:16px; flex:none">
+          <a href="Auth.dc.html#A1" style="flex:1; height:48px; border-radius:999px; background:#0f4c4a; color:#fff; font:600 16px 'Source Sans 3',sans-serif; text-decoration:none; display:flex; align-items:center; justify-content:center">Sign in</a>
+          <a href="#P2" style="flex:1; height:48px; border-radius:999px; border:1px solid rgba(20,36,40,.25); color:#142428; font:600 16px 'Source Sans 3',sans-serif; text-decoration:none; display:flex; align-items:center; justify-content:center; box-sizing:border-box">Text opt-in</a>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s.rules }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 16px; flex:none">
+          <sc-for list="{{ s.rules }}" as="r" hint-placeholder-count="2">
+            <div style="display:flex; gap:10px; align-items:flex-start; padding:5px 0"><span style="width:6px; height:6px; border-radius:50%; background:#8a979b; flex:none; margin-top:8px"></span><div style="font-size:14px; line-height:1.45; text-wrap:pretty; color:#142428">{{ r }}</div></div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s.form }}" hint-placeholder-val="{{ false }}">
+        <div data-anchor="form" style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:14px; flex:none">
+          <sc-if value="{{ s.form.already }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#0f4c4a; flex:none; margin-top:7px"></span><div style="font-size:14px; line-height:1.45; text-wrap:pretty">{{ s.form.already }}</div></div>
+          </sc-if>
+          <sc-if value="{{ s.form.consentTop }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; gap:12px; align-items:flex-start; cursor:pointer">
+              <span style="width:24px; height:24px; border-radius:7px; border:1.5px solid rgba(20,36,40,.35); background:#faf8f3; flex:none; margin-top:1px; box-sizing:border-box"></span>
+              <div style="font-size:14px; line-height:1.45; text-wrap:pretty">I agree to receive automated text messages from Legavo at the mobile number I provide. Messages include replies from my family member, verification codes, and opt-out confirmations. Message frequency varies (typically fewer than 10 per week). Message and data rates may apply. Consent is not a condition of purchase. Reply HELP for help or STOP to cancel.</div>
+            </div>
+            <div style="font-size:13px; line-height:1.45; color:#56676c; margin-top:-4px">Tick to agree, then confirm.</div>
+          </sc-if>
+          <div style="display:flex; flex-direction:column; gap:6px">
+            <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ s.form.fieldLabel }}</div>
+            <div style="min-height:48px; border-radius:12px; border:{{ s.form.border }}; background:#faf8f3; padding:0 14px; display:flex; align-items:center; box-sizing:border-box"><div style="flex:1; font-size:17px; line-height:1.4; color:{{ s.form.color }}; letter-spacing:{{ s.form.spacing }}">{{ s.form.shown }}</div></div>
+            <sc-if value="{{ s.form.hint }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.4; color:#56676c; text-wrap:pretty">{{ s.form.hint }}</div></sc-if>
+          </div>
+          <sc-if value="{{ s.form.password }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:6px">
+              <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">Password</div>
+              <div style="min-height:48px; border-radius:12px; border:1px solid rgba(20,36,40,.14); background:#faf8f3; padding:0 14px; display:flex; align-items:center; gap:10px; box-sizing:border-box"><div style="flex:1; font-size:17px; line-height:1.4; color:rgba(20,36,40,.4)">Password</div><button style="flex:none; height:44px; margin:0 -10px 0 0; padding:0 8px; border:0; background:none; color:#0f4c4a; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">Show</button></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ s.form.consent }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; gap:12px; align-items:flex-start; cursor:pointer">
+              <span style="width:24px; height:24px; border-radius:7px; border:{{ s.form.boxBorder }}; background:{{ s.form.boxBg }}; flex:none; margin-top:1px; display:flex; align-items:center; justify-content:center; box-sizing:border-box"><sc-if value="{{ s.form.checked }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></sc-if></span>
+              <div style="font-size:14px; line-height:1.45; text-wrap:pretty">I agree to receive automated text messages from Legavo at the mobile number I provide. Messages include replies from my family member, verification codes, and opt-out confirmations. Message frequency varies (typically fewer than 10 per week). Message and data rates may apply. Consent is not a condition of purchase. Reply HELP for help or STOP to cancel.</div>
+            </div>
+            <div style="font-size:13px; line-height:1.45; color:#56676c; text-wrap:pretty; margin-top:-4px">Signing up also means you agree to the <a href="#P11" style="font-weight:600">Terms of Service</a> and <a href="#P12" style="font-weight:600">Privacy Policy</a>.</div>
+          </sc-if>
+          <sc-if value="{{ s.form.error }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; gap:10px; align-items:flex-start; margin-top:-4px"><span style="width:8px; height:8px; border-radius:50%; background:#a8321c; flex:none; margin-top:7px"></span><div style="min-width:0"><div style="font-size:15px; line-height:1.45; color:#a8321c; font-weight:600; text-wrap:pretty">{{ s.form.error }}</div><sc-if value="{{ s.form.errorNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px; line-height:1.45; color:#56676c; margin-top:2px; text-wrap:pretty">{{ s.form.errorNote }}</div></sc-if></div></div>
+          </sc-if>
+          <button style="height:48px; border-radius:999px; border:0; background:{{ s.form.btnBg }}; color:{{ s.form.btnFg }}; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.form.button }}</button>
+          <sc-if value="{{ s.form.secondary }}" hint-placeholder-val="{{ false }}"><button style="height:44px; margin-top:-8px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.form.secondary }}</button></sc-if>
+        </div>
+        <sc-if value="{{ s.form.password }}" hint-placeholder-val="{{ false }}"><a href="Auth.dc.html#A10" style="align-self:center; margin-top:14px; height:44px; display:flex; align-items:center; padding:0 12px; color:#0f4c4a; text-decoration:none; font:600 15px 'Source Sans 3',sans-serif; flex:none">Forgot your password?</a></sc-if>
+        <sc-if value="{{ s.form.below }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px; line-height:1.45; color:#56676c; margin-top:14px; text-align:center; text-wrap:pretty; flex:none">{{ s.form.below }}</div></sc-if>
+      </sc-if>
+
+      <sc-if value="{{ s.done }}" hint-placeholder-val="{{ false }}">
+        <div data-anchor="form" style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:10px; flex:none">
+          <div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.done.dot }}; flex:none; margin-top:7px"></span><div style="font-size:16px; font-weight:600; line-height:1.4; text-wrap:pretty">{{ s.done.title }}</div></div>
+          <div style="font-size:15px; line-height:1.45; text-wrap:pretty">{{ s.done.body }}</div>
+          <sc-if value="{{ s.done.note }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.45; color:#56676c; text-wrap:pretty">{{ s.done.note }}</div></sc-if>
+          <sc-if value="{{ s.done.button }}" hint-placeholder-val="{{ false }}"><a href="{{ s.done.href }}" style="height:48px; margin-top:4px; border-radius:999px; border:1px solid rgba(20,36,40,.25); color:#142428; font:600 16px 'Source Sans 3',sans-serif; text-decoration:none; display:flex; align-items:center; justify-content:center; box-sizing:border-box">{{ s.done.button }}</a></sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ s.sections }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; gap:22px; margin-top:26px; flex:none">
+          <sc-for list="{{ s.sections }}" as="sec" hint-placeholder-count="2">
+            <div data-anchor="{{ sec.key }}" style="display:flex; flex-direction:column; gap:8px">
+              <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1.2">{{ sec.title }}</div>
+              <sc-if value="{{ sec.body }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px; line-height:1.5; text-wrap:pretty">{{ sec.body }}</div></sc-if>
+              <sc-if value="{{ sec.bullets }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; flex-direction:column; gap:6px">
+                  <sc-for list="{{ sec.bullets }}" as="b" hint-placeholder-count="0">
+                    <div style="display:flex; gap:10px; align-items:flex-start"><span style="width:6px; height:6px; border-radius:50%; background:#8a979b; flex:none; margin-top:8px"></span><div style="font-size:15px; line-height:1.5; text-wrap:pretty">{{ b }}</div></div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sec.links }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; gap:14px; flex-wrap:wrap">
+                  <sc-for list="{{ sec.links }}" as="l" hint-placeholder-count="0"><a href="{{ l.href }}" style="font-weight:600; font-size:15px; height:44px; display:flex; align-items:center">{{ l.label }}</a></sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sec.contact }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 16px; display:flex; flex-direction:column; gap:4px; font-size:15px; line-height:1.5"><div>Legavo Inc.</div><div><a href="#" style="font-weight:600; text-decoration:none">hello@example.com</a></div><div style="color:#56676c">100 Example Street, Austin, Texas 78701</div></div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <div style="flex:1"></div>
+      <div style="font-size:13px; line-height:1.5; color:#56676c; text-align:center; padding:28px 8px 0; text-wrap:pretty; flex:none">
+        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap">
+          <sc-if value="{{ s.footSignIn }}" hint-placeholder-val="{{ false }}"><a href="Auth.dc.html#A1" style="font-weight:600; text-decoration:none">Sign in</a></sc-if>
+          <a href="#P2" style="font-weight:600; text-decoration:none">Text opt-in</a><a href="#P11" style="font-weight:600; text-decoration:none">Terms of Service</a><a href="#P12" style="font-weight:600; text-decoration:none">Privacy Policy</a>
+        </div>
+        <div style="margin-top:8px">&copy; 2026 Legavo Inc. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  componentDidMount() { this.scrollAll(); setTimeout(() => this.scrollAll(), 400); setTimeout(() => this.scrollAll(), 1500); }
+  componentDidUpdate() { this.scrollAll(); }
+  scrollAll() {
+    document.querySelectorAll('[data-scroll]').forEach(c => {
+      const k = c.getAttribute('data-scroll'); if (!k) return;
+      const a = c.querySelector('[data-anchor="' + k + '"]'); if (!a) return;
+      c.scrollTop = a.offsetTop - 54 - 10;
+    });
+  }
+  screen(o) {
+    const s = Object.assign({ back: '', backHref: '#P1', wordmark: true, title: '', updated: '', intro: '', banner: '', bannerDot: '#e0b13a', bannerNote: '', actions: false, rules: null, form: null, done: null, sections: null, footSignIn: false, scrollTo: '' }, o);
+    s.titleTop = '28px';
+    return s;
+  }
+  form(o) {
+    const f = Object.assign({ fieldLabel: 'Mobile number', value: '', placeholder: '(555) 555-0100', code: false, consent: true, consentTop: false, checked: false, error: '', errorNote: '', fieldError: false, boxError: false, button: 'Yes, sign me up!', disabled: false, secondary: '', below: '', already: '', hint: '' }, o);
+    f.shown = f.value || f.placeholder;
+    f.color = f.value ? '#142428' : 'rgba(20,36,40,.4)';
+    f.spacing = f.code && f.value ? '.2em' : '0';
+    f.border = f.fieldError ? '1.5px solid #a8321c' : '1px solid rgba(20,36,40,.14)';
+    f.boxBorder = f.checked ? '0' : (f.boxError ? '1.5px solid #a8321c' : '1.5px solid rgba(20,36,40,.35)');
+    f.boxBg = f.checked ? '#0f4c4a' : '#faf8f3';
+    f.btnBg = f.disabled ? 'rgba(20,36,40,.12)' : '#0f4c4a';
+    f.btnFg = f.disabled ? 'rgba(20,36,40,.45)' : '#fff';
+    return f;
+  }
+  renderVals() {
+    const alex = '(555) 123-4567', company = '(312) 555-0142';
+    const rebuild = ' Rebuild behavior: ';
+    const optinRules = [
+      'What you get: replies from your family member, a verification code, an optional test text, and confirmations when you reply HELP or STOP. No marketing.',
+      'How often: it varies, typically fewer than 10 texts per week. Some weeks there are none.',
+      'Message and data rates may apply. Consent is not a condition of purchase.',
+      'Reply HELP for help or STOP to cancel. After STOP, reply START and sign in to turn texts on again.',
+      'Texts come from ' + company + '. US and Canada numbers (+1) only.'
+    ];
+    const optinRulesNoNumber = optinRules.slice(0, 4).concat(['Texts come from the Caregiver number, shown here once it is set up. US and Canada numbers (+1) only.']);
+    const signedIn = { back: 'Settings', backHref: 'Settings.dc.html' };
+    const optinIntro = 'Optional. When your family member asks Stella to tell the family something, it is texted to you. Text back and your note is posted on their screen.';
+    const optin = (o) => this.screen(Object.assign({ back: 'Caregiver', title: 'Text opt-in', intro: optinIntro, rules: optinRules, wordmark: false }, o));
+    const below = 'Already have a login? Sign in to attach this number to your account. Viewers cannot opt in.';
+    const codeForm = (o) => this.form(Object.assign({ fieldLabel: 'Verification code', placeholder: '6-digit code', code: true, consent: false, button: 'Confirm my number', secondary: 'Send a new code', hint: 'Texted to ' + alex + '. It expires in 10 minutes.' }, o));
+
+    const landingSections = [
+      { key: 'about', title: 'About Legavo Inc.', body: 'Legavo Inc. makes the assistant on your family member\u2019s device, and Caregiver, the family portal that goes with it. The assistant, Stella, talks with your family member every day and helps them write their memoir. This website is where the family follows along.' },
+      { key: 'offers', title: 'What this website offers', bullets: ['Signed-in caregivers see how the memoir is going and read finished chapters.', 'Caregivers add notes that appear on your family member\u2019s screen.', 'Optional texts: when your family member asks Stella to tell the family something, it is texted to you, and you can reply by text.'] },
+      { key: 'texts', title: 'Text-message program', bullets: ['Optional. You opt in yourself; no one is enrolled for you.', 'Messages are replies from your family member, verification codes, and HELP and STOP confirmations.', 'Typically fewer than 10 texts per week. Message and data rates may apply. Consent is not a condition of purchase.', 'US and Canada numbers (+1) only. Reply HELP for help or STOP to cancel.', 'Enrolling uses the text opt-in form. Finishing requires a Caregiver account.'], links: [{ label: 'Text opt-in', href: '#P2' }] },
+      { key: 'policies', title: 'Policies', body: 'Account areas of this website need a login. These pages are public.', links: [{ label: 'Terms of Service', href: '#P11' }, { label: 'Privacy Policy', href: '#P12' }] },
+      { key: 'contact', title: 'Contact', contact: true, body: 'Account holders can sign in for support. For help with texts, reply HELP to the Caregiver number after opting in.' }
+    ];
+    const lorem = [
+      'Placeholder text of realistic length for this section. The final wording comes from the founder and is out of scope for the design. Two to four sentences is about right for a section on a phone.',
+      'Placeholder text. Each section is short enough to read in one pass and long enough to show how paragraphs, links and headings sit together on a narrow screen.',
+      'Placeholder text for a shorter section. One or two sentences, so the page shows uneven section lengths rather than a uniform block.',
+      'Placeholder text of realistic length. Where the final copy refers to another page, it links the way the Policies section on the landing page does. Where it needs a date or a number, it is set in the same type as the sentence around it.'
+    ];
+    const legal = (titles) => titles.map((t, i) => t === 'Contact' ? { key: 'contact', title: t, contact: true, body: 'Questions about this policy go to the address below.' } : { key: 'l' + i, title: t, body: lorem[i % lorem.length] });
+
+    const states = [
+      { heading: 'Landing page', headingNote: 'written for the carrier reviewer; reached by link, not by default' },
+      { id: 'P1', label: 'Signed out', sub: 'Wordmark with the company line, then the sections in the current order. Sign in is the filled action, Text opt-in the outlined one; the same pair repeats in the foot with Terms and Privacy. Program facts are bullets so a reviewer can check them one by one. The old \u201cprivate notes\u201d bullet is gone: the family note is shared. Contact block: the real contact email and mailing address ship unchanged; the placeholders are for the mock only.', ...this.screen({ title: 'The family portal for your family member\u2019s Legavo', intro: 'Legavo Inc. makes the assistant on your family member\u2019s device. This website is for the family: follow the memoir as it is written, read chapters, leave notes for their screen, and, if you choose, get their replies by text.', actions: true, sections: landingSections, footSignIn: true }) },
+
+      { heading: 'Text opt-in', headingNote: 'public page; consent first, code second, texts on at confirmation' },
+      { id: 'P2', label: 'Signed out, empty', sub: 'Title and one paragraph, five program bullets, then the form: number, the consent paragraph verbatim next to a box that is never pre-checked, the Terms and Privacy line, the button. Below it, the login note. Back returns to the landing page.', ...optin({ form: this.form({ below }) }) },
+      { id: 'P13', label: 'Company number not configured', sub: 'The server has no texting number yet. The fifth bullet says where it will show instead of a number. Everything else is P2.', ...optin({ rules: optinRulesNoNumber, form: this.form({ below }) }) },
+      { id: 'P3', label: 'Consent unchecked', sub: 'Checked on the phone before anything is sent. The box is outlined red and the message sits above the button. The number stays. The string \u201cEnter your mobile number.\u201d exists for the same slot but is rarely reached: the browser requires the number field, and consent is checked first.', ...optin({ scrollTo: 'form', form: this.form({ value: alex, boxError: true, error: 'Check the box to agree before signing up.', errorNote: 'It is not pre-selected.', below }) }) },
+      { id: 'P4', label: 'Signed out, submitted', sub: 'Auth A1 (logon ID, password, Forgot password, foot) with one added line: why the person is here and what happens after. The number is kept on this phone for the session only; nothing has reached the server. If they never sign in, it is dropped when the session ends.' + rebuild + 'the banner about the kept number does not exist today.', ...this.screen({ title: 'Sign in', banner: 'Sign in to finish signing up for texts.', bannerDot: '#0f4c4a', bannerNote: 'Your number ' + alex + ' is kept on this phone until you do. Nothing has been sent yet.', form: this.form({ fieldLabel: 'Logon ID', placeholder: 'Your logon ID', consent: false, password: true, button: 'Sign in', below: 'Accounts are set up by the Caregiver administrator. You stay signed in on this phone for 72 hours.' }) }) },
+      { id: 'P5', label: 'Back after sign-in, code sent', sub: 'The page returns and sends the code by itself; the banner says so. The consent box is asked for again, unchecked, above the code: the tick does not survive the trip through sign-in, and nothing is stored until the code is confirmed. The line restates the number and login. One button confirms, records consent and turns texts on in one step. Back goes to Settings: a signed-in caregiver cannot reach the landing page.' + rebuild + 'the automatic code and Send a new code do not exist today.', ...optin({ ...signedIn, scrollTo: 'form', banner: 'We sent a verification code to that number. Enter it below to finish.', bannerDot: '#0f4c4a', form: codeForm({ consentTop: true, already: 'Signing up ' + alex + ' as alex.morgan. Consent is recorded when you confirm.' }) }) },
+      { id: 'P6', label: 'Wrong or expired code', sub: 'R4 string verbatim instead of the raw server code shown today. The typed code stays; Send a new code is the way out. Back goes to Settings.' + rebuild + 'Send a new code does not exist today.', ...optin({ ...signedIn, scrollTo: 'form', form: codeForm({ consentTop: true, value: '482 913', fieldError: true, error: 'That code is wrong or expired. Send a new one.', already: 'Signing up ' + alex + ' as alex.morgan. Consent is recorded when you confirm.' }) }) },
+      { id: 'P7', label: 'Signed up', sub: 'One card: verified, consent recorded, texts on. \u201cStella\u2019s replies\u201d replaces \u201cCompanion replies\u201d; this is app copy, not the registered consent text. Where to manage texts, and the way into the app. Back goes to Settings.' + rebuild + 'Open Caregiver does not exist today.', ...optin({ ...signedIn, scrollTo: 'form', done: { dot: '#0f4c4a', title: 'You are signed up. Stella\u2019s replies will come to this phone.', body: 'Texts to ' + alex + ' are on. They come from ' + company + '. Reply STOP any time to cancel.', note: 'Change the number or turn texts off in Settings.', button: 'Open Legavo', href: 'Today.dc.html' } }) },
+      { id: 'P8', label: 'Signed in, already signed up', sub: 'The login already has texts on. The line names the number, says the form changes it, and points to Settings (the current app says Notes). The button reads accordingly; the login note below is gone because the person is signed in. Back goes to Settings.', ...optin({ ...signedIn, scrollTo: 'form', form: this.form({ already: 'Texts are already on for ' + alex + '. Use this form to change the number. Turn texts off, or send a test, in Settings.', button: 'Change my number' }) }) },
+
+      { heading: 'Refused by the server', headingNote: 'R4 strings; same refusals as Settings' },
+      { id: 'P9', label: 'Viewer role', sub: 'Verbatim. A viewer login signed in and submitted; the server refuses every texts action for that role. The form stays, greyed, so the reason is clear and nothing else is offered.' + rebuild + 'the greyed form after a refusal does not exist today.', ...optin({ ...signedIn, scrollTo: 'form', form: this.form({ value: alex, checked: true, error: 'Viewers cannot use text messages.', errorNote: 'Your login is a viewer. Ask the Caregiver administrator if this should change.', disabled: true }) }) },
+      { id: 'P10', label: 'Texts not set up on this server', sub: 'Verbatim. Sending the code failed because texting is not configured. Consent was checked but is not recorded, since nothing completed. Whether texting is live in production is founder question 2.3.' + rebuild + 'the greyed form after a refusal does not exist today.', ...optin({ ...signedIn, scrollTo: 'form', form: this.form({ value: alex, checked: true, error: 'Text messages are not set up on this server yet.', errorNote: 'Your number was kept as pending, but no code could be sent. Try again later, or ask the Caregiver administrator.', disabled: true }) }) },
+      { id: 'P14', label: 'Number already used', sub: 'Verbatim, on the number field. Another login already has this number. The form stays usable so the number can be changed.', ...optin({ ...signedIn, scrollTo: 'form', form: this.form({ value: alex, checked: true, fieldError: true, error: 'That number is already used by another Caregiver login.' }) }) },
+      { id: 'P15', label: 'Bad number', sub: 'On the number field. Anything that is not a US or Canada mobile number, checked on the phone before sending.', ...optin({ scrollTo: 'form', form: this.form({ value: '+44 20 7946 0958', checked: true, fieldError: true, error: 'Enter a US or Canada mobile number.', below }) }) },
+      { id: 'P16', label: 'Administrator signed in', sub: 'The administrator opened the page while signed in. No form: texts belong to caregiver logins. Back goes to Settings.', ...optin({ ...signedIn, banner: 'You are signed in as the administrator. Texts are for caregiver logins.', bannerDot: '#8a979b' }) },
+
+      { heading: 'Terms and Privacy', headingNote: 'reading layout; content is out of scope, placeholder body text' },
+      { id: 'P11', label: 'Terms of Service', sub: 'Brand line, title, last-updated date, seven headed sections at reading size, contact block, footer links, copyright. Current headings kept. One frame; the page scrolls. The live body text ships as is; the placeholder paragraphs only show the layout. The contact block\u2019s real email and address ship unchanged.', ...this.screen({ back: 'Caregiver', wordmark: false, title: 'Terms of Service', updated: 'Last updated August 20, 2026', sections: legal(['Who we are', 'The service', 'Text-message program', 'Accounts', 'Acceptable use', 'Disclaimer', 'Contact']) }) },
+      { id: 'P12', label: 'Privacy Policy', sub: 'Same layout. Current headings kept. The live body text ships as is; placeholder paragraphs show the layout only. Contact block placeholders are for the mock only.', ...this.screen({ back: 'Caregiver', wordmark: false, title: 'Privacy Policy', updated: 'Last updated August 20, 2026', sections: legal(['Who we are', 'What we collect for texts', 'How we use it', 'Processors', 'Retention', 'Your choices', 'Contact']) }) }
+    ];
+    return { ...this.embedVals(), states: this.pickFrame(states) };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}@keyframes spin{to{transform:rotate(360deg)}}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / Settings</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Settings and Texts</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65) ; margin-top:8px">The Settings tab. Overview: who is signed in and for whom, rows to <a href="Device.dc.html">Device</a> and Texts with a one-line summary each, an installation card only when the app is not installed, Terms and Privacy, Sign out with no confirmation. Texts is a pushed page: one number per login, verify by 6-digit code, consent recorded once, one switch. Verified and pending numbers are two different things. Error strings and consent copy are verbatim from the constraints doc. Header pass: case B of the <a href="Today.dc.html#F1">Today header</a> on every frame, sticky over the scrolling page, with the back control as the first row beneath it on Texts. For ruling: the Daniel pill (the Device entry from Today's header) is drawn on the right of the overview screens and hidden on the pushed Texts page. The consent sentence still says Legavo because it is verbatim from the constraints doc. Times are Daniel&rsquo;s (Central), Sun, Sep 6; the unreported-timezone variant is drawn once on <a href="Today.dc.html#13">Today state 13</a>.</div>
+</div>
+</sc-if>
+<div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
+<sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1 0 100%; display:flex; align-items:center; gap:14px; margin-bottom:-12px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:390px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 12px/1.45 'Source Sans 3',sans-serif; color:rgba(20,36,40,.6); min-height:17px; margin-top:-4px">{{ s.sub }}</div>
+  </sc-if>
+
+  <div data-screen-label="{{ s.label }}" style="width:390px; height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+    <div style="position:absolute; inset:0; padding:0 0 110px; overflow:auto; scrollbar-width:none; box-sizing:border-box; display:flex; flex-direction:column">
+    <div style="flex:none; background:#f3efe6; padding:16px 20px 0; border-bottom:1px solid rgba(20,36,40,.1); position:sticky; top:0; z-index:2"><div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div><sc-if value="{{ s.isOverview }}" hint-placeholder-val="{{ true }}"><a href="Device.dc.html" aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(15,76,74,.4); background:transparent; color:#0f4c4a; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></a></sc-if></div></div>
+    <div style="padding:0 20px; display:flex; flex-direction:column">
+
+      <sc-if value="{{ s.isOverview }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; align-items:center; height:44px; margin-top:16px; flex:none"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em">Settings</div></div>
+
+        <div style="margin-top:12px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:14px 16px; display:flex; gap:12px; align-items:center; flex:none">
+          <span style="width:40px; height:40px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; flex:none">A</span>
+          <div style="min-width:0"><div style="font-size:16px; font-weight:600; line-height:1.3">Alex Morgan</div><div style="font-size:14px; line-height:1.4; color:#56676c">Caring for Daniel Morgan</div></div>
+        </div>
+
+        <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; overflow:hidden; flex:none">
+          <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="2">
+            <a href="{{ r.href }}" style="min-height:60px; padding:10px 12px 10px 16px; display:flex; align-items:center; gap:10px; border-top:{{ r.top }}; text-decoration:none; color:#142428; cursor:pointer">
+              <div style="flex:1; min-width:0"><div style="font-size:17px; line-height:1.3; font-weight:600">{{ r.title }}</div><div style="font-size:14px; line-height:1.35; color:#56676c; margin-top:1px; text-wrap:pretty">{{ r.summary }}</div></div>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a979b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M9 5l7 7-7 7"></path></svg>
+            </a>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ s.install }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:8px; flex:none">
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:19px; line-height:1.2">{{ s.install.title }}</div>
+            <div style="font-size:15px; line-height:1.45; color:#142428; text-wrap:pretty">{{ s.install.body }}</div>
+            <sc-if value="{{ s.install.button }}" hint-placeholder-val="{{ false }}">
+              <button style="height:48px; margin-top:6px; border-radius:999px; border:0; background:#0f4c4a; color:#fff; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.install.button }}</button>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; overflow:hidden; flex:none">
+          <a href="#" style="min-height:52px; padding:0 12px 0 16px; display:flex; align-items:center; gap:10px; text-decoration:none; color:#142428; font-size:16px"><span style="flex:1">Terms</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a979b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></a>
+          <a href="#" style="min-height:52px; padding:0 12px 0 16px; display:flex; align-items:center; gap:10px; border-top:1px solid rgba(20,36,40,.1); text-decoration:none; color:#142428; font-size:16px"><span style="flex:1">Privacy</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a979b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></a>
+        </div>
+
+        <button style="height:48px; margin-top:16px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer; flex:none">Sign out</button>
+        <div style="font-size:13px; line-height:1.45; color:#56676c; text-align:center; margin-top:10px; padding:0 12px; text-wrap:pretty; flex:none">Signing out forgets this sign-in on this phone. Otherwise a sign-in lasts 72 hours.</div>
+      </sc-if>
+
+      <sc-if value="{{ s.isTexts }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; align-items:center; height:44px; margin:12px 0 0 -8px; flex:none"><a href="#S1" style="display:flex; align-items:center; gap:2px; color:#0f4c4a; text-decoration:none; font:600 16px 'Source Sans 3',sans-serif; height:44px; padding:0 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>Settings</a></div>
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em; margin-top:6px; flex:none">Texts</div>
+        <div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:10px; text-wrap:pretty; flex:none">Optional. Daniel&rsquo;s replies arrive as texts to your number, and texting back posts a message on his screen. Your number is yours alone; other caregivers set up their own.</div>
+
+        <sc-if value="{{ s.t.blocker }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start; flex:none"><span style="width:8px; height:8px; border-radius:50%; background:#e0b13a; flex:none; margin-top:7px"></span><div style="font-size:15px; line-height:1.45; text-wrap:pretty">{{ s.t.blocker }}</div></div>
+        </sc-if>
+
+        <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px; flex:none; opacity:{{ s.t.opacity }}">
+
+          <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:12px">
+            <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:19px; line-height:1.2">Your number</div>
+            <sc-if value="{{ s.t.verified }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px"><div><div style="font-size:13px; font-weight:600; color:#56676c">Verified</div><div style="font-size:17px; font-weight:600; margin-top:2px">{{ s.t.verified }}</div></div><span style="height:22px; padding:0 8px; border-radius:6px; background:{{ s.t.tagBg }}; color:{{ s.t.tagFg }}; font-size:12px; font-weight:600; display:inline-flex; align-items:center; flex:none">{{ s.t.tag }}</span></div>
+            </sc-if>
+            <sc-if value="{{ s.t.pending }}" hint-placeholder-val="{{ false }}">
+              <div style="padding-top:12px; border-top:1px solid rgba(20,36,40,.1)"><div style="font-size:13px; font-weight:600; color:#56676c">Pending, not yet verified</div><div style="font-size:17px; font-weight:600; margin-top:2px">{{ s.t.pending }}</div><div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:4px; text-wrap:pretty">{{ s.t.pendingNote }}</div></div>
+            </sc-if>
+            <sc-if value="{{ s.t.numberField }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex; flex-direction:column; gap:6px">
+                <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ s.t.numberLabel }}</div>
+                <div style="min-height:48px; border-radius:12px; border:{{ s.t.numberBorder }}; background:#faf8f3; padding:0 14px; display:flex; align-items:center; font-size:17px; line-height:1.4; color:{{ s.t.numberColor }}; box-sizing:border-box">{{ s.t.numberShown }}</div>
+                <div style="font-size:12px; line-height:1.4; color:{{ s.t.numberHintColor }}">{{ s.t.numberHint }}</div>
+              </div>
+              <button style="height:48px; border-radius:999px; border:0; background:{{ s.t.sendBg }}; color:{{ s.t.sendFg }}; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.t.sendLabel }}</button>
+            </sc-if>
+            <sc-if value="{{ s.t.codeField }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; flex-direction:column; gap:6px">
+                <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">6-digit code</div>
+                <div style="min-height:52px; border-radius:12px; border:{{ s.t.codeBorder }}; background:#faf8f3; padding:0 14px; display:flex; align-items:center; font-size:24px; letter-spacing:.24em; font-weight:600; color:{{ s.t.codeColor }}; box-sizing:border-box; font-variant-numeric:tabular-nums">{{ s.t.codeShown }}</div>
+                <div style="font-size:12px; line-height:1.4; color:{{ s.t.codeHintColor }}; text-wrap:pretty">{{ s.t.codeHint }}</div>
+              </div>
+              <div style="display:flex; gap:8px">
+                <button style="height:48px; padding:0 18px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap; flex:none">Send a new code</button>
+                <button style="flex:1; height:48px; border-radius:999px; border:0; background:#0f4c4a; color:#fff; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Verify</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ s.t.changeLink }}" hint-placeholder-val="{{ false }}">
+              <button style="align-self:flex-start; height:40px; padding:0 4px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; margin:-4px 0">Use a different number</button>
+            </sc-if>
+          </div>
+
+          <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:0 16px">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:8px 0">
+              <div style="font-size:16px; font-weight:600">Texts <span style="font-weight:400; color:#56676c">{{ s.t.onState }}</span></div>
+              <div style="width:51px; height:31px; border-radius:16px; background:{{ s.t.swBg }}; position:relative; flex:none; cursor:pointer; opacity:{{ s.t.swOpacity }}"><div style="position:absolute; top:2px; left:{{ s.t.swKnob }}; width:27px; height:27px; border-radius:50%; background:#fff; box-shadow:0 2px 4px rgba(20,36,40,.3)"></div></div>
+            </div>
+            <sc-if value="{{ s.t.onNote }}" hint-placeholder-val="{{ false }}">
+              <div style="border-top:1px solid rgba(20,36,40,.1); padding:12px 0 14px; display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.t.onNoteDot }}; flex:none; margin-top:7px"></span><div style="font-size:14px; line-height:1.45; text-wrap:pretty">{{ s.t.onNote }}</div></div>
+            </sc-if>
+            <sc-if value="{{ s.t.consentShown }}" hint-placeholder-val="{{ false }}">
+              <div style="border-top:1px solid rgba(20,36,40,.1); padding:14px 0 16px; display:flex; gap:12px; align-items:flex-start; cursor:pointer">
+                <span style="width:24px; height:24px; border-radius:7px; border:2px solid {{ s.t.boxBorder }}; background:{{ s.t.boxBg }}; flex:none; margin-top:1px; display:flex; align-items:center; justify-content:center; box-sizing:border-box"><sc-if value="{{ s.t.consent }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></sc-if></span>
+                <div style="font-size:14px; line-height:1.45; text-wrap:pretty">I agree to receive automated text messages from Legavo at the mobile number I provide. Messages include replies from my family member, verification codes, and opt-out confirmations. Message frequency varies (typically fewer than 10 per week). Message and data rates may apply. Consent is not a condition of purchase. Reply HELP for help or STOP to cancel.<sc-if value="{{ s.t.consentWhen }}" hint-placeholder-val="{{ false }}"><div style="color:#56676c; margin-top:6px">{{ s.t.consentWhen }}</div></sc-if></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ s.t.testShown }}" hint-placeholder-val="{{ false }}">
+              <div style="border-top:1px solid rgba(20,36,40,.1); padding:14px 0 16px; display:flex; flex-direction:column; gap:8px">
+                <button style="height:48px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Send a test text</button>
+                <div style="font-size:13px; line-height:1.4; color:#56676c; text-align:center; text-wrap:pretty">{{ s.t.testHint }}</div>
+              </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ s.t.lastError }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:14px 16px; display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:#a8321c; flex:none; margin-top:7px"></span><div style="min-width:0"><div style="font-size:15px; font-weight:600; line-height:1.4; text-wrap:pretty">{{ s.t.lastError }}</div><div style="font-size:14px; line-height:1.45; color:#56676c; margin-top:2px; text-wrap:pretty">Texts stay on. The next reply is sent as usual.</div></div></div>
+          </sc-if>
+
+          <div style="font-size:13px; line-height:1.5; color:#56676c; padding:0 2px; text-wrap:pretty">US and Canada only. Texts come from (312) 555-0142. Any text you send that is not a keyword is posted to Daniel&rsquo;s screen, up to 2,000 characters, and clears at the end of his day. Reply HELP for help or STOP to cancel. <a href="#" style="font-weight:600; text-decoration:none">Full opt-in form</a> &middot; <a href="#" style="font-weight:600; text-decoration:none">Terms</a> &middot; <a href="#" style="font-weight:600; text-decoration:none">Privacy</a></div>
+        </div>
+      </sc-if>
+    </div>
+    </div>
+
+    <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:12px; right:12px; bottom:104px; background:#fff; color:#142428; border-radius:14px; padding:14px 16px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.25)"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.toastDot }}; flex:none; margin-top:7px"></span><span style="flex:1; text-wrap:pretty">{{ s.toast }}</span></div>
+    </sc-if>
+
+    <div style="position:absolute; left:0; right:0; bottom:0; background:#fff; border-top:1px solid rgba(20,36,40,.1); padding:10px 8px 12px; display:grid; grid-template-columns:repeat(4,1fr)">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c; position:relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Today</span>
+        <span style="position:absolute; top:0; left:calc(50% + 8px); min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#c45c26; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; box-sizing:border-box">2</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"></path><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Story</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>
+        <span style="font-size:12px; font-weight:600">Profile</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#0f4c4a">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="9" cy="7" r="2" fill="#fff"></circle><circle cx="15" cy="12" r="2" fill="#fff"></circle><circle cx="8" cy="17" r="2" fill="#fff"></circle></svg>
+        <span style="font-size:12px; font-weight:700">Settings</span>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  overview(o) {
+    const d = Object.assign({ textsOn: false, install: null, toast: '' }, o);
+    const rows = [
+      { title: 'Device', summary: 'Daniel\u2019s device: voice, screen, levels, sleep schedule, live conversation', href: 'Device.dc.html' },
+      { title: 'Texts', summary: d.textsOn ? 'On \u00b7 (555) 123-4567' : 'Off', href: '#S3' }
+    ].map((r, i) => Object.assign({ top: i ? '1px solid rgba(20,36,40,.1)' : '0' }, r));
+    return { isOverview: true, isTexts: false, rows, install: d.install, toast: d.toast, toastDot: '#0f4c4a' };
+  }
+  texts(o) {
+    const d = Object.assign({ verified: '', pending: '', pendingNote: '', numberField: true, numberLabel: 'Mobile number', numberValue: '', numberHint: 'US and Canada only.', numberError: '', codeField: false, codeValue: '', codeError: '', changeLink: false, on: false, consent: false, consentWhen: '', consentShown: false, testShown: false, testHint: 'Only while texts are on. The test says texts are on and where replies will come.', lastError: '', optedOut: false, blocker: '', unavailable: false, swDisabled: false, onNote: '', onNoteDot: '#e0b13a', toast: '', toastDot: '#0f4c4a' }, o);
+    const t = {
+      verified: d.verified, pending: d.pending, pendingNote: d.pendingNote, changeLink: d.changeLink, blocker: d.blocker,
+      opacity: d.unavailable ? .45 : 1,
+      tag: d.optedOut ? 'Opted out by text' : 'Verified', tagBg: d.optedOut ? 'rgba(168,50,28,.1)' : 'rgba(15,76,74,.1)', tagFg: d.optedOut ? '#a8321c' : '#0f4c4a',
+      numberField: d.numberField, numberLabel: d.numberLabel,
+      numberShown: d.numberValue || '(555) 000-0000', numberColor: d.numberValue ? '#142428' : 'rgba(20,36,40,.4)',
+      numberBorder: d.numberError ? '1.5px solid #a8321c' : '1px solid rgba(20,36,40,.14)',
+      numberHint: d.numberError || d.numberHint, numberHintColor: d.numberError ? '#a8321c' : '#56676c',
+      sendLabel: d.pending ? 'Send a new code' : 'Send code', sendBg: d.numberValue ? '#0f4c4a' : 'rgba(20,36,40,.12)', sendFg: d.numberValue ? '#fff' : 'rgba(20,36,40,.45)',
+      codeField: d.codeField, codeShown: d.codeValue || '\u2022\u2022\u2022\u2022\u2022\u2022', codeColor: d.codeValue ? '#142428' : 'rgba(20,36,40,.25)',
+      codeBorder: d.codeError ? '1.5px solid #a8321c' : '1.5px solid #0f4c4a',
+      codeHint: d.codeError || ('Texted to ' + (d.pending || d.verified) + ' from (312) 555-0142. It expires in 10 minutes.'), codeHintColor: d.codeError ? '#a8321c' : '#56676c',
+      onState: d.on ? 'On' : 'Off', swBg: d.on ? '#0f4c4a' : 'rgba(20,36,40,.2)', swKnob: d.on ? '22px' : '2px', swOpacity: d.swDisabled ? .4 : 1,
+      onNote: d.onNote, onNoteDot: d.onNoteDot,
+      consentShown: d.consentShown, consent: d.consent, consentWhen: d.consentWhen, boxBorder: d.consent ? '#0f4c4a' : 'rgba(20,36,40,.3)', boxBg: d.consent ? '#0f4c4a' : '#fff',
+      testShown: d.testShown, testHint: d.testHint, lastError: d.lastError
+    };
+    return { isOverview: false, isTexts: true, t, toast: d.toast, toastDot: d.toastDot };
+  }
+  renderVals() {
+    const num = '(555) 123-4567', newNum = '(555) 987-6543';
+    const consentWhen = 'Consent given';
+    const iphone = { title: 'Add Caregiver to your home screen', body: 'Tap Share, then Add to Home Screen. It opens like an app.' };
+    const android = { title: 'Add Caregiver to your home screen', body: 'It opens like an app.', button: 'Install' };
+    const androidNo = { title: 'Add Caregiver to your home screen', body: 'Open the browser menu, then choose Add to Home screen or Install app.' };
+    const codeSent = 'Code sent. It expires 10 minutes after it was sent.';
+    const states = [
+      { heading: 'Overview', headingNote: 'who, for whom; Device and Texts rows; install card only when not installed' },
+      { id: 'S1', label: 'Texts off, not installed (iPhone)', sub: 'Alex for Daniel; one login, one person, no switcher. Rows carry a one-line summary. Install card shows the iPhone instructions because the app cannot start the install itself. Sign out has no confirmation; the line under it says why nothing is lost.', ...this.overview({ install: iphone }) },
+      { id: 'S2', label: 'Texts on, installed', sub: 'Texts row shows the verified number. Running from the home screen, so the install card is not shown at all.', ...this.overview({ textsOn: true }) },
+      { id: 'S13a', label: 'Android, native install offer', sub: 'Chrome offers install, so the card has a button that opens the phone\u2019s own dialog.', ...this.overview({ install: android }) },
+      { id: 'S13b', label: 'Android, no native offer', sub: 'Menu instructions instead of a button. Desktop shows no card.', ...this.overview({ install: androidNo }) },
+      { id: 'S14', label: 'Session ended', sub: 'Rebuild behavior: tapping Sign out, or a session that ends, lands on sign-in with the shared banner (Auth A18, A0). Today sign-out lands on the landing page. Shown here as the toast the sign-in screen carries.', ...this.overview({ install: iphone, toast: 'Your session ended. Sign in to pick up where you were.' }) },
+
+      { heading: 'Texts: setting up', headingNote: 'number, code, consent, switch; one number per login' },
+      { id: 'S3', label: 'Nothing set up yet', sub: 'Number field with the region rule; Send code is disabled until something is typed. The switch is off and cannot go on: the note names the first step. Consent waits until a number is verified.', ...this.texts({ swDisabled: true, onNote: 'Verify your number before turning texts on.' }) },
+      { id: 'S4', label: 'Code sent, waiting', sub: 'Number moves up as Pending, not yet verified. Code field with where it went and the 10-minute expiry; Send a new code beside Verify. The app does not know when the code was sent after a reload, so the note gives the rule, not an elapsed time.', ...this.texts({ pending: num, pendingNote: codeSent, numberField: false, codeField: true, swDisabled: true, onNote: 'Verify your number before turning texts on.' }) },
+      { id: 'S5', label: 'Wrong or expired code', sub: 'Verbatim error under the field, red border. The entered digits stay so a typo can be fixed; Send a new code is the other way out.', ...this.texts({ pending: num, pendingNote: codeSent, numberField: false, codeField: true, codeValue: '418290', codeError: 'That code is wrong or expired. Send a new one.', swDisabled: true, onNote: 'Verify your number before turning texts on.' }) },
+      { id: 'S6', label: 'Verified, consent not given', sub: 'Number is verified; the checkbox appears with the consent copy verbatim. Turning on without it shows the verbatim refusal.', ...this.texts({ verified: num, numberField: false, changeLink: true, consentShown: true, onNote: 'Check the consent box to turn texts on.' }) },
+      { id: 'S7a', label: 'On, with Send a test text', sub: 'Consent recorded once. The line under the switch appears when it is turned on: replies from the last two days are sent right away. Test only while on; the hint says what the test says.', ...this.texts({ verified: num, numberField: false, changeLink: true, on: true, consentShown: true, consent: true, consentWhen, testShown: true, onNote: 'Turning on sends any replies from the last two days right away.', onNoteDot: '#0f4c4a' }) },
+      { id: 'S7b', label: 'Test text sent', sub: 'Toast; nothing else changes. No delivery confirmation exists, so the copy says sent, not received.', ...this.texts({ verified: num, numberField: false, changeLink: true, on: true, consentShown: true, consent: true, consentWhen, testShown: true, toast: 'Test text sent to ' + num + '.' }) },
+      { id: 'S16', label: 'Test text failed', sub: 'Toast; nothing else changes. Texts stay on.', ...this.texts({ verified: num, numberField: false, changeLink: true, on: true, consentShown: true, consent: true, consentWhen, testShown: true, toast: 'The test text could not be sent.', toastDot: '#a8321c' }) },
+      { id: 'S15', label: 'Texts turned off', sub: 'Confirmation toast after the switch goes off. The verified number and consent stay; turning on again needs no new code.', ...this.texts({ verified: num, numberField: false, changeLink: true, consentShown: true, consent: true, consentWhen, toast: 'Texts are off.' }) },
+      { id: 'S12', label: 'Changing the number', sub: 'Two different things on one card: the verified number still receiving texts, and the pending one waiting for its code. Texts stay on. Verifying the new number replaces the old.', ...this.texts({ verified: num, pending: newNum, pendingNote: codeSent + ' ' + num + ' keeps receiving texts until this one is verified.', numberField: false, codeField: true, on: true, consentShown: true, consent: true, consentWhen, testShown: true }) },
+
+      { heading: 'Texts: refused', headingNote: 'verbatim strings; what to do next' },
+      { id: 'S8', label: 'Opted out by text', sub: 'Daniel\u2019s caregiver texted STOP. Tag on the verified number; texts are off and the switch is locked with the verbatim reason. Replying START by text clears it. Re-verifying a number in the app also clears the opt-out today; whether it should is a founder question. Use a different number stays.', ...this.texts({ verified: num, numberField: false, changeLink: true, optedOut: true, swDisabled: true, consentShown: true, consent: true, consentWhen, onNote: 'You opted out by text. Reply START to the company number first.' }) },
+      { id: 'S9', label: 'Not set up on the server', sub: 'Send code failed. The verbatim string appears as the field error; the rest of the page stays readable so the caregiver knows what texts would do.', ...this.texts({ numberValue: num, numberError: 'Text messages are not set up on this server yet.', swDisabled: true, onNote: 'Verify your number before turning texts on.' }) },
+      { id: 'S17', label: 'Number already used', sub: 'Verbatim, on the number field. Another Caregiver login has this number. The typed number stays so it can be changed.', ...this.texts({ numberValue: num, numberError: 'That number is already used by another Caregiver login.', swDisabled: true, onNote: 'Verify your number before turning texts on.' }) },
+      { id: 'S10', label: 'Last send failed', sub: 'The remembered error, in its own card under the switch. The stored reason is a code, not a sentence, so the card says only that the last text could not be sent. Texts stay on; the app cannot retry a text, so no button.', ...this.texts({ verified: num, numberField: false, changeLink: true, on: true, consentShown: true, consent: true, consentWhen, testShown: true, lastError: 'The last text could not be sent.' }) },
+      { id: 'S11', label: 'Viewer role', sub: 'The server refuses every texts action for a viewer, so the whole page reads as unavailable: one message at the top, controls dimmed, switch locked.', ...this.texts({ blocker: 'Viewers cannot use text messages.', unavailable: true, swDisabled: true }) }
+    ];
+    return { ...this.embedVals(), states: this.pickFrame(states) };
+  }
+}
+</script>
+</body>
+</html>

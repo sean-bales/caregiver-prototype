@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}@keyframes sk{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}@keyframes spin{to{transform:rotate(360deg)}}</style></helmet>
+<div style="min-height:100vh; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428; box-sizing:border-box">
+
+<sc-if value="{{ isEntry }}" hint-placeholder-val="{{ true }}">
+  <div style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; box-sizing:border-box; gap:36px">
+    <div style="text-align:center; max-width:520px">
+      <div style="font:600 13px 'Source Sans 3',sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#56676c">Caregiver · clickable prototype</div>
+      <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:34px; line-height:1.15; margin-top:10px">Pick a width</div>
+      <div style="font-size:16px; line-height:1.5; color:#3a4f55; margin-top:10px; text-wrap:pretty">Sunday, September 6, 2026, Central. Alex Morgan is signed in for Daniel Morgan. Every screen is an accepted frame; the switcher on the right edge reaches any state.</div>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center">
+      <a href="#phone/today/F1" style="display:flex; flex-direction:column; align-items:center; gap:14px; width:220px; padding:28px 20px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:20px; text-decoration:none; color:#142428; box-shadow:0 2px 6px rgba(20,36,40,.08)">
+        <div style="width:44px; height:78px; border-radius:10px; border:2.5px solid #0f4c4a"></div>
+        <div style="font:600 18px 'Source Sans 3',sans-serif">Phone</div>
+        <div style="font-size:13px; color:#56676c">390 wide</div>
+      </a>
+      <a href="#desktop/today/F1" style="display:flex; flex-direction:column; align-items:center; gap:14px; width:220px; padding:28px 20px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:20px; text-decoration:none; color:#142428; box-shadow:0 2px 6px rgba(20,36,40,.08)">
+        <div style="width:104px; height:72px; border-radius:8px; border:2.5px solid #0f4c4a; margin:3px 0"></div>
+        <div style="font:600 18px 'Source Sans 3',sans-serif">Desktop</div>
+        <div style="font-size:13px; color:#56676c">1440 by 1000</div>
+      </a>
+    </div>
+    <a href="#index" style="font:600 14px 'Source Sans 3',sans-serif">Frame index</a>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isIndex }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1100px; margin:0 auto; padding:40px 24px 80px; box-sizing:border-box">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap">
+      <div>
+        <div style="font:600 13px 'Source Sans 3',sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#56676c">Caregiver · clickable prototype</div>
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:30px; line-height:1.15; margin-top:8px">Frame index</div>
+        <div style="font-size:14px; line-height:1.5; color:#3a4f55; margin-top:8px; max-width:640px; text-wrap:pretty">Every frame ID on the twenty accepted pages, phone and desktop side by side. Each link opens the prototype at that frame with the switcher set to match. {{ indexCount }}</div>
+      </div>
+      <a href="#" style="font:600 14px 'Source Sans 3',sans-serif">Entry page</a>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:32px; margin-top:32px">
+      <sc-for list="{{ indexRows }}" as="g" hint-placeholder-count="3">
+        <div>
+          <div style="display:flex; align-items:center; gap:14px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ g.label }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:#56676c">{{ g.note }}</div></div>
+          <div style="display:grid; grid-template-columns:72px minmax(0,1fr) minmax(0,1fr); gap:0 16px; margin-top:10px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:6px 16px">
+            <div style="font:700 11px 'Source Sans 3',sans-serif; letter-spacing:.06em; text-transform:uppercase; color:#56676c; padding:8px 0">ID</div>
+            <div style="font:700 11px 'Source Sans 3',sans-serif; letter-spacing:.06em; text-transform:uppercase; color:#56676c; padding:8px 0">Phone</div>
+            <div style="font:700 11px 'Source Sans 3',sans-serif; letter-spacing:.06em; text-transform:uppercase; color:#56676c; padding:8px 0">Desktop</div>
+            <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="0">
+              <div style="font:700 13px 'Source Sans 3',sans-serif; padding:9px 0; border-top:1px solid rgba(20,36,40,.07); color:#0f4c4a">{{ r.id }}</div>
+              <div style="font-size:14px; line-height:1.35; padding:9px 0; border-top:1px solid rgba(20,36,40,.07)"><a href="{{ r.phoneHref }}" style="text-decoration:none; color:{{ r.phoneColor }}">{{ r.phoneLabel }}</a></div>
+              <div style="font-size:14px; line-height:1.35; padding:9px 0; border-top:1px solid rgba(20,36,40,.07)"><a href="{{ r.desktopHref }}" style="text-decoration:none; color:{{ r.desktopColor }}">{{ r.desktopLabel }}</a></div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isFrame }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex; justify-content:{{ frameJustify }}; align-items:flex-start; padding:{{ framePad }}; box-sizing:border-box; min-height:100vh">
+    <sc-if value="{{ isPhone }}" hint-placeholder-val="{{ true }}">
+      <div style="position:relative; flex:none; background:#142428; border-radius:58px; padding:14px; box-shadow:0 30px 70px rgba(20,36,40,.35), inset 0 0 0 2px rgba(255,255,255,.08)">
+        <div onClick="{{ onFrameClick }}" style="width:390px; height:844px; border-radius:44px; overflow:auto; scrollbar-width:none; background:#f3efe6; position:relative">
+          
+          <sc-if value="{{ show.today }}" hint-placeholder-val="{{ false }}"><dc-import name="Today" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.compose }}" hint-placeholder-val="{{ false }}"><dc-import name="Compose" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.device }}" hint-placeholder-val="{{ false }}"><dc-import name="Device" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.chapters }}" hint-placeholder-val="{{ false }}"><dc-import name="Chapters" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.photos }}" hint-placeholder-val="{{ false }}"><dc-import name="Photos" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.profile }}" hint-placeholder-val="{{ false }}"><dc-import name="Profile" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.settings }}" hint-placeholder-val="{{ false }}"><dc-import name="Settings" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.auth }}" hint-placeholder-val="{{ false }}"><dc-import name="Auth" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.admin }}" hint-placeholder-val="{{ false }}"><dc-import name="Admin" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+          <sc-if value="{{ show.public }}" hint-placeholder-val="{{ false }}"><dc-import name="Public" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
+        
+        </div>
+        <sc-if value="{{ showMarker }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; left:26px; right:26px; top:70px; z-index:6; pointer-events:none; display:flex; flex-direction:column; gap:6px">
+            <sc-for list="{{ markers }}" as="m" hint-placeholder-count="0">
+              <div style="align-self:flex-start; max-width:100%; background:#c45c26; color:#fff; border-radius:8px; padding:6px 10px; font:600 12px/1.35 ui-monospace,Menlo,monospace; box-shadow:0 6px 18px rgba(20,36,40,.35)">{{ m.text }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ false }}">
+      <div style="position:relative; flex:none">
+        <div onClick="{{ onFrameClick }}" style="width:1440px; min-height:1000px; border-radius:12px; overflow:hidden; background:#f3efe6; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14)">
+          
+          <sc-if value="{{ showD.today }}" hint-placeholder-val="{{ false }}"><dc-import name="Today desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.compose }}" hint-placeholder-val="{{ false }}"><dc-import name="Compose desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.device }}" hint-placeholder-val="{{ false }}"><dc-import name="Device desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.chapters }}" hint-placeholder-val="{{ false }}"><dc-import name="Chapters desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.photos }}" hint-placeholder-val="{{ false }}"><dc-import name="Photos desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.profile }}" hint-placeholder-val="{{ false }}"><dc-import name="Profile desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.settings }}" hint-placeholder-val="{{ false }}"><dc-import name="Settings desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.auth }}" hint-placeholder-val="{{ false }}"><dc-import name="Auth desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.admin }}" hint-placeholder-val="{{ false }}"><dc-import name="Admin desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+          <sc-if value="{{ showD.public }}" hint-placeholder-val="{{ false }}"><dc-import name="Public desktop" frame="{{ frame }}" hint-size="1440px,1000px"></dc-import></sc-if>
+        
+        </div>
+        <sc-if value="{{ showMarker }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; left:24px; top:68px; z-index:6; pointer-events:none; display:flex; flex-direction:column; gap:6px; max-width:520px">
+            <sc-for list="{{ markers }}" as="m" hint-placeholder-count="0">
+              <div style="align-self:flex-start; background:#c45c26; color:#fff; border-radius:8px; padding:6px 10px; font:600 12px/1.35 ui-monospace,Menlo,monospace; box-shadow:0 6px 18px rgba(20,36,40,.35)">{{ m.text }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+
+  <button onClick="{{ togglePanel }}" style="position:fixed; right:{{ tabRight }}; top:50%; transform:translateY(-50%); width:34px; height:150px; border:0; border-radius:10px 0 0 10px; background:#142428; color:#fff; cursor:pointer; z-index:60; display:flex; align-items:center; justify-content:center; gap:10px; writing-mode:vertical-rl; transform-origin:center; font:700 11px ui-monospace,Menlo,monospace; letter-spacing:.14em; text-transform:uppercase; box-shadow:-4px 0 16px rgba(20,36,40,.25)"><span style="color:#8fd3c7">{{ frame }}</span><span>Switcher</span></button>
+
+  <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; right:0; top:0; height:100vh; width:380px; background:#142428; color:#fff; z-index:55; overflow:auto; scrollbar-width:thin; box-sizing:border-box; padding:22px 22px 40px; font:400 14px/1.4 ui-monospace,Menlo,monospace; box-shadow:-10px 0 30px rgba(20,36,40,.3)">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px">
+        <div style="font:700 11px ui-monospace,Menlo,monospace; letter-spacing:.14em; text-transform:uppercase; color:#8fd3c7">Switcher · not part of the app</div>
+        <button onClick="{{ togglePanel }}" style="height:32px; padding:0 10px; border:1px solid rgba(255,255,255,.25); border-radius:6px; background:none; color:#fff; font:600 12px ui-monospace,Menlo,monospace; cursor:pointer">Close</button>
+      </div>
+      <div style="margin-top:14px; display:flex; align-items:baseline; gap:10px"><span style="font:700 20px ui-monospace,Menlo,monospace; color:#8fd3c7">{{ frame }}</span><span style="font:600 14px 'Source Sans 3',sans-serif">{{ surfaceLabel }} · {{ widthLabel }}</span></div>
+      <div style="font:400 14px/1.45 'Source Sans 3',sans-serif; color:rgba(255,255,255,.85); margin-top:4px">{{ frameLabel }}</div>
+
+      <div style="display:flex; gap:8px; margin-top:16px; flex-wrap:wrap">
+        <button onClick="{{ toggleWidth }}" style="height:34px; padding:0 12px; border:1px solid rgba(255,255,255,.25); border-radius:6px; background:none; color:#fff; font:600 12px ui-monospace,Menlo,monospace; cursor:pointer">{{ otherWidthLabel }}</button>
+        <button onClick="{{ toggleMarkers }}" style="height:34px; padding:0 12px; border:1px solid rgba(255,255,255,.25); border-radius:6px; background:{{ markersBg }}; color:#fff; font:600 12px ui-monospace,Menlo,monospace; cursor:pointer">{{ markersLabel }}</button>
+        <button onClick="{{ reset }}" style="height:34px; padding:0 12px; border:1px solid rgba(255,255,255,.25); border-radius:6px; background:none; color:#fff; font:600 12px ui-monospace,Menlo,monospace; cursor:pointer">Reset</button>
+        <a href="#index" style="height:34px; padding:0 12px; border:1px solid rgba(255,255,255,.25); border-radius:6px; color:#fff; font:600 12px ui-monospace,Menlo,monospace; display:inline-flex; align-items:center; text-decoration:none; box-sizing:border-box">Frame index</a>
+      </div>
+
+      <div style="margin-top:24px; font:700 11px ui-monospace,Menlo,monospace; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.55)">Notes</div>
+      <div style="margin-top:8px; font:400 13px/1.5 'Source Sans 3',sans-serif; color:rgba(255,255,255,.85); text-wrap:pretty">{{ noteText }}</div>
+      <sc-for list="{{ markers }}" as="m" hint-placeholder-count="0">
+        <div style="margin-top:8px; padding:8px 10px; border-radius:6px; background:rgba(196,92,38,.25); border:1px solid rgba(196,92,38,.6); font:400 13px/1.45 'Source Sans 3',sans-serif">{{ m.text }}</div>
+      </sc-for>
+      <sc-for list="{{ gaps }}" as="g" hint-placeholder-count="0">
+        <div style="margin-top:8px; padding:8px 10px; border-radius:6px; background:rgba(224,177,58,.15); border:1px solid rgba(224,177,58,.5); font:400 13px/1.45 'Source Sans 3',sans-serif"><span style="font:700 11px ui-monospace,Menlo,monospace; color:#e0b13a">GAP</span> {{ g.text }}</div>
+      </sc-for>
+
+      <div style="margin-top:24px; font:700 11px ui-monospace,Menlo,monospace; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.55)">Situation</div>
+      <sc-for list="{{ situationGroups }}" as="grp" hint-placeholder-count="0">
+        <div style="margin-top:12px">
+          <div style="font:600 12px 'Source Sans 3',sans-serif; color:rgba(255,255,255,.6)">{{ grp.title }}</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px">
+            <sc-for list="{{ grp.options }}" as="o" hint-placeholder-count="0">
+              <button onClick="{{ o.go }}" title="{{ o.hint }}" style="height:30px; padding:0 10px; border:1px solid {{ o.border }}; border-radius:999px; background:{{ o.bg }}; color:{{ o.color }}; font:600 12px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ o.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+
+      <div style="margin-top:24px; font:700 11px ui-monospace,Menlo,monospace; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.55)">This screen</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px">
+        <sc-for list="{{ surfaces }}" as="sf" hint-placeholder-count="0">
+          <button onClick="{{ sf.go }}" style="height:30px; padding:0 10px; border:1px solid {{ sf.border }}; border-radius:6px; background:{{ sf.bg }}; color:{{ sf.color }}; font:600 12px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ sf.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex; flex-direction:column; margin-top:12px; border-top:1px solid rgba(255,255,255,.12)">
+        <sc-for list="{{ screenFrames }}" as="f" hint-placeholder-count="0">
+          <sc-if value="{{ f.heading }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:12px 0 4px; font:600 12px 'Source Sans 3',sans-serif; color:rgba(255,255,255,.55)">{{ f.heading }}</div>
+          </sc-if>
+          <sc-if value="{{ f.id }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ f.go }}" style="display:flex; align-items:center; gap:10px; min-height:36px; padding:6px 8px; margin:0 -8px; border:0; border-radius:6px; background:{{ f.bg }}; color:#fff; text-align:left; cursor:pointer"><span style="font:700 12px ui-monospace,Menlo,monospace; color:#8fd3c7; min-width:44px">{{ f.id }}</span><span style="font:400 13px/1.3 'Source Sans 3',sans-serif">{{ f.label }}</span></button>
+          </sc-if>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; left:50%; bottom:24px; transform:translateX(-50%); max-width:min(520px, calc(100vw - 48px)); background:#e0b13a; color:#142428; border-radius:8px; padding:10px 14px; font:600 13px/1.4 ui-monospace,Menlo,monospace; z-index:70; box-shadow:0 8px 24px rgba(20,36,40,.3)">{{ toast }}</div>
+  </sc-if>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;markersDefault&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Review&quot;}}">
+class Component extends DCLogic {
+  state = { route: null, situation: null, open: false, markers: false, stack: [], meta: {}, gaps: [], toast: '', prev: null };
+  R = null;
+  async componentDidMount() {
+    this.R = await import('./prototype-rules.js');
+    this.setState({ situation: { ...this.R.DEFAULT_SITUATION }, markers: !!(this.props.markersDefault ?? false) });
+    this.onHash = () => this.readHash(true);
+    window.addEventListener('hashchange', this.onHash);
+    this.onKey = e => { if (e.key === 'Escape') this.escape(); };
+    document.addEventListener('keydown', this.onKey);
+    if (!location.hash && window.innerWidth < 720) location.hash = '#phone/today/F1';
+    this.readHash(true);
+    const names = [];
+    for (const k of this.R.ORDER) { names.push(this.R.SURFACES[k].phone, this.R.SURFACES[k].desktop); }
+    const meta = {};
+    await Promise.all(names.map(async n => {
+      try { const t = await (await fetch('./' + n + '.dc.html')).text(); meta[n] = this.parseMeta(t); } catch (e) { meta[n] = []; }
+    }));
+    this.setState({ meta });
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.onHash); document.removeEventListener('keydown', this.onKey); }
+  parseMeta(t) {
+    const src = t.split('data-dc-script')[1] || t;
+    const dec = s => { try { return JSON.parse('"' + s.replace(/\\'/g, "'").replace(/"/g, '\\"') + '"'); } catch (e) { return s; } };
+    const re = /\{ heading: '((?:[^'\\]|\\.)*)'|\bid: '([^']+)',\s*label: '((?:[^'\\]|\\.)*)',\s*sub: '((?:[^'\\]|\\.)*)'/g;
+    const out = []; let m;
+    while ((m = re.exec(src))) {
+      if (m[1] !== undefined) out.push({ heading: dec(m[1]) });
+      else if (!m[2].includes(' · ') && !out.some(o => o.id === m[2])) out.push({ id: m[2], label: dec(m[3]), sub: dec(m[4]) });
+    }
+    return out;
+  }
+  readHash(applySituation) {
+    const h = location.hash.replace(/^#/, '');
+    if (!h) return this.setState({ route: null });
+    if (h === 'index') return this.setState({ route: 'index' });
+    const [width, surface, frame] = h.split('/');
+    if (!this.R || !this.R.SURFACES[surface]) return this.setState({ route: null });
+    const f = frame || this.R.SURFACES[surface].base;
+    const next = { width: width === 'desktop' ? 'desktop' : 'phone', surface, frame: f };
+    const cur = this.state.route;
+    const same = cur && typeof cur === 'object' && cur.width === next.width && cur.surface === next.surface && cur.frame === next.frame;
+    if (same) return;
+    const patch = { route: next, prev: cur && typeof cur === 'object' ? cur : null };
+    if (applySituation && !this.navigating) patch.situation = { ...(this.state.situation || this.R.DEFAULT_SITUATION), ...this.R.situationForFrame(surface, f) };
+    this.navigating = false;
+    this.setState(patch);
+  }
+  go(width, surface, frame) {
+    this.navigating = true;
+    location.hash = '#' + width + '/' + surface + '/' + frame;
+  }
+  landing(surface) {
+    const s = this.R.SURFACES[surface];
+    return this.R.frameForSituation(surface, this.state.situation) || s.base;
+  }
+  escape() {
+    if (this.state.open) return this.setState({ open: false });
+    const r = this.state.route; if (!r || typeof r !== 'object' || r.width !== 'desktop') return;
+    if (r.surface === 'compose') return this.go(r.width, 'today', this.landing('today'));
+    if (r.frame !== this.landing(r.surface)) this.go(r.width, r.surface, this.landing(r.surface));
+  }
+  gap(text) {
+    const r = this.state.route;
+    const g = { text, frame: r.frame, surface: r.surface };
+    this.setState(s => ({ gaps: [g, ...s.gaps.filter(x => x.text !== text)].slice(0, 6), toast: text }));
+    clearTimeout(this.toastT); this.toastT = setTimeout(() => this.setState({ toast: '' }), 4500);
+  }
+  apply(target, ctx) {
+    const r = this.state.route;
+    if (typeof target === 'function') target = target(ctx);
+    if (!target) return false;
+    if (target.startsWith('gap:')) { this.gap(target.slice(4)); return true; }
+    if (target === 'back') {
+      const st = this.state.stack.slice(); const p = st.pop();
+      this.setState({ stack: st });
+      if (p) this.go(r.width, p.surface, p.frame); else this.go(r.width, 'today', this.landing('today'));
+      return true;
+    }
+    if (target.startsWith('tab:')) {
+      const surf = this.R.TABS[target.slice(4)];
+      this.setState({ stack: [] });
+      this.go(r.width, surf, this.landing(surf)); return true;
+    }
+    if (target.startsWith('push:')) {
+      this.setState(s => ({ stack: [...s.stack, { surface: r.surface, frame: r.frame }] }));
+      target = target.slice(5);
+    }
+    if (target.includes('/')) { const [s, f] = target.split('/'); this.go(r.width, s, f); }
+    else this.go(r.width, r.surface, target);
+    return true;
+  }
+  onFrameClick = e => {
+    const r = this.state.route; if (!r || typeof r !== 'object' || !this.R) return;
+    const el = e.target;
+    const ctl = el.closest('button, a, [role="button"], [role="switch"], input, textarea, select');
+    if (ctl && ctl.tagName === 'A') e.preventDefault();
+    let raw = ctl ? (ctl.getAttribute('aria-label') || ctl.textContent || '') : '';
+    if (!ctl) { // tab items and segments are plain divs: take the nearest short-text ancestor
+      let n = el; for (let i = 0; i < 4 && n && n !== e.currentTarget; i++, n = n.parentElement) {
+        const tx = (n.innerText || '').trim(); if (tx && tx.length <= 24 && !tx.includes('\n')) { raw = tx; break; }
+      }
+    }
+    const label = raw.replace(/\s+/g, ' ').replace(/[…\u2026]+$/, '').trim().toLowerCase().replace(/^[^a-z0-9]+/, '');
+    if (window.__protoDebug) console.log('[proto click]', r.surface, r.frame, JSON.stringify(label));
+    const card = el.closest('[data-anchor], [style*="cursor: pointer"]:not(button):not(a), [style*="border-radius: 16px"], [style*="border-radius: 14px"], [style*="border-radius: 12px"], [style*="border-radius: 10px"], [style*="background: rgb(255, 255, 255)"]');
+    const cardText = card ? (card.innerText || '') : '';
+    const ctx = {
+      frame: r.frame, surface: r.surface, width: r.width, label, inCard: !!card, cardText, situation: this.state.situation,
+      cardHas: s => cardText.includes(s),
+      inField: !!el.closest('input, textarea, [style*="height: 52px"], [style*="height: 48px"], [style*="min-height: 120px"]')
+    };
+    const rules = [...(this.R.RULES[r.surface] || []).map(x => ({ frames: x[0], label: x[1], target: x[2] }))];
+    if (this.R.SIGNED_IN.includes(r.surface)) rules.push(...this.R.COMMON.map(x => ({ frames: '*', label: x[0], target: x[1] })));
+    for (const rule of rules) {
+      if (rule.frames !== '*' && !rule.frames.split(',').includes(r.frame)) continue;
+      if (rule.label !== '*') {
+        if (!label) continue;
+        if (rule.label instanceof RegExp ? !rule.label.test(label) : !label.startsWith(rule.label)) continue;
+      }
+      if (this.apply(rule.target, ctx)) return;
+    }
+    if (ctl && label) this.gap('No accepted frame answers "' + raw.replace(/\s+/g, ' ').trim() + '" on ' + r.frame + '. Logged as a gap.');
+  };
+  renderVals() {
+    const R = this.R; const { route, meta, situation, open, markers, gaps, toast } = this.state;
+    const isEntry = !route, isIndex = route === 'index', isFrame = !!route && typeof route === 'object';
+    const v = { isEntry, isIndex, isFrame, isPhone: isFrame && route.width === 'phone', isDesktop: isFrame && route.width === 'desktop', open, toast, gaps: [], markers: [], showMarker: false, screenFrames: [], situationGroups: [], surfaces: [], indexRows: [], indexCount: '' };
+    v.onFrameClick = this.onFrameClick;
+    v.togglePanel = () => this.setState(s => ({ open: !s.open }));
+    v.toggleMarkers = () => this.setState(s => ({ markers: !s.markers }));
+    v.markersLabel = markers ? 'Markers on' : 'Markers off';
+    v.markersBg = markers ? '#c45c26' : 'none';
+    v.reset = () => { this.setState({ situation: { ...R.DEFAULT_SITUATION }, stack: [], gaps: [], markers: false }); this.go(route.width || 'phone', 'today', 'F1'); };
+    if (!R) return v;
+    if (isIndex) {
+      let n = 0;
+      v.indexRows = R.ORDER.map(k => {
+        const s = R.SURFACES[k]; const p = meta[s.phone] || [], d = meta[s.desktop] || [];
+        const ids = []; p.forEach(f => f.id && ids.push(f.id)); d.forEach(f => f.id && !ids.includes(f.id) && ids.push(f.id));
+        if (ids.includes(s.base)) ids.splice(0, 0, ...ids.splice(ids.indexOf(s.base), 1));
+        const rows = ids.map(id => {
+          const pf = p.find(f => f.id === id), df = d.find(f => f.id === id); n += (pf ? 1 : 0) + (df ? 1 : 0);
+          return { id, phoneLabel: pf ? pf.label : 'no phone counterpart', desktopLabel: df ? df.label : 'no desktop counterpart',
+            phoneHref: pf ? '#phone/' + k + '/' + id : '#index', desktopHref: df ? '#desktop/' + k + '/' + id : '#index',
+            phoneColor: pf ? '#0f4c4a' : 'rgba(20,36,40,.4)', desktopColor: df ? '#0f4c4a' : 'rgba(20,36,40,.4)' };
+        });
+        return { label: s.label, note: p.filter(f => f.id).length + ' phone · ' + d.filter(f => f.id).length + ' desktop', rows };
+      });
+      v.indexCount = n ? n + ' frames.' : '';
+      return v;
+    }
+    if (!isFrame) return v;
+    const s = R.SURFACES[route.surface];
+    const dcName = route.width === 'desktop' ? s.desktop : s.phone;
+    const frames = meta[dcName] || [];
+    const cur = frames.find(f => f.id === route.frame);
+    const other = route.width === 'desktop' ? 'phone' : 'desktop';
+    const otherName = other === 'desktop' ? s.desktop : s.phone;
+    Object.assign(v, {
+      dcName, frame: route.frame, show: route.width === 'phone' ? { [route.surface]: true } : {}, showD: route.width === 'desktop' ? { [route.surface]: true } : {}, surfaceLabel: s.label, widthLabel: route.width === 'desktop' ? 'desktop 1440' : 'phone 390',
+      frameLabel: cur ? cur.label : '', noteText: cur ? cur.sub : 'Loading the frame notes.',
+      framePad: route.width === 'desktop' ? '32px 32px 80px' : '40px 24px 80px', frameJustify: route.width === 'desktop' ? 'flex-start' : 'center',
+      tabRight: open ? '380px' : '0px', otherWidthLabel: other === 'desktop' ? 'Desktop' : 'Phone',
+      toggleWidth: () => {
+        const has = (meta[otherName] || []).some(f => f.id === route.frame);
+        if (!has) this.gap(route.frame + ' has no ' + other + ' counterpart. Opening ' + other + ' ' + s.label + ' at ' + this.landing(route.surface) + '.');
+        this.go(other, route.surface, has ? route.frame : this.landing(route.surface));
+      },
+      gaps: gaps.filter(g => g.surface === route.surface && g.frame === route.frame)
+    });
+    if (cur && /rebuild behavior/i.test(cur.sub)) {
+      const sentences = cur.sub.match(/[^.]*rebuild behavior[^.]*\./gi) || [];
+      v.markers = sentences.map(t => ({ text: t.trim() }));
+    }
+    v.showMarker = markers && (v.markers.length > 0 || v.gaps.length > 0);
+    if (markers && v.gaps.length) v.markers = [...v.markers, ...v.gaps.map(g => ({ text: 'Gap: ' + g.text }))];
+    v.situationGroups = R.SITUATIONS.map(g => ({ title: g.title, options: g.options.map(o => {
+      const active = situation[g.key] === o.id;
+      const target = o.frames[route.surface];
+      const anySurface = Object.keys(o.frames)[0];
+      return { label: o.label, bg: active ? '#8fd3c7' : 'none', color: active ? '#142428' : '#fff', border: active ? '#8fd3c7' : 'rgba(255,255,255,.3)',
+        hint: target ? 'Opens ' + target + ' here' : (anySurface ? 'Opens ' + o.frames[anySurface] + ' on ' + R.SURFACES[anySurface].label : 'Base scenario'),
+        go: () => {
+          const sit = { ...situation, [g.key]: o.id };
+          this.setState({ situation: sit });
+          if (target) return this.go(route.width, route.surface, target);
+          if (Object.keys(o.frames).length === 0) return this.go(route.width, route.surface, R.frameForSituation(route.surface, sit) || s.base);
+          this.gap('No ' + s.label + ' frame for "' + o.label + '". Opening ' + R.SURFACES[anySurface].label + ' ' + o.frames[anySurface] + '.');
+          this.go(route.width, anySurface, o.frames[anySurface]);
+        } };
+    }) }));
+    v.surfaces = R.ORDER.map(k => { const active = k === route.surface; return { label: R.SURFACES[k].label, bg: active ? '#8fd3c7' : 'none', color: active ? '#142428' : '#fff', border: active ? '#8fd3c7' : 'rgba(255,255,255,.3)', go: () => this.go(route.width, k, this.landing(k)) }; });
+    const ordered = [];
+    const baseF = frames.find(f => f.id === s.base); if (baseF) ordered.push(baseF);
+    frames.forEach(f => { if (f !== baseF) ordered.push(f); });
+    v.screenFrames = ordered.map(f => f.heading ? { heading: f.heading } : { id: f.id, label: f.label, bg: f.id === route.frame ? 'rgba(143,211,199,.22)' : 'none', go: () => this.go(route.width, route.surface, f.id) });
+    return v;
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}</style></helmet>
+<div style="padding:{{ wrapPad }}; display:flex; flex-direction:column; gap:{{ wrapGap }}">
+<sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:720px">
+  <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / Profile</div>
+  <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Profile</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">What Stella knows about Daniel and how to talk with him. One page, an accordion; About, Family and Conversation guidance open by default. Rows (children, education, career, pets, important people, custom facts) read as one line each and open in a sheet to edit. Save and Discard appear only in a section with edits. Field limits show once a field passes about 80 percent. Per-section save needs backend support: the system saves the whole profile at once today. The config-file import is not on this screen. Times are Daniel's (Central), Sun, Sep 6.</div>
+</div>
+<div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:-28px; max-width:720px">Header pass: case B with the Daniel pill on every frame; Profile is a root tab. Spec on <a href="Today.dc.html#F1">Today F1</a>.</div>
+</sc-if>
+<div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
+<sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
+<sc-if value="{{ s.heading }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1 0 100%; display:flex; align-items:center; gap:14px; margin-bottom:-12px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px">{{ s.heading }}</div><div style="flex:1; height:1px; background:rgba(20,36,40,.15)"></div><div style="font-size:13px; color:rgba(20,36,40,.55)">{{ s.headingNote }}</div></div>
+</sc-if>
+<sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+<div id="{{ s.id }}" style="flex:none; display:flex; flex-direction:column; gap:10px; width:390px">
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; align-items:center; gap:8px"><span style="display:inline-flex; align-items:center; justify-content:center; height:22px; padding:0 8px; border-radius:6px; background:#142428; color:#fff; font:700 12px 'Source Sans 3',sans-serif">{{ s.id }}</span><span style="font:600 14px/1.2 'Source Sans 3',sans-serif">{{ s.label }}</span></div>
+  <div style="font:400 12px/1.45 'Source Sans 3',sans-serif; color:rgba(20,36,40,.6); min-height:17px; margin-top:-4px">{{ s.sub }}</div>
+  </sc-if>
+
+  <div data-screen-label="{{ s.label }}" style="width:390px; height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+    <div data-scroll="{{ s.scrollTo }}" style="position:absolute; inset:0; padding:0 20px 110px; overflow:auto; scrollbar-width:none; box-sizing:border-box; display:flex; flex-direction:column">
+      <div style="flex:none; margin:0 -20px; background:#f3efe6; padding:16px 20px 0; border-bottom:1px solid rgba(20,36,40,.1); position:sticky; top:0; z-index:2"><div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em; color:#0f4c4a">Caregiver</div><a href="Device.dc.html" aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(15,76,74,.4); background:transparent; color:#0f4c4a; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></a></div></div>
+      <div style="display:flex; align-items:center; height:44px; margin-top:16px; flex:none"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em">Profile</div></div>
+
+      <div style="margin-top:12px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 14px; display:flex; flex-direction:column; gap:8px; flex:none">
+        <div style="font-size:14px; line-height:1.4; color:#56676c">{{ s.savedLine }}</div>
+        <div style="display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:{{ s.readDot }}; flex:none; margin-top:6px"></span><div style="font-size:14px; line-height:1.4; color:#142428; font-weight:600">{{ s.readLine }}<span style="font-weight:400; color:#56676c"> {{ s.readWhen }}</span></div></div>
+      </div>
+
+      <sc-if value="{{ s.nameMsg }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:10px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start; flex:none"><span style="width:8px; height:8px; border-radius:50%; background:#e0b13a; flex:none; margin-top:7px"></span><div style="font-size:14px; line-height:1.45; text-wrap:pretty">{{ s.nameMsg }}</div></div>
+      </sc-if>
+
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px; flex:none">
+      <sc-for list="{{ s.sections }}" as="sec" hint-placeholder-count="0">
+        <div data-anchor="{{ sec.key }}" style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; overflow:hidden">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:14px 16px; cursor:pointer">
+            <div style="min-width:0">
+              <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:19px; line-height:1.2">{{ sec.title }}</div>
+              <sc-if value="{{ sec.summary }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:3px; text-wrap:pretty">{{ sec.summary }}</div></sc-if>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#56676c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none; margin-top:2px; transform:{{ sec.chev }}"><path d="M6 9l6 6 6-6"></path></svg>
+          </div>
+          <sc-if value="{{ sec.open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:2px 16px 16px; display:flex; flex-direction:column; gap:14px">
+            <sc-for list="{{ sec.fields }}" as="f" hint-placeholder-count="0">
+              <div style="display:flex; flex-direction:column; gap:6px">
+                <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ f.label }}<span style="font-weight:400"> {{ f.opt }}</span></div>
+                <sc-if value="{{ f.isRO }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:17px; line-height:1.4; color:{{ f.color }}">{{ f.shown }}</div>
+                </sc-if>
+                <sc-if value="{{ f.isText }}" hint-placeholder-val="{{ false }}">
+                  <div style="min-height:48px; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:0 14px; display:flex; align-items:center; font-size:16px; line-height:1.4; color:{{ f.color }}; box-sizing:border-box">{{ f.shown }}</div>
+                </sc-if>
+                <sc-if value="{{ f.isList }}" hint-placeholder-val="{{ false }}">
+                  <div style="min-height:72px; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:12px 14px; font-size:16px; line-height:1.5; color:{{ f.color }}; white-space:pre-line; box-sizing:border-box">{{ f.shown }}</div>
+                </sc-if>
+                <sc-if value="{{ f.isNotes }}" hint-placeholder-val="{{ false }}">
+                  <div style="min-height:120px; max-height:220px; overflow:hidden; border-radius:12px; border:{{ f.border }}; background:#faf8f3; padding:12px 14px; font-size:16px; line-height:1.5; color:{{ f.color }}; box-sizing:border-box; text-wrap:pretty">{{ f.shown }}</div>
+                </sc-if>
+                <sc-if value="{{ f.isRows }}" hint-placeholder-val="{{ false }}">
+                  <div style="border-radius:12px; border:1px solid rgba(20,36,40,.14); background:#faf8f3; overflow:hidden">
+                    <sc-if value="{{ f.emptyRows }}" hint-placeholder-val="{{ false }}"><div style="min-height:48px; padding:0 14px; display:flex; align-items:center; font-size:16px; color:rgba(20,36,40,.4)">{{ f.emptyRows }}</div></sc-if>
+                    <sc-for list="{{ f.rows }}" as="r" hint-placeholder-count="0">
+                      <div style="min-height:52px; padding:9px 12px 9px 14px; display:flex; align-items:center; gap:10px; border-top:{{ r.top }}; cursor:pointer; background:{{ r.bg }}">
+                        <div style="flex:1; min-width:0"><div style="font-size:16px; line-height:1.3; font-weight:600">{{ r.primary }}</div><div style="font-size:13px; line-height:1.35; color:{{ r.secColor }}; margin-top:1px; text-wrap:pretty">{{ r.secondary }}</div></div>
+                        <sc-if value="{{ r.tag }}" hint-placeholder-val="{{ false }}"><span style="height:22px; padding:0 8px; border-radius:6px; background:rgba(20,36,40,.08); color:#56676c; font-size:12px; font-weight:600; display:inline-flex; align-items:center; flex:none">{{ r.tag }}</span></sc-if>
+                        <sc-if value="{{ r.chev }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a979b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M9 5l7 7-7 7"></path></svg></sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ f.addLabel }}" hint-placeholder-val="{{ false }}">
+                    <button style="align-self:flex-start; height:40px; padding:0 4px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer; display:flex; align-items:center; gap:6px; margin-top:-2px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>{{ f.addLabel }}</button>
+                  </sc-if>
+                </sc-if>
+                <sc-if value="{{ f.foot }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; justify-content:space-between; gap:12px; font-size:12px; line-height:1.4; color:#56676c"><span style="text-wrap:pretty">{{ f.hint }}</span><span style="flex:none; font-weight:600; color:{{ f.counterColor }}">{{ f.counter }}</span></div>
+                </sc-if>
+              </div>
+            </sc-for>
+            <sc-if value="{{ sec.msg }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#f3efe6; border-radius:12px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start"><span style="width:8px; height:8px; border-radius:50%; background:{{ sec.msgDot }}; flex:none; margin-top:7px"></span><div style="font-size:14px; line-height:1.45; text-wrap:pretty">{{ sec.msg }}</div></div>
+            </sc-if>
+            <sc-if value="{{ sec.dirty }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; gap:8px; margin-top:2px">
+                <button style="height:48px; padding:0 18px; border-radius:999px; border:1px solid rgba(20,36,40,.25); background:none; color:#142428; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">{{ sec.discardLabel }}</button>
+                <button style="flex:1; height:48px; border-radius:999px; border:0; background:{{ sec.saveBg }}; color:{{ sec.saveFg }}; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ sec.saveLabel }}</button>
+              </div>
+            </sc-if>
+          </div>
+          </sc-if>
+        </div>
+      </sc-for>
+      </div>
+      <sc-if value="{{ s.scrollTo }}" hint-placeholder-val="{{ false }}"><div style="height:640px; flex:none"></div></sc-if>
+    </div>
+
+    <sc-if value="{{ s.toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; left:12px; right:12px; bottom:104px; background:#fff; color:#142428; border-radius:14px; padding:14px 16px; font-size:15px; line-height:1.4; display:flex; gap:10px; align-items:flex-start; box-shadow:0 8px 24px rgba(20,36,40,.25)"><span style="width:8px; height:8px; border-radius:50%; background:#0f4c4a; flex:none; margin-top:7px"></span><span style="flex:1; text-wrap:pretty">{{ s.toast }}</span></div>
+    </sc-if>
+
+    <sc-if value="{{ s.sheet }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; background:rgba(20,36,40,.45)"></div>
+      <div style="position:absolute; left:0; right:0; bottom:0; background:#f3efe6; border-radius:24px 24px 0 0; padding:10px 20px 34px; box-shadow:0 -8px 30px rgba(20,36,40,.2)">
+        <div style="width:36px; height:5px; border-radius:3px; background:rgba(20,36,40,.2); margin:0 auto 8px"></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; height:44px">
+          <button style="height:44px; padding:0 6px; margin-left:-6px; border:0; background:none; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">Cancel</button>
+          <div style="font-size:16px; font-weight:700">{{ s.sheet.title }}</div>
+          <button style="height:44px; padding:0 6px; margin-right:-6px; border:0; background:none; color:#0f4c4a; font:700 16px 'Source Sans 3',sans-serif; cursor:pointer">Done</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:14px; margin-top:8px">
+          <sc-for list="{{ s.sheet.fields }}" as="f" hint-placeholder-count="0">
+            <div style="display:flex; flex-direction:column; gap:6px">
+              <div style="font-size:13px; font-weight:600; color:#56676c; line-height:1.3">{{ f.label }}<span style="font-weight:400"> {{ f.opt }}</span></div>
+              <div style="min-height:48px; border-radius:12px; border:{{ f.border }}; background:#fff; padding:0 14px; display:flex; align-items:center; font-size:16px; line-height:1.4; color:{{ f.color }}; box-sizing:border-box">{{ f.shown }}</div>
+              <sc-if value="{{ f.hint }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px; line-height:1.4; color:#56676c">{{ f.hint }}</div></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <button style="width:100%; height:48px; margin-top:18px; border-radius:999px; border:0; background:none; color:#a8321c; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer">{{ s.sheet.remove }}</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.tabBar }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute; left:0; right:0; bottom:0; background:#fff; border-top:1px solid rgba(20,36,40,.1); padding:10px 8px 12px; display:grid; grid-template-columns:repeat(4,1fr)">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c; position:relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Today</span>
+        <span style="position:absolute; top:0; left:calc(50% + 8px); min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#c45c26; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; box-sizing:border-box">2</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"></path><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"></path></svg>
+        <span style="font-size:12px; font-weight:600">Story</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#0f4c4a">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path></svg>
+        <span style="font-size:12px; font-weight:700">Profile</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:5px; padding:4px 0; color:#56676c">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path><circle cx="9" cy="7" r="2" fill="#fff"></circle><circle cx="15" cy="12" r="2" fill="#fff"></circle><circle cx="8" cy="17" r="2" fill="#fff"></circle></svg>
+        <span style="font-size:12px; font-weight:600">Settings</span>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
+class Component extends DCLogic {
+  pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  componentDidMount() { this.scrollAll(); setTimeout(() => this.scrollAll(), 400); setTimeout(() => this.scrollAll(), 1500); }
+  componentDidUpdate() { this.scrollAll(); }
+  scrollAll() {
+    document.querySelectorAll('[data-scroll]').forEach(c => {
+      const k = c.getAttribute('data-scroll'); if (!k) return;
+      const a = c.querySelector('[data-anchor="' + k + '"]'); if (!a) return;
+      c.scrollTop = a.offsetTop - 54 - 10;
+    });
+  }
+  f(o) {
+    const f = Object.assign({ opt: '', value: '', ph: '', hint: '', ro: false, focus: false, limit: 500, used: 0 }, o);
+    f.isRO = f.ro; f.isText = !f.ro && !f.list && !f.notes && !f.rows; f.isList = !!f.list; f.isNotes = !!f.notes; f.isRows = !!f.rows;
+    f.shown = f.value || f.ph || (f.ro ? 'Not set' : '');
+    f.color = f.value ? '#142428' : 'rgba(20,36,40,.4)';
+    f.border = f.focus ? '1.5px solid #0f4c4a' : '1px solid rgba(20,36,40,.14)';
+    if (f.ro) { f.hint = f.hint || 'Set by your administrator'; if (!f.value) f.color = '#a84a1c'; }
+    if (f.used > f.limit * 0.8) { f.counter = f.used.toLocaleString() + ' / ' + f.limit.toLocaleString(); f.counterColor = f.used >= f.limit ? '#a8321c' : '#a84a1c'; }
+    f.foot = !!(f.hint || f.counter);
+    if (f.rows) {
+      f.rows = f.rows.map((r, i) => Object.assign({ top: i ? '1px solid rgba(20,36,40,.1)' : '0', bg: 'transparent', secColor: '#56676c', tag: '' }, Object.assign({ chev: !r.tag }, r)));
+      if (!f.rows.length) f.emptyRows = f.ph;
+    }
+    return f;
+  }
+  txt(label, value, o) { return this.f(Object.assign({ label, value }, o)); }
+  list(label, lines, o) { return this.f(Object.assign({ label, list: true, value: (lines || []).join('\n'), ph: 'One per line' }, o)); }
+  rows(label, rows, addLabel, ph, o) { return this.f(Object.assign({ label, rows, addLabel, ph }, o)); }
+  sec(key, title, summary, fields, o) {
+    const s = Object.assign({ key, title, summary, fields, open: false, dirty: false, msg: '', msgDot: '#e0b13a', discardLabel: 'Discard', saveLabel: 'Save', saveDisabled: false }, o);
+    s.chev = s.open ? 'rotate(180deg)' : 'none';
+    s.saveBg = s.saveDisabled ? 'rgba(20,36,40,.12)' : '#0f4c4a';
+    s.saveFg = s.saveDisabled ? 'rgba(20,36,40,.45)' : '#fff';
+    if (s.open) s.summary = '';
+    return s;
+  }
+  build(d, o) {
+    const e = !!d.empty, pf = (v) => e ? '' : v;
+    const about = (x) => this.sec('about', 'About', e ? 'Nothing yet' : 'Dan \u00b7 born 1948, Galesburg \u00b7 Moline, Illinois', [
+      this.txt('Name', d.noName ? '' : 'Daniel Morgan', { ro: true, hint: d.noName ? 'Not set. Ask your administrator to set it.' : '' }),
+      this.txt('Assistant name', 'Stella', { ro: true }),
+      this.txt('What they like to be called', pf('Dan'), { ph: 'A first name or nickname' }),
+      this.txt('Birth date', pf('February 7, 1948'), { ph: 'Month, day, year' }),
+      this.txt('Birthplace', pf('Galesburg, Illinois')),
+      this.txt('Current residence', pf('Moline, Illinois'), { hint: 'City and state. Used for local weather.', focus: !!(x && x.focusRes) }),
+      this.txt('Profession', pf('Retired railway conductor')),
+      this.txt('Marriage year', pf('1963'))
+    ], x);
+    const family = (x) => this.sec('family', 'Family', e ? 'Nothing yet' : 'Margaret \u00b7 2 children \u00b7 2 grandchildren \u00b7 2 important people', [
+      this.txt('Spouse', pf('Margaret (died 2019)')),
+      this.txt('Father', ''), this.txt('Mother', ''),
+      this.list('Siblings', []),
+      this.rows('Children', e ? [] : [{ primary: 'Alex', secondary: 'Spouse Sam \u00b7 Maya, Leo' }, { primary: 'Ruth', secondary: 'No spouse listed' }], 'Add a child', 'No children added'),
+      this.list('Grandchildren', e ? [] : ['Maya', 'Leo']),
+      this.rows('Important people', e ? [] : [{ primary: 'Pete Morgan', secondary: 'Brother' }, { primary: 'Pastor Jim Hale', secondary: 'Church' }], 'Add a person', 'No one added yet')
+    ], x);
+    const life = (x) => this.sec('life', 'Life story', e ? 'Nothing yet' : 'Moline High School \u00b7 Burlington Northern \u00b7 Biscuit', [
+      this.rows('Education', e ? [] : [{ primary: 'Moline High School', secondary: 'Moline, Illinois \u00b7 1966' }], 'Add a school', 'No schools added'),
+      this.rows('Career', e ? [] : [{ primary: 'Burlington Northern', secondary: 'Galesburg, Illinois \u00b7 1971 to 1994' }], 'Add a job', 'No jobs added'),
+      this.txt('Military service', ''),
+      this.list('Places lived', e ? [] : ['Galesburg, Illinois', 'Moline, Illinois']),
+      this.txt('Faith or church', ''),
+      this.list('Languages', e ? [] : ['English']),
+      this.list('Interests and hobbies', e ? [] : ['The garden', 'Baseball']),
+      this.list('Notable achievements', []),
+      this.txt('Favorite music', ''), this.txt('Favorite foods', ''), this.txt('Favorite activities', ''), this.txt('Favorite places', ''),
+      this.rows('Pets', e ? [] : [{ primary: 'Biscuit', secondary: 'Dog \u00b7 sleeps by the back door' }], 'Add a pet', 'No pets added')
+    ], x);
+    const notesText = 'Hard of hearing on the left. Gets anxious about money. Loves being asked about the garden.';
+    const longNotes = notesText + ' Mornings are his best time; by late afternoon he tires and repeats himself more, so keep the questions short then. He still calls Margaret\u2019s chair \u201cher chair\u201d and that is fine. He likes to be asked what the weather is doing to the tomatoes. If he asks where his car is, the answer is that Alex has it for a service; do not say he no longer drives. He will not eat before he has had his coffee, so do not suggest breakfast first thing. The Cubs are his team; the Cardinals are not.';
+    const guidance = (x) => this.sec('guidance', 'Conversation guidance', e ? 'Nothing yet' : '4 topics he enjoys \u00b7 3 to avoid \u00b7 notes', [
+      this.list('Enjoys talking about', e ? [] : ['The farm', 'The railway', 'The garden', 'Baseball']),
+      this.list('Topics to avoid', e ? [] : ['Margaret\u2019s last year', 'Money', 'Driving']),
+      this.f({ label: 'Notes for Stella', notes: true, value: e ? '' : (x && x.longNotes ? longNotes : notesText), ph: notesText, limit: 2000, used: x && x.longNotes ? 1640 : 0, focus: !!(x && x.longNotes) })
+    ], x);
+    const custom = (x) => this.sec('custom', 'Custom facts', e ? 'Nothing yet' : '2 facts', [
+      this.rows('Facts', e ? [] : (x && x.badRow ? [
+        { primary: 'Favorite hymn', secondary: 'How Great Thou Art \u00b7 Text \u00b7 Preferences' },
+        { primary: 'Wedding church', secondary: 'First Lutheran, Galesburg \u00b7 Text \u00b7 Family', tag: 'Kept as stored' },
+        { primary: 'Profession', secondary: 'Conductor \u00b7 Text \u00b7 Biography \u00b7 Label matches a built-in field', secColor: '#a8321c', bg: 'rgba(168,50,28,.05)' }
+      ] : [{ primary: 'Favorite hymn', secondary: 'How Great Thou Art \u00b7 Text \u00b7 Preferences' }, { primary: 'Wedding church', secondary: 'First Lutheran, Galesburg \u00b7 Text \u00b7 Family', tag: 'Kept as stored' }]), 'Add a fact', 'No custom facts yet')
+    ], x);
+    const imported = (x) => this.sec('imported', 'Imported details', e ? 'Nothing carried over' : '3 values from an older setup. Read-only.', [
+      this.rows('Values', [{ primary: 'Hometown', secondary: 'Galesburg', chev: false }, { primary: 'Wedding church', secondary: 'First Lutheran, Galesburg', chev: false }, { primary: 'Nickname', secondary: 'Danny', chev: false }], '', '')
+    ], x);
+    const open = d.open || {};
+    const st = Object.assign({
+      savedLine: e ? 'Not saved yet' : 'Saved Sep 5, 8:42 PM',
+      readLine: e ? 'Stella has not read this profile yet' : 'Stella is using this profile',
+      readWhen: e ? '' : '\u00b7 read today, 7:02 AM',
+      readDot: e ? '#e0b13a' : '#0f4c4a',
+      nameMsg: '', toast: '', sheet: null, scrollTo: '', tabBar: true,
+      sections: [about(open.about), family(open.family), life(open.life), guidance(open.guidance), custom(open.custom), imported(open.imported)]
+    }, o);
+    return st;
+  }
+  renderVals() {
+    const dflt = { about: { open: true }, family: { open: true }, guidance: { open: true } };
+    const conflict = 'Someone else saved this profile at 4:12 PM, after you started. Your edits are still here. Saving again replaces theirs; Discard keeps theirs.';
+    const states = [
+      { heading: 'Loaded', headingNote: 'the Profile tab; status first, then the accordion' },
+      { id: 'PR1', label: 'Filled profile', sub: 'Status card carries both facts the system has: when it was last saved and whether the device has fetched it since. No saver name: the system records a shared identity code, not a person. About, Family and Conversation guidance open by default; Life story, Custom facts and Imported details collapsed with a one-line summary. Name and Assistant name are read-only with the reason under them.', ...this.build({ open: dflt }) },
+      { id: 'PR2', label: 'Editing, limit shown', sub: 'Conversation guidance with edits. Notes is the 2,000-character field; the counter appears past about 80 percent and turns amber, before the server would cut it. Save and Discard appear only because the section has edits.', ...this.build({ open: { guidance: { open: true, dirty: true, longNotes: true } } }, { scrollTo: 'guidance' }) },
+      { id: 'PR3', label: 'Section saved', sub: 'Toast repeats the timing promise: Stella uses it from her next conversation. Status card updates to the time. The buttons fold away. Flag: the system saves the whole profile at once today; per-section save needs backend support.', ...this.build({ open: { guidance: { open: true } } }, { scrollTo: 'guidance', savedLine: 'Saved just now', toast: 'Saved. Stella will use it from her next conversation.' }) },
+      { heading: 'Refused', headingNote: 'the draft stays on screen' },
+      { id: 'PR4', label: 'Someone else saved first', sub: 'The server refuses as stale. Instead of reloading over the caregiver\u2019s text, the section keeps it, says when the other save happened (the refusal carries the time, not who), and offers the same pair with plainer labels. Keeping the draft is client behavior the rebuild can provide.', ...this.build({ open: { guidance: { open: true, dirty: true, longNotes: true, msg: conflict, discardLabel: 'Discard mine', saveLabel: 'Save again' } } }, { scrollTo: 'guidance', savedLine: 'Saved today, 4:12 PM' }) },
+      { id: 'PR5', label: 'Name not set', sub: 'One message under the status, in plain words. The form still reads and edits; only Save is blocked, shown greyed in the section with edits.', ...this.build({ noName: true, open: { about: { open: true, dirty: true, focusRes: true, saveDisabled: true } } }, { nameMsg: 'Daniel\u2019s name is not set, so this profile cannot be saved yet. Ask your administrator to set it. You can still read and edit.' }) },
+      { id: 'PR6', label: 'Custom fact refused', sub: 'A label that matches a built-in field is refused on Save. The message names the field and what to do; the row is marked so the fix is one tap away. A fact whose value the form cannot edit shows Kept as stored and does not open.', ...this.build({ open: { custom: { open: true, dirty: true, badRow: true, msg: '\u201cProfession\u201d is already part of the profile\u2019s own fields, so it cannot be a custom fact. Change that label and save again.', msgDot: '#a8321c' } } }, { scrollTo: 'custom' }) },
+      { heading: 'Status', headingNote: 'two facts: last save, and whether the device has fetched it since' },
+      { id: 'PR7', label: 'Empty profile, new person', sub: 'Not saved yet; Stella has not read it. Read-only Name and Assistant name already set. Every field shows its placeholder; row lists say what is missing.', ...this.build({ empty: true, open: dflt }) },
+      { id: 'PR8', label: 'Saved, not yet read', sub: 'A filled profile the device has never fetched. Amber dot and the plain sentence, against PR1\u2019s teal Stella is using this profile with the time.', ...this.build({ open: {} }, { readLine: 'Stella has not read this profile yet', readWhen: '', readDot: '#e0b13a' }) },
+      { heading: 'Row editor', headingNote: 'one line per row; the sheet gives each field full width' },
+      { id: 'PR9', label: 'Editing a child', sub: 'Tapping Alex opens the sheet. Name, optional spouse, their children comma separated, at 48px each. Remove lives at the bottom of the sheet, not on the list. Education, career, pets, important people and custom facts use the same sheet with their own fields.', ...this.build({ open: { family: { open: true } } }, { scrollTo: 'family', tabBar: false, sheet: { title: 'Child', remove: 'Remove Alex', fields: [
+        this.f({ label: 'Name', value: 'Alex' }),
+        this.f({ label: 'Spouse', opt: '(optional)', value: 'Sam' }),
+        this.f({ label: 'Their children', value: 'Maya, Leo', hint: 'Comma separated', focus: true })
+      ] } }) }
+    ];
+    return { ...this.embedVals(), states: this.pickFrame(states) };
+  }
+}
+</script>
+</body>
+</html>
