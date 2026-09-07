@@ -86,7 +86,7 @@
   .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-mute); }
 
   /* Shell: rail plus column */
-  .shell { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 0; max-width: 1160px; margin: 0 auto; }
+  .shell { max-width: 880px; margin: 0 auto; }
   .rail { position: sticky; top: 0; align-self: start; height: 100vh; padding: 40px 24px 40px 32px; display: flex; flex-direction: column; gap: 28px; border-right: 1px solid var(--line); }
   .wordmark { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 600; color: var(--ink); text-decoration: none; }
   .wordmark small { display: block; font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 400; color: var(--ink-mute); letter-spacing: .02em; }
@@ -97,7 +97,7 @@
 
   .col { padding: 0 48px 96px; }
   .slide { padding: 72px 0 56px; border-bottom: 1px solid var(--line); scroll-margin-top: 24px; }
-  .slide:last-of-type { border-bottom: 0; }
+  .slide { border-bottom: 0; }
   .slide > .inner { max-width: 66ch; }
   .slide h2 { font-size: 40px; line-height: 1.1; margin: 10px 0 20px; }
   .slide .lede { font-size: 21px; line-height: 1.45; color: var(--ink-soft); margin-bottom: 28px; }
@@ -190,18 +190,6 @@
 </head>
 <body>
 <div class="shell">
-  <aside class="rail" aria-label="Sections">
-    <a class="wordmark" href="#top">Caregiver<small>Prototype notes, September 2026</small></a>
-    <nav>
-      <ul class="toc">
-        <li><a href="#what" aria-current="true">What this is</a></li>
-        <li><a href="#changed">What changed</a></li>
-        <li><a href="#open">Still open</a></li>
-      </ul>
-    </nav>
-    <div class="cta"><a class="btn btn-primary wide" href="Prototype.dc.html">Open the prototype</a></div>
-  </aside>
-
   <main class="col" id="top">
     <section class="slide" id="what">
       <div class="opener">
@@ -211,13 +199,6 @@
         <div class="actions">
           <a class="btn btn-primary" href="Prototype.dc.html">Open the prototype</a>
           <a class="btn btn-ghost" href="Prototype.dc.html#index">Every screen, listed</a>
-        </div>
-      </div>
-      <div class="inner">
-        <div class="steps">
-          <div class="step"><b>Pick phone or desktop</b><p>Same screens either way. Switch any time.</p></div>
-          <div class="step"><b>Tap through it</b><p>Tabs, buttons, replies, reminders, and the composer work. Typing, waits, and sign-in are one tap.</p></div>
-          <div class="step"><b>Use the switcher</b><p>The control at the edge of each screen changes the situation: device offline, session ended, texts off, a failed save.</p></div>
         </div>
       </div>
     </section>
@@ -303,64 +284,7 @@
       </div>
     </section>
 
-    <section class="slide" id="open">
-      <div class="inner">
-        <p class="eyebrow">Still open</p>
-        <h2>What only you can decide</h2>
-        <p class="lede">Your calls first, then what I assumed. All reversible.</p>
-
-        <div class="group">
-          <h3>Your call</h3>
-          <div class="items">
-            <div class="item"><span class="tag you">You</span><div><b>Which names a family sees</b><p>Caregiver, Legavo, Companion, Conversationalist, and Stella all appear today. The consent text still says "from Legavo" because that is what the carrier registered.</p></div></div>
-            <div class="item"><span class="tag you">You</span><div><b>What the device does with a request</b><p>The app writes a request; the device picks it up on its own schedule. The prototype only shows what the device reported back. We haven't seen the device code.</p></div></div>
-            <div class="item"><span class="tag you">You</span><div><b>Controls while the device is offline</b><p>The server accepts them. The prototype shows them waiting. Offer them or not?</p></div></div>
-            <div class="item"><span class="tag you">You</span><div><b>Is texting live for families?</b><p>Settings is drawn both ways.</p></div></div>
-            <div class="item"><span class="tag you">You</span><div><b>What can a viewer do?</b><p>The code has no consistent rule. The prototype shows read-only Settings.</p></div></div>
-          </div>
-        </div>
-
-        <div class="group">
-          <h3>Assumed</h3>
-          <div class="items">
-            <div class="item"><span class="tag assumed">Assumed</span><div><b>One control waits at a time</b><p>Today one request locks the whole page.</p></div></div>
-            <div class="item"><span class="tag assumed">Assumed</span><div><b>Engagement counts memories saved, not conversations</b><p>The server has no conversation count.</p></div></div>
-            <div class="item"><span class="tag assumed">Assumed</span><div><b>No add to home screen on desktop</b><p>Phone only.</p></div></div>
-            <div class="item"><span class="tag assumed">Assumed</span><div><b>Delete photo says it removes every copy, no undo</b><p>That is what it does today.</p></div></div>
-          </div>
-        </div>
-
-        <div class="group">
-          <h3>Defects found</h3>
-          <div class="items">
-            <div class="item"><span class="tag defect">Defect</span><div><b>Password reset fails in production</b><p>A date comparison. One-line fix.</p></div></div>
-            <div class="item"><span class="tag defect">Defect</span><div><b>Inbound texts are accepted unsigned when the token is empty</b><p>Should refuse.</p></div></div>
-          </div>
-        </div>
-
-        <div class="close">
-          <p>Start with Today on a phone. Flip the device offline in the switcher.</p>
-          <a class="btn btn-primary" href="Prototype.dc.html#phone/today/F1">Open Today</a>
-        </div>
-        <footer>From the app as of September 6, 2026. Fictional household: Daniel Morgan; caregivers Alex and Ruth Morgan.</footer>
-      </div>
-    </section>
   </main>
 </div>
-<script>
-  (function () {
-    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
-    var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
-    if (!('IntersectionObserver' in window)) return;
-    var current = sections[0];
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) current = e.target; });
-      links.forEach(function (a, i) {
-        if (sections[i] === current) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
-      });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    sections.forEach(function (s) { if (s) io.observe(s); });
-  })();
-</script>
 </body>
 </html>
