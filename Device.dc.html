@@ -13,7 +13,7 @@
 <div style="max-width:720px">
   <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / Device</div>
   <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Device</div>
-  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Daniel&rsquo;s device, reached from Settings and from the device controls on Today. One scroll: status and modes in the teal block, then levels, sleep schedule and live conversation. Modes use Today&rsquo;s model: current state, one reverse action, and Off while the screen is normal; one pending request per switch, voice or screen; nothing else waits while it is pending; up to 50 seconds to confirm. Levels and schedule save as they change and show what was requested, never what the device applied, because nothing confirms them. Live conversation is Daniel&rsquo;s setting; the copy says who can read the lines. Times are Daniel&rsquo;s (Central), Sun, Sep 6; the unreported variant is D8b.</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Daniel&rsquo;s Companion, reached from Settings and from the device controls on Today. One scroll: status and modes in the teal block, then levels, sleep schedule and live conversation. Modes use Today&rsquo;s model: current state, one reverse action, and Off while the screen is normal; one pending request per switch, voice or screen; nothing else waits while it is pending; up to 50 seconds to confirm. Levels and schedule save as they change and show what was requested, never what the device applied, because nothing confirms them. Live conversation is Daniel&rsquo;s setting; the copy says who can read the lines. Times are Daniel&rsquo;s (Central), Sun, Sep 6; D12 carries the never-reported case.</div>
 </div>
 <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:-28px; max-width:720px">Header pass: case A, transparent over the teal block, as on Today. Device is a pushed page, so the back row sits beneath the header and there is no Daniel pill (it would open the page you are on). Spec on <a href="Today.dc.html#F1">Today F1</a>.</div>
 </sc-if>
@@ -35,7 +35,7 @@
       <div style="background:#0f4c4a; color:#fff; padding:16px 20px 20px; flex:none">
         <div style="display:flex; align-items:center; height:44px"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div></div>
         <div style="display:flex; align-items:center; height:44px; margin:12px 0 0 -8px"><a href="#" style="display:flex; align-items:center; gap:2px; color:#fff; text-decoration:none; font:600 16px 'Source Sans 3',sans-serif; height:44px; padding:0 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>Settings</a></div>
-        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em; margin-top:6px">Daniel&rsquo;s device</div>
+        <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1; letter-spacing:-.01em; margin-top:6px">Daniel&rsquo;s Companion</div>
         <div style="display:flex; align-items:center; gap:10px; margin-top:22px">
           <span style="width:10px; height:10px; border-radius:50%; background:{{ s.dot }}; flex:none"></span>
           <span style="font-size:18px; font-weight:600; line-height:1.3; flex:1; min-width:0">{{ s.status }}</span>
@@ -49,6 +49,7 @@
           <sc-for list="{{ s.modes }}" as="m" hint-placeholder-count="2">
             <div style="display:flex; align-items:center; gap:12px">
               <div style="flex:1; min-width:0"><div style="font-size:13px; color:rgba(255,255,255,.7)">{{ m.name }}</div><div style="font-size:18px; font-weight:600; line-height:1.3">{{ m.state }}</div></div>
+              <sc-if value="{{ m.rest }}" hint-placeholder-val="{{ false }}"><div style="flex:none; max-width:150px; text-align:right; font-size:14px; line-height:1.3; color:rgba(255,255,255,.82)">{{ m.rest }}</div></sc-if>
               <div style="display:flex; gap:8px; flex:none">
                 <sc-for list="{{ m.btns }}" as="b" hint-placeholder-count="1">
                   <button style="height:44px; padding:0 16px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:{{ b.bg }}; opacity:{{ b.opacity }}; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap; display:flex; align-items:center; justify-content:center; gap:8px"><sc-if value="{{ b.pending }}" hint-placeholder-val="{{ false }}"><span style="width:14px; height:14px; border-radius:50%; border:2px solid rgba(255,255,255,.3); border-top-color:#fff; animation:spin 1s linear infinite"></span></sc-if>{{ b.label }}</button>
@@ -57,6 +58,7 @@
             </div>
           </sc-for>
         </div>
+        <div style="margin-top:16px; font-size:13px; line-height:1.4; color:rgba(255,255,255,.7); text-wrap:pretty">If his Companion restarts, voice and screen come back active and normal.</div>
       </div>
 
       <div style="padding:0 20px; display:flex; flex-direction:column; gap:12px; flex:none">
@@ -76,7 +78,7 @@
             </div>
           </sc-for>
         </div>
-        <div style="font-size:13px; line-height:1.45; color:#56676c; padding:0 2px; text-wrap:pretty">Each change is sent when you let go. The device does not report the level it is using, so this shows what was last requested.</div>
+        <div style="font-size:13px; line-height:1.45; color:#56676c; padding:0 2px; text-wrap:pretty">Each change is sent when you let go. Shows the last level set from here or on his Companion.</div>
 
         <div data-anchor="schedule" style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; margin-top:20px">Sleep schedule</div>
         <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:0 16px">
@@ -97,6 +99,7 @@
           </sc-if>
         </div>
         <div style="font-size:13px; line-height:1.45; color:#56676c; padding:0 2px; text-wrap:pretty">{{ s.schedFoot }}</div>
+        <div style="font-size:13px; line-height:1.45; color:#56676c; padding:0 2px; margin-top:-6px; text-wrap:pretty">{{ s.schedFoot2 }}</div>
 
         <div data-anchor="live" style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; margin-top:20px">Live conversation</div>
         <div style="background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:0 16px">
@@ -104,7 +107,7 @@
             <div style="font-size:16px; font-weight:600">Live conversation <span style="font-weight:400; color:#56676c">{{ s.liveState }}</span></div>
             <div style="width:51px; height:31px; border-radius:16px; background:{{ s.liveBg }}; position:relative; flex:none; cursor:pointer"><div style="position:absolute; top:2px; left:{{ s.liveKnob }}; width:27px; height:27px; border-radius:50%; background:#fff; box-shadow:0 2px 4px rgba(20,36,40,.3)"></div></div>
           </div>
-          <div style="border-top:1px solid rgba(20,36,40,.1); padding:12px 0 14px; font-size:14px; line-height:1.45; color:#142428; text-wrap:pretty">This is Daniel&rsquo;s setting. While it is on, everything he and Stella say is written down and every caregiver on Daniel can read it here as it happens. Any caregiver can turn it off. Lines already written stay stored after the switch goes off.</div>
+          <div style="border-top:1px solid rgba(20,36,40,.1); padding:12px 0 14px; font-size:14px; line-height:1.45; color:#142428; text-wrap:pretty">Turn this on to see what Daniel and Stella say to each other today. Lines are kept for one day. Every caregiver on Daniel can read them, and any caregiver can turn it off. Daniel is not told.</div>
           <sc-if value="{{ s.liveOn }}" hint-placeholder-val="{{ false }}">
             <div style="border-top:1px solid rgba(20,36,40,.1); padding:14px 0 16px; display:flex; flex-direction:column; gap:12px">
               <sc-if value="{{ s.liveEmpty }}" hint-placeholder-val="{{ false }}"><div style="display:flex; align-items:center; gap:10px; color:#56676c; font-size:15px"><span style="width:14px; height:14px; border-radius:50%; border:2px solid rgba(20,36,40,.15); border-top-color:#0f4c4a; animation:spin 1s linear infinite; flex:none"></span>{{ s.liveEmpty }}</div></sc-if>
@@ -167,12 +170,13 @@ class Component extends DCLogic {
     const voicePending = d.pendingBtn === 'Pause voice' || d.pendingBtn === 'Resume voice';
     const screenPending = !!d.pendingBtn && !voicePending;
     const mk = (label, rowPending) => this.btn(label, d.pendingBtn === label ? { pending: true, bg: 'rgba(255,255,255,.14)', label: d.pendingLabel } : { opacity: (rowPending || !d.online) ? .4 : 1 });
-    const voiceBtns = [mk(d.voice === 'active' ? 'Pause voice' : 'Resume voice', voicePending)];
-    const screenBtns = d.screen === 'normal' ? [mk('Night light', screenPending), mk('Off', screenPending)] : [mk('Wake', screenPending)];
+    const resting = d.screen !== 'normal';
+    const voiceBtns = resting ? [] : [mk(d.voice === 'active' ? 'Pause voice' : 'Resume voice', voicePending)];
+    const screenBtns = d.screen === 'normal' ? [mk('Night light', screenPending), mk('Off', screenPending)] : [mk('Wake screen and voice', screenPending)];
     const screenName = { normal: 'Normal', night: 'Night light', off: 'Off' }[d.screen];
-    const voiceName = d.voice === 'active' ? 'Active' : 'Paused';
+    const voiceName = resting ? 'Paused while the screen rests' : (d.voice === 'active' ? 'Active' : 'Paused');
     const modes = [
-      { name: 'Voice', state: d.online ? voiceName : (d.lastKnown ? 'Last known: ' + voiceName.toLowerCase() : 'Unknown'), btns: voiceBtns },
+      { name: 'Voice', state: d.online ? voiceName : (d.lastKnown ? 'Last known: ' + voiceName.toLowerCase() : 'Unknown'), btns: voiceBtns, rest: '' },
       { name: 'Screen', state: d.online ? screenName : (d.lastKnown ? 'Last known: ' + screenName.toLowerCase() : 'Unknown'), btns: screenBtns }
     ];
     const names = ['Brightness', 'Sleep brightness', 'Speaker', 'Mic'];
@@ -187,15 +191,16 @@ class Component extends DCLogic {
       ? { who: 'Stella', text: l.text, align: 'flex-start', bg: '#f3efe6', fg: '#142428' }
       : { who: 'Someone', text: l.text, align: 'flex-end', bg: '#0f4c4a', fg: '#fff' });
     const offStatus = d.seen ? 'Offline since ' + d.lastSeen : 'Not seen yet.';
-    const offEngage = d.seen ? 'No word from the device since ' + d.lastSeen + '.' : 'This device has never reported in. Voice and screen state unknown.';
+    const offEngage = d.seen ? 'No word from his Companion since ' + d.lastSeen + '.' : 'His Companion has never reported in. Voice and screen state unknown.';
     return {
       dot: d.dot || (d.online ? '#8fd3c7' : '#e0b13a'),
-      status: d.status || (d.online ? ('Online, voice ' + d.voice) : offStatus),
-      engage: d.engage || (d.online ? ('Screen ' + screenName.toLowerCase() + '. Sleep schedule ' + (schedOn ? 'on' : 'off') + '.') : offEngage),
+      status: d.status || (d.online ? (resting ? 'Online, screen ' + (d.screen === 'night' ? 'in night light' : 'off') + ', voice paused with it' : 'Online, voice ' + d.voice) : offStatus),
+      engage: d.engage || (d.online ? ((resting ? '' : 'Screen ' + screenName.toLowerCase() + '. ') + 'Sleep schedule ' + (schedOn ? 'on' : 'off') + '.') : offEngage),
       note: d.note, modes, levels,
       schedOn, schedState: schedOn ? 'On' : 'Off', schedBg: schedOn ? '#0f4c4a' : 'rgba(20,36,40,.2)', schedKnob: schedOn ? '22px' : '2px',
       sleepTime: d.sleepTime, wakeTime: d.wakeTime, nightBg: n.bg, nightFg: n.fg, nightBorder: n.border, offBg: f.bg, offFg: f.fg, offBorder: f.border,
-      schedFoot: schedOn ? (d.tzKnown ? 'Times are in the device\u2019s timezone, Central.' : 'Times are in the device\u2019s timezone, which it has not reported yet.') + ' Saved as you change it. Nothing reports whether the device follows the schedule.' : 'Off. Turn it on to set sleep and wake times. Saved as you change it; nothing reports whether the device follows it.',
+      schedFoot: schedOn ? 'Times are in his Companion\u2019s timezone, Central. Saved as you change it. His Companion follows this schedule; the screen state above shows when it has.' : 'Off. Turn it on to set sleep and wake times. Saved as you change it.',
+      schedFoot2: 'A reminder due while the screen rests is not read aloud. If its window ends before the screen wakes, it is never announced.',
       liveOn: d.liveOn, liveState: d.liveOn ? 'On' : 'Off', liveBg: d.liveOn ? '#0f4c4a' : 'rgba(20,36,40,.2)', liveKnob: d.liveOn ? '22px' : '2px',
       lines, liveEmpty: d.liveOn && !lines.length ? 'Waiting for conversation' : '',
       scrollTo: d.scrollTo, toast: d.toast, toastAction: d.toastAction, toastDot: d.toastDot
@@ -205,22 +210,21 @@ class Component extends DCLogic {
     const states = [
       { heading: 'Modes', headingNote: 'Today\u2019s model: current state, one reverse action, Off while normal' },
       { id: 'D1', label: 'Online, everything default', sub: 'The back chevron returns to wherever the screen was opened from, Today or Settings; the tab bar stays so either is one tap away. Teal block carries status and the two mode rows. Voice offers Pause; Screen offers Night light and Off. Levels at 80, 10, 50, 35; Mic runs 1 to 100. Schedule and live conversation off.', ...this.build({}) },
-      { id: 'D13', label: 'Loading, first status not yet in', sub: 'Checking the device until the first status arrives. The level tracks are blank: the defaults 80, 10, 50, 35 must not appear before the device\u2019s values do.', ...this.build({ status: 'Checking the device', engage: 'Waiting for the first status report.', levels: null, dot: 'rgba(255,255,255,.4)' }) },
-      { id: 'D2', label: 'Pending: Off requested', sub: 'Tapped button fills and spins; the label says what is happening. Only the Screen row\u2019s buttons wait; the Voice row, the levels and the schedule stay usable. No elapsed count: the app has no stored request time to show after a reload, so the note repeats the 50-second limit only.', ...this.build({ pendingBtn: 'Off', pendingLabel: 'Turning off\u2026', note: 'Off requested. The device can take up to 50 seconds to confirm.' }) },
-      { id: 'D3', label: 'Confirmed: screen off', sub: 'Status re-read says screen off. The row shows Off and offers Wake; no toast, the change is on screen.', ...this.build({ screen: 'off' }) },
-      { id: 'D4', label: 'Did not confirm after 50 s', sub: 'Device still online; status still says normal, so the buttons return. Toast says what happened and offers the retry. The wish stays stored, so the device may still act later; the copy does not promise either way.', ...this.build({ toast: 'Daniel\u2019s device did not confirm. The screen is still on.', toastAction: 'Try again' }) },
-      { id: 'D5', label: 'Offline, last seen 9:12 AM', sub: 'Amber dot, last-seen time, and the device\u2019s last report kept as Last known. Mode buttons visible and unusable with the reason. Levels and schedule still save; the note says so.', ...this.build({ online: false, lastSeen: '9:12 AM', lastKnown: true, note: 'Pause, night light and off need the device online. Level and schedule changes are still saved.' }) },
-      { id: 'D12', label: 'Never seen', sub: 'Online false and no last-seen time, so no Offline since. Status reads Not seen yet; controls unusable with the reason. Levels show what was last requested from this app, if anything.', ...this.build({ online: false, seen: false, note: 'Pause, night light and off need the device online. Level and schedule changes are still saved.' }) },
-      { id: 'D6', label: 'Voice paused, night light', sub: 'Reverse actions: Resume voice, Wake. Resume confirms when voice reads active; Wake confirms when the screen reads normal. Each confirms on its own switch. The current app requires both, so neither can confirm from this state; the rebuild fixes the rule.', ...this.build({ voice: 'paused', screen: 'night' }) },
+      { id: 'D13', label: 'Loading, first status not yet in', sub: 'Checking his Companion until the first status arrives. The level tracks are blank: the defaults 80, 10, 50, 35 must not appear before the device\u2019s values do.', ...this.build({ status: 'Checking his Companion', engage: 'Waiting for the first status report.', levels: null, dot: 'rgba(255,255,255,.4)' }) },
+      { id: 'D2', label: 'Pending: Off requested', sub: 'Tapped button fills and spins; the label says what is happening. Only the Screen row\u2019s buttons wait; the Voice row, the levels and the schedule stay usable. No elapsed count: the app has no stored request time to show after a reload, so the note repeats the 50-second limit only.', ...this.build({ pendingBtn: 'Off', pendingLabel: 'Turning off\u2026', note: 'Off requested. His Companion can take up to 50 seconds to confirm.' }) },
+      { id: 'D3', label: 'Confirmed: screen off', sub: 'Status re-read says screen off. The row shows Off and offers Wake screen and voice; the Voice row reads paused with the screen and has no button (A3). No toast, the change is on screen.', ...this.build({ screen: 'off' }) },
+      { id: 'D4', label: 'Did not confirm after 50 s', sub: 'Device still online; status still says normal, so the buttons return. Toast says what happened and offers the retry. The wish stays stored, so the device may still act later; the copy does not promise either way. A device restart clears Pause, Night light and Off; the status here follows within 30 seconds.', ...this.build({ toast: 'Daniel\u2019s Companion did not confirm. The screen is still on.', toastAction: 'Try again' }) },
+      { id: 'D5', label: 'Offline, last seen 9:12 AM', sub: 'Amber dot, last-seen time, and the device\u2019s last report kept as Last known. Mode buttons visible and unusable with the reason. Levels and schedule still save; the note says so. Offline means the board is not running; a device resting for the night still reports. Offline means the board is not running: the device is off, restarting, without a connection, or not running its Companion board. A device in Night light, Off, or scheduled sleep still reports and shows as online.', ...this.build({ online: false, lastSeen: '9:12 AM', lastKnown: true, note: 'Pause, night light and off need his Companion online. Level and schedule changes are still saved.' }) },
+      { id: 'D12', label: 'Never seen', sub: 'Online false and no last-seen time, so no Offline since. Status reads Not seen yet; controls unusable with the reason. Levels show what was last set, if anything. Before the first report the timezone is unknown; after it the device writes a zone every 30 seconds, which can be its own default. This is also what a device shows when it is not running its Companion board; the app cannot tell the two apart.', ...this.build({ online: false, seen: false, note: 'Pause, night light and off need his Companion online. Level and schedule changes are still saved.' }) },
+      { id: 'D6', label: 'Night light, voice paused with it', sub: 'The Screen row offers Wake screen and voice. The Voice row reads Paused while the screen rests and has no button. The device treats a resting screen as paused voice, ignores Pause while resting, and wakes fully on Resume. While the screen is awake the earlier rule stands: Resume confirms when voice reads active, Wake when the screen reads normal, each on its own switch. The device treats a resting screen as voice paused. Pause does nothing while the screen rests; Resume while it rests is a full wake. One pending request per switch still applies.', ...this.build({ voice: 'paused', screen: 'night' }) },
       { id: 'D14', label: 'Session ended on a device write', sub: 'Rebuild behavior: a write that comes back Invalid session lands on sign-in with the shared banner (Auth A18). Today the app stays on a dead screen. Shown here as the moment before the hand-off.', ...this.build({ toast: 'Your session ended. Sign in to pick up where you were.', toastDot: '#e0b13a' }) },
-      { heading: 'Levels and schedule', headingNote: 'saved as changed, shown as requested, never applied' },
-      { id: 'D7', label: 'Speaker moved to 60', sub: 'Slider, number at 17px beside it, one request on release. Requested just now is a transient message that fades, not a lasting state; the footnote explains the device does not report the level it uses. Mic\u2019s track starts at 1.', ...this.build({ levels: [80, 10, 60, 35], levelSub: { Speaker: '\u00b7 Requested just now' }, scrollTo: 'levels' }) },
+      { heading: 'Levels and schedule', headingNote: 'saved as changed; the level shown is the last one set' },
+      { id: 'D7', label: 'Speaker moved to 60', sub: 'Slider, number at 17px beside it, one request on release. Requested just now is a transient message that fades, not a lasting state. Mic\u2019s track starts at 1. The device does report the level it applied, and a change made on the device overwrites the level set here. The current app returns the requested value; engineering prerequisite: return and show the applied value. On some microphones the applied level can be lower than requested.', ...this.build({ levels: [80, 10, 60, 35], levelSub: { Speaker: '\u00b7 Requested just now' }, scrollTo: 'levels' }) },
       { id: 'D15', label: 'Level change refused', sub: 'The server refused the write. Plain words, the slider returns to the last saved value, and Try again resends. The same pattern serves a schedule change: Could not change the schedule.', ...this.build({ scrollTo: 'levels', toast: 'Could not change the level. Try again.', toastAction: 'Try again' }) },
       { id: 'D8a', label: 'Schedule just turned on', sub: 'First time on: the defaults 7:00 PM, 7:00 AM and Night light appear and are saved as they stand.', ...this.build({ schedOn: true, sleepTime: '7:00 PM', wakeTime: '7:00 AM', scrollTo: 'schedule' }) },
-      { id: 'D8', label: 'Schedule on', sub: 'Sleep 8:30 PM, wake 6:30 AM, Night light selected. Timezone named in the footnote. Each field saves on change; nothing confirms the device follows it, so nothing here says it does.', ...this.build({ schedOn: true, scrollTo: 'schedule' }) },
-      { id: 'D8b', label: 'Schedule on, timezone not reported', sub: 'Same frame; the footnote says the device has not reported its timezone. Today draws the header variant as state 13.', ...this.build({ schedOn: true, tzKnown: false, scrollTo: 'schedule' }) },
+      { id: 'D8', label: 'Schedule on', sub: 'Sleep 8:30 PM, wake 6:30 AM, Night light selected. Timezone named in the footnote: the device writes its zone every 30 seconds; the value can be the device\u2019s own default rather than a setting. Each field saves on change. The footnote says the device follows the schedule and that a reminder due while the screen rests is not read aloud.', ...this.build({ schedOn: true, scrollTo: 'schedule' }) },
       { heading: 'Live conversation', headingNote: 'Daniel\u2019s setting; the paragraph says who can read it' },
-      { id: 'D9', label: 'Off, with the explanation', sub: 'The paragraph is always shown, on or off: it is not a personal preference. Any caregiver, including a viewer, can flip it. Lines already written stay stored after it goes off.', ...this.build({ scrollTo: 'live' }) },
+      { id: 'D9', label: 'Off, with the explanation', sub: 'The paragraph is always shown, on or off: it is not a personal preference. Any caregiver, including a viewer, can flip it. The device deletes lines after 24 hours and gives the person no notice; whether it should is with the founder.', ...this.build({ scrollTo: 'live' }) },
       { id: 'D10', label: 'On, three lines', sub: 'Lines labeled Stella and Someone, newest at the bottom, arriving every 2.5 seconds. The recording carries a role, not a person: anyone in the room can be speaking. Last 200 kept for the session.', ...this.build({ liveOn: true, scrollTo: 'live', lines: [
         { who: 'Stella', text: 'Good morning, Dan. Did you sleep all right?' },
         { who: 'Someone', text: 'Not bad. Is it going to rain?' },

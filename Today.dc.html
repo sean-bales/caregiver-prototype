@@ -13,7 +13,7 @@
 <div style="max-width:720px">
   <div style="font-size:13px; font-weight:600; color:rgba(20,36,40,.55)"><a href="Legavo.dc.html" style="text-decoration:none">Legavo</a> / Today</div>
   <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Today</div>
-  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Final holds approved frames. Working holds states and actions still being iterated; when one settles it moves up. State frames grow to show full content; action frames are fixed at one screen, scrolled to the acted-on row. Times are Daniel's (Central); state 13 draws the hero when the device has not reported its timezone, and the other surfaces reference it. Header pass (Sep 6): the app is called Caregiver. The thin header is drawn on F1, 5, 6, 7 and A4 here and, since approval, on every screen of the other nine pages; the note beside F1 is the spec. The photo viewer, the sign-in and wake screens are modal or signed-out and have no header.</div>
+  <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Final holds approved frames. Working holds states and actions still being iterated; when one settles it moves up. State frames grow to show full content; action frames are fixed at one screen, scrolled to the acted-on row. Times are Daniel's (Central); the device writes its zone every 30 seconds, and only a device that has never reported (state 12) lacks one. Reconciliation (Sep 7): the device is Daniel's Companion; frames may state its general behavior. Header pass (Sep 6): the app is called Caregiver. The thin header is drawn on F1, 5, 6, 7 and A4 here and, since approval, on every screen of the other nine pages; the note beside F1 is the spec. The photo viewer, the sign-in and wake screens are modal or signed-out and have no header.</div>
 </div>
 </sc-if>
 <div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
@@ -97,7 +97,7 @@
       <div style="background:#0f4c4a; color:#fff; padding:16px 20px 24px">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:40px">
           <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div>
-          <button aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
+          <button aria-label="Daniel's Companion settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
         </div>
         <div style="margin-top:24px; font-size:13px; color:rgba(255,255,255,.7)">{{ s.dateLine }}</div>
         <div style="display:flex; align-items:center; gap:10px; margin-top:6px">
@@ -117,7 +117,7 @@
 
       <div style="padding:0 20px">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:44px; margin-top:24px">
-          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">Daniel said</div>
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">From Daniel</div>
           <button style="height:44px; margin-right:-10px; padding:0 10px; border:0; background:none; color:{{ s.markAllColor }}; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.markAll }}</button>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px">
@@ -282,7 +282,7 @@
         <div style="background:#0f4c4a; color:#fff; padding:16px 20px 0">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:44px">
             <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div>
-            <button aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
+            <button aria-label="Daniel's Companion settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
           </div>
         </div>
       </sc-if>
@@ -294,7 +294,7 @@
         <sc-if value="{{ s.noHdr }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:40px">
           <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div>
-          <button aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
+          <button aria-label="Daniel's Companion settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
         </div>
         </sc-if>
         <div style="margin-top:{{ s.dateTop }}; font-size:13px; color:rgba(255,255,255,.7)">{{ s.dateLine }}</div>
@@ -314,7 +314,8 @@
         </sc-if>
         <button style="width:100%; height:50px; margin-top:24px; border-radius:999px; border:0; background:#fff; color:#0f4c4a; font:600 16px 'Source Sans 3',sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; white-space:nowrap"><span style="font-size:22px; line-height:1; margin-top:-2px">+</span>Send something</button>
         <div style="display:flex; gap:10px; margin-top:10px; opacity:{{ s.ctrlOpacity }}">
-          <button style="flex:1; height:44px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.voiceLabel }}</button>
+          <sc-if value="{{ s.voiceBtn }}" hint-placeholder-val="{{ true }}"><button style="flex:1; height:44px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.voiceLabel }}</button></sc-if>
+          <sc-if value="{{ s.voiceRest }}" hint-placeholder-val="{{ false }}"><div style="flex:1; height:44px; display:flex; align-items:center; justify-content:center; text-align:center; color:rgba(255,255,255,.82); font:600 14px 'Source Sans 3',sans-serif; line-height:1.2">{{ s.voiceLabel }}</div></sc-if>
           <button style="flex:1; height:44px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.lightLabel }}</button>
         </div>
       </div>
@@ -322,7 +323,7 @@
       <div style="padding:0 20px">
         <!-- replies -->
         <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; height:44px; margin-top:24px">
-          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">Daniel said</div>
+          <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:#142428">From Daniel</div>
           <sc-if value="{{ s.markAll }}" hint-placeholder-val="{{ true }}"><button style="height:44px; margin-right:-10px; padding:0 10px; border:0; background:none; color:{{ s.markAllColor }}; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.markAll }}</button></sc-if>
         </div>
         <sc-if value="{{ s.loading }}" hint-placeholder-val="{{ false }}">
@@ -498,7 +499,7 @@ class Component extends DCLogic {
   base(o) {
     const s = Object.assign({
       isMain: true, isTodayPhone: true, isActPhone: false, catalogue: null, headerPad: '16px 20px 24px', hdr: false, noHdr: true, dateTop: '24px', bannerPad: '16px 20px 14px', dateLine: 'Sun, Sep 6 · Central', tzNote: '', dot: '#8fd3c7',
-      status: 'Online, voice active', engage: '', note: '', ctrlOpacity: 1, voiceLabel: 'Pause voice', lightLabel: 'Night light',
+      status: 'Online, voice active', engage: '', note: '', ctrlOpacity: 1, voiceBtn: true, voiceRest: false, voiceLabel: 'Pause voice', lightLabel: 'Night light',
       markAll: 'Mark all read', markAllColor: '#0f4c4a', replies: [], repliesEmpty: '', repliesError: '', reminders: [], remCount: '', remError: '', remEmpty: '',
       board: [], boardCount: '', boardEmpty: '', install: false, loading: false, banner: '', sheet: '', sheetBody: '', signinBanner: 'Your session ended. Sign in to pick up where you were.'
     }, o);
@@ -513,7 +514,7 @@ class Component extends DCLogic {
       markAll: 'All read', markAllColor: '#56676c',
       replies: [this.reply('Tell Alex I liked the soup.', 'Yesterday, 5:48 PM', false)],
       reminders: [this.rem('Done', 'Morning medication', 'He pressed it · 8:02 AM')], remCount: '1 today',
-      boardEmpty: 'Nothing on the screen right now.'
+      boardEmpty: 'Nothing on his Companion right now.'
     }, o));
   }
   busy(allRead) {
@@ -521,7 +522,7 @@ class Component extends DCLogic {
     return this.base({
       dateLine: 'Sun, Sep 6 · 11:52 PM Central',
       engage: 'Stella saved five memories today, last at 9:14 PM.',
-      note: allRead ? '' : 'Night light requested. The device can take up to 50 seconds to confirm.',
+      note: allRead ? '' : 'Night light requested. His Companion can take up to 50 seconds to confirm.',
       lightLabel: allRead ? 'Night light' : 'Turning on…',
       markAll: allRead ? 'All read' : 'Mark all read', markAllColor: allRead ? '#56676c' : '#0f4c4a',
       replies: [
@@ -532,8 +533,8 @@ class Component extends DCLogic {
       ],
       reminders: [
         this.rem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true),
-        this.rem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'),
-        this.rem('No response', 'Call Alex', 'Reminded · ended 4:00 PM'),
+        this.rem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM'),
+        this.rem('No response', 'Call Alex', 'Reminded at 3:00 PM · ended 4:00 PM'),
         this.rem('Skipped', 'Lunch medication', 'He pressed it · 12:35 PM'),
         this.rem('Done', 'Morning medication', 'He said so · 8:15 AM'),
         this.rem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)
@@ -563,7 +564,7 @@ class Component extends DCLogic {
       ],
       reminders: [
         this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true),
-        this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'),
+        this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM'),
         this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)
       ], remCount: '5 today · 1 tomorrow',
       board: [
@@ -578,58 +579,64 @@ class Component extends DCLogic {
   items(list) { return list.map((it, i) => ({ label: it[0], sub: it[1] || '', color: it[2] || '#142428', divider: i ? '1px solid rgba(20,36,40,.08)' : '0' })); }
   renderVals() {
     const red = '#a84a1c';
-    const fail = 'Removing deletes it from Daniel\u2019s device and from Caregiver. There is no undo.';
+    const fail = 'Removing deletes it from Daniel\u2019s Companion and from Caregiver. There is no undo.';
     const actions = [
       { heading: 'Device controls', headingNote: 'one pending request per switch, up to 50 s, nothing else blocked' },
-      { id: 'A1', label: 'Voice and screen both pending', sub: 'Tapped button fills and spins; label says what is happening. One note explains the wait. The rest of the screen stays live.', ...this.abase({
+      { id: 'A1', label: 'Voice and screen both pending', sub: 'Tapped button fills and spins; label says what is happening. One note explains the wait. The rest of the screen stays live. A device restart clears a pause or a night light; the status here follows within 30 seconds and nothing says why.', ...this.abase({
         voiceLabel: 'Pausing…', lightLabel: 'Turning on…', voicePending: true, lightPending: true, voiceBg: 'rgba(255,255,255,.14)', lightBg: 'rgba(255,255,255,.14)',
-        note: 'Waiting for the device. It can take up to 50 seconds to confirm.'
+        note: 'Waiting for his Companion. It can take up to 50 seconds to confirm.'
       }) },
       { id: 'A2', label: 'Device did not confirm', sub: 'Status is re-read and still says active, so the button returns to Pause voice. Toast says what happened and offers the retry.', ...this.abase({
-        toast: 'Daniel\u2019s device did not confirm the pause. Voice is still on.', toastAction: 'Try again'
+        toast: 'Daniel\u2019s Companion did not confirm the pause. Voice is still on.', toastAction: 'Try again'
       }) },
       { heading: 'Sending', headingNote: 'entry point only; composer is a later document' },
       { id: 'A3', label: 'Send something', sub: 'Three choices, each with where it lands so the caregiver knows what to expect on Today afterwards.', ...this.abase({
         sheet: 'Send Daniel something', sheetItems: this.items([
           ['Message', 'Shows on his screen and under On the board'],
           ['Reminder', 'It shows under Reminders at the time you set'],
-          ['Photo', 'A new or saved photo for his screen']
+          ['Photo', 'A new or saved photo for his Companion']
         ]), sheetCancelGap: '12px'
       }) },
       { heading: 'Replies', headingNote: 'mark read is immediate, no undo' },
       { id: 'A4', label: 'Reply opened', sub: 'Header pass: drawn as a pushed page so the light header and the back control are visible together (the header brief calls this frame a pushed page; A5 keeps the sheet). Full text, the reminder it was about, and Mark read. Read state is shared, so the line under the button says so. Going back without marking keeps it unread.', ...this.abase({ pushed: true, notPushed: false,
         replies: [this.areply('I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.', '9:20 PM', true, '', true), this.areply('I took the pills but I could not find the blue ones.', '12:41 PM', true, 'Lunch medication'), this.areply('Good morning to you too.', '8:30 AM', false)],
-        pageKicker: 'Daniel said · 9:20 PM', pageBody: 'I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.',
+        pageKicker: '9:20 PM', pageBody: 'I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.',
         sheetPrimary: 'Mark read', sheetNote: 'Marked read for the whole family.'
       }) },
       { id: 'A5', label: 'Reply about a reminder', sub: 'Same sheet with the reminder title attached. Marking read drops the tab count by one for every caregiver; the line under the button says so. When the reminder has since been removed, the tag reads “About a reminder that is no longer on the board.”', ...this.abase({
         replies: [this.areply('I wanted to tell you that the man from the church came by this afternoon and we sat on the porch for a good while. He asked after you and the children. I told him you would be here Sunday and he said he might stop in again. Also the tomatoes are ready and there are more than I can eat, so bring a bag.', '9:20 PM', true), this.areply('I took the pills but I could not find the blue ones.', '12:41 PM', true, 'Lunch medication', true), this.areply('Good morning to you too.', '8:30 AM', false)],
-        sheetKicker: 'Daniel said · 12:41 PM', sheet: 'I took the pills but I could not find the blue ones.', sheetTitleGap: '8px', sheetTitleFont: "'Source Sans 3',Helvetica,Arial,sans-serif", sheetTitleWeight: 400, sheetTitleSize: '17px', sheetTitleLine: 1.5, sheetAbout: 'About: Lunch medication',
+        sheetKicker: '12:41 PM', sheet: 'I took the pills but I could not find the blue ones.', sheetTitleGap: '8px', sheetTitleFont: "'Source Sans 3',Helvetica,Arial,sans-serif", sheetTitleWeight: 400, sheetTitleSize: '17px', sheetTitleLine: 1.5, sheetAbout: 'About: Lunch medication',
         sheetPrimary: 'Mark read', sheetCancel: 'Close', sheetNote: 'Marked read for the whole family.'
       }) },
       { heading: 'Reminders', headingNote: 'done and skip on any state; remove deletes' },
-      { id: 'A6', label: 'Reminder options', sub: 'From ⋮ on any reminder row (new; Mark done and Skip stay inline on waiting ones). Remove is the only red item.', ...this.abase({ scroll: '-560px',
-        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true, 1, true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)],
+      { id: 'A6', label: 'Reminder options', sub: 'From ⋮ on any reminder row (new; Mark done and Skip stay inline on waiting ones). On a repeating row Remove is two red items; on a non-repeating row the sheet has one, Remove reminder. Rebuild behavior. Stop repeating removes every reminder for Daniel with the same text and repeat, which is how his Companion itself recognises a series. Today the app can only remove one day\u2019s row, and tomorrow\u2019s already exists once today\u2019s has ended. His Companion re-reads the board every 20 seconds, so removal is not instant.', ...this.abase({ scroll: '-560px',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true, 1, true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)],
         sheet: 'Bedtime medication', sheetMeta: 'Waiting · set for 11:00 PM, until 11:59 PM · Daily', sheetItems: this.items([
           ['Mark done', 'Shows as Done, marked by you.'],
           ['Skip', 'Shows as Skipped, marked by you.'],
-          ['Remove reminder', 'Deletes it from the device and from Caregiver', red]
+          ['Remove today\u2019s', 'Removes it from his Companion and from Caregiver', red],
+          ['Stop repeating', 'Every day\u2019s reminder, from his Companion and from Caregiver', red]
         ]), sheetCancelGap: '12px'
       }) },
+      { id: 'A6b', label: 'Stop repeating confirmation', sub: 'Rebuild behavior. From Stop repeating on A6. Names the series, states the reach and the missing undo. Red primary.', ...this.abase({ scroll: '-560px',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true, 1, true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)],
+        sheet: 'Stop repeating Bedtime medication?', sheetBody: 'Every day\u2019s reminder comes off his Companion and out of Caregiver. There is no undo.',
+        sheetPrimary: 'Stop repeating', sheetPrimaryBg: red
+      }) },
       { id: 'A7', label: 'Skip confirmation', sub: 'The brief asks for one. Names the reminder, states the effect and the missing undo. Primary is the action, not Cancel.', ...this.abase({ scroll: '-560px',
-        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true, 1, true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)],
-        sheet: 'Skip bedtime medication tonight?', sheetBody: 'Shows as Skipped, marked by you. This cannot be undone.',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true, 1, true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)],
+        sheet: 'Skip bedtime medication tonight?', sheetBody: 'Shows as Skipped, marked by you. This cannot be undone. Tomorrow\u2019s repeat is not affected.',
         sheetPrimary: 'Skip tonight', sheetPrimaryBg: '#142428'
       }) },
       { id: 'A8', label: 'After Mark done', sub: 'No toast; the row is the feedback. Outcome reads "You marked it" with the time. Options stay available, so a mistaken tap can be corrected by Skip (history is kept).', ...this.abase({ scroll: '-560px',
-        reminders: [this.arem('Done', 'Bedtime medication', 'You marked it · 11:53 PM'), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)]
+        reminders: [this.arem('Done', 'Bedtime medication', 'You marked it · 11:53 PM'), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, .7)]
       }) },
-      { id: 'A9', label: 'Remove a reminder', sub: 'Same confirmation shape, red primary. A coming-up reminder has no outcome, so the copy is only about deletion.', ...this.abase({ scroll: '-560px',
-        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, 1, true)],
+      { id: 'A9', label: 'Remove a reminder', sub: 'Same confirmation shape, red primary. A coming-up reminder has no outcome, so the copy is only about deletion. On a repeating row (Remove today\u2019s) the body gains a second sentence: Tomorrow\u2019s is already set and stays under Coming up. His Companion re-reads the board every 20 seconds, so removal is not instant.', ...this.abase({ scroll: '-560px',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM'), this.arem('Tomorrow', 'Dentist at 11', 'Set for 10:30 AM tomorrow', false, 1, true)],
         sheet: 'Remove "Dentist at 11"?', sheetBody: fail, sheetPrimary: 'Remove reminder', sheetPrimaryBg: red
       }) },
       { id: 'A10', label: 'Removed', sub: 'The row is gone, so a toast confirms it. No undo, so no undo button.', ...this.abase({ scroll: '-560px',
-        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM')], remCount: '5 today',
+        reminders: [this.arem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true), this.arem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM')], remCount: '5 today',
         toast: 'Removed "Dentist at 11".', toastDot: '#8fd3c7'
       }) },
       { heading: 'Board items', headingNote: 'pin sorts first; remove deletes from the screen' },
@@ -637,19 +644,19 @@ class Component extends DCLogic {
         board: [this.aboard({ photo: true, body: 'Sunday walk at the lake, last spring.', meta: 'Photo · pinned · posted 9:20 AM', hl: true }), this.aboard({ body: 'Sleep well, Dad. I will call in the morning.', meta: 'Message · posted 11:50 PM · clears in 9 min' })],
         sheet: 'Sunday walk at the lake, last spring.', sheetMeta: 'Photo · pinned · posted 9:20 AM', sheetItems: this.items([
           ['Open photo', 'Full size'],
-          ['Unpin', 'Pinned items stay at the top of this list'],
+          ['Unpin', 'Pinned items stay at the top of this list and show first and longer on his Companion'],
           ['Remove from the board', 'It stays in the family gallery', red]
         ]), sheetCancelGap: '12px'
       }) },
       { id: 'A12', label: 'Remove a photo', sub: 'Confirmation notes the gallery copy survives. For a message the last sentence is dropped.', ...this.abase({ scroll: '-1100px',
         board: [this.aboard({ photo: true, body: 'Sunday walk at the lake, last spring.', meta: 'Photo · pinned · posted 9:20 AM', hl: true }), this.aboard({ body: 'Sleep well, Dad. I will call in the morning.', meta: 'Message · posted 11:50 PM · clears in 9 min' })],
-        sheet: 'Remove this photo from Daniel\u2019s screen?', sheetBody: 'It comes off the board. There is no undo. The photo stays in the family gallery.',
+        sheet: 'Remove this photo from Daniel\u2019s Companion?', sheetBody: 'It comes off the board. There is no undo. The photo stays in the family gallery.',
         sheetPrimary: 'Remove from the board', sheetPrimaryBg: red
       }) },
       { id: 'A13', label: 'Photo, first open', sub: 'Full-screen viewer. No thumbnails exist, so the first load is slow; the copy says why.', ...this.abase({ showToday: false, photoView: true, photoLoading: true }) },
       { id: 'A14', label: 'Photo loaded', sub: 'Caption and posting facts below. ⋮ gives the same Unpin and Remove as the row.', ...this.abase({ showToday: false, photoView: true, photoLoaded: true }) },
       { heading: 'Install invitation', headingNote: 'depends on the phone' },
-      { id: 'A15', label: 'Show me how, iPhone', sub: 'The app cannot trigger install on iPhone, so it teaches the two taps. Same instruction as Settings S1, without the browser name.', ...this.abase({ install: true, unread: 0, replies: [], reminders: [], board: [], remCount: '', boardCount: '',
+      { id: 'A15', label: 'Show me how, iPhone', sub: 'The app cannot trigger install on iPhone, so it teaches the two taps. Same instruction as Settings S1, without the browser name. Installed name: the full name is Legavo Caregiver with the short name Caregiver, because home screens truncate at about twelve characters.', ...this.abase({ install: true, unread: 0, replies: [], reminders: [], board: [], remCount: '', boardCount: '',
         sheet: 'Add Caregiver to your home screen', sheetBody: 'Tap Share, then Add to Home Screen.', sheetSteps: [{ n: 1, text: 'Tap Share at the bottom of the screen (the square with an arrow).' }, { n: 2, text: 'Scroll and tap Add to Home Screen, then Add.' }],
         sheetCancel: 'Done', sheetCancelGap: '16px'
       }) },
@@ -666,7 +673,7 @@ class Component extends DCLogic {
         toast: 'Could not mark it read. Your phone is offline.', toastAction: 'Try again'
       }) },
       { id: 'A19', label: 'Toast catalogue', sub: 'Every failure the system can report today, plus the two successes that need a toast because nothing is left on screen to show. No device-offline toast: state 5 disables the controls with the reason inline, so it can never appear. The server refusal shown is the empty-text one; the until-time check happens on the phone (Compose C7).', ...this.abase({ isActPhone: false, catalogue: [
-        { when: 'Device did not confirm in time', dot: '#e0b13a', text: 'Daniel\u2019s device did not confirm the pause. Voice is still on.' },
+        { when: 'Device did not confirm in time', dot: '#e0b13a', text: 'Daniel\u2019s Companion did not confirm the pause. Voice is still on.' },
         { when: 'Phone offline', dot: '#e0b13a', text: 'Could not mark it read. Your phone is offline.' },
         { when: 'Session ended (rebuild behavior)', dot: '#e0b13a', text: 'Your session ended. Sign in to pick up where you were.' },
         { when: 'Server refused the request', dot: '#e0b13a', text: 'Message text is required.' },
@@ -675,7 +682,7 @@ class Component extends DCLogic {
       ] }) }
     ];
     const finals = [
-      { id: 'F1', label: 'Today, approved layout', sub: 'Header pass: the thin header is the hero\u2019s first row, transparent over the teal. From canvas-1 · 4a. Two unread replies (badge on the Today tab), three reminders, four board items, install invitation. The board header says when it clears; kept items carry a Kept marker and do not clear. A message dated later carries Scheduled for its time. A photo row shows its caption; with no caption it reads Photo and nothing else. The engagement line counts memories, not conversations; when nothing was saved today it reads “No memories saved yet today.”', ...this.base({
+      { id: 'F1', label: 'Today, approved layout', sub: 'Header pass: the thin header is the hero\u2019s first row, transparent over the teal. From canvas-1 · 4a. Two unread replies (badge on the Today tab), three reminders, four board items, install invitation. The board header says when it clears; kept items carry a Kept marker and do not clear. A message dated later carries Scheduled for its time. A photo row shows its caption; with no caption it reads Photo and nothing else. The engagement line counts memories, not conversations; when nothing was saved today it reads “No memories saved yet today.” Board: his Companion shows one item at a time, 45 seconds each, and reads each aloud once as “You have a message: ...” or “A photo note: ...”. This list is the app\u2019s; he never sees it as a list.', ...this.base({
         dateLine: 'Sun, Sep 6 · Central', engage: 'Stella saved two memories today, last at 3:40 PM.',
         replies: [this.reply('Tell Alex the roses out front are blooming again. She should come see them.', '2:12 PM', true), this.reply('I found the photo of your mother at the lake. It is on the fridge now.', '11:05 AM', true)],
         reminders: [this.rem('Done', 'Morning medication', 'He said so · 8:15 AM'), this.rem('No response', 'Lunch', 'Reminded at 12:30 PM · ended 1:30 PM'), this.rem('Waiting', 'Call Alex', 'Set for 6:00 PM, until 7:00 PM', true)], remCount: '3 today',
@@ -690,35 +697,34 @@ class Component extends DCLogic {
         { t: 'What sits on the right', b: 'The Daniel pill, the entry to Daniel\u2019s device, on every root tab screen: Today, Story (Chapters and Photos), Profile, Settings. On Today it was already the hero\u2019s top row, so nothing moves there. No pill on pushed pages (Device, a chapter, Texts, an opened reply), none when signed out, none for the administrator. Nothing else goes in the slot: there is no account menu, notifications or search; sign out stays on Settings; the unread count stays on the Today tab badge and is not repeated. Alex\u2019s name is not shown: one login is tied to one person and there is nothing to switch, so the name would only be confirmation.' },
         { t: 'Back control', b: 'Never in the header, so the wordmark sits in the same place on every screen. Pushed pages draw the back control as the first row under the header, 44 px, chevron plus the screen it came from, as Device already does (A4).' },
         { t: 'Stacking', b: 'Status area, header, then any banner (state 6), then the page. Sheets, dialogs, the install invitation and the offline overlay draw above all of it and are unchanged (state 7).' },
-        { t: 'Not drawn', b: 'State 13: the header does not depend on the hero\u2019s height, so it is skipped.' }
+        { t: 'Timezone', b: 'The header says Central once the device has reported. The device writes its zone every 30 seconds; the value can be the device\u2019s own default rather than a setting. Before the first report (state 12) the date line has no zone.' }
       ] }
     ];
     const working = [
       { id: '1', label: 'Quiet day', sub: 'Online. No memories saved today, so the engagement line reads “No memories saved yet today.” with the last save from yesterday. One read reply, one reminder done, board empty.', ...this.quiet() },
-      { id: '2', label: 'Busy day', sub: '11:52 PM. Night light pending; only that button waits. Four replies: one long, one linked to a reminder, one about a reminder that is no longer on the board. One reminder per outcome plus one queued for tomorrow; the No response row is the variant where the device recorded that it spoke but gave no time. Three board items, one Kept.', ...this.busy(false) },
+      { id: '2', label: 'Busy day', sub: '11:52 PM. Night light pending; only that button waits. Four replies: one long, one linked to a reminder, one about a reminder that is no longer on the board. One reminder per outcome plus one queued for tomorrow. Three board items, one Kept. From Daniel (the section title; row kickers carry the time alone): what Daniel asked Stella to pass along. The text is Stella\u2019s rendering of what he asked to send, not a transcript. Never heard: the usual cause is the screen resting through the window (Night light, Off, or the sleep schedule); the device writes nothing to say why.', ...this.busy(false) },
       { id: '3', label: 'All replies read by another caregiver', sub: 'Same as busy day; every reply already read. The app cannot say who marked them.', ...this.busy(true) },
-      { id: '4', label: 'Voice paused, night light on, schedule on', sub: 'Controls offer the reverse actions. The status line adds Schedule on after the screen state.', ...this.quiet({ status: 'Online, voice paused', engage: 'Screen is in night light. Schedule on. No memories saved yet today; last saved yesterday at 6:10 PM.', voiceLabel: 'Resume voice', lightLabel: 'Wake screen' }) },
-      { id: '5', label: 'Device offline', sub: 'Header pass: chosen over state 1 because the taller hero with the amber dot and the inline note is the harder case for the header to sit on. No word since 4:10 PM. Last known voice/screen state is stale. Controls visible but unusable, with the reason inline, so no offline toast exists.', ...this.base({
+      { id: '4', label: 'Night light on, voice paused with it, schedule on', sub: 'The Screen row offers Wake screen and voice; the Voice row has no button while the screen rests. The device treats a resting screen as voice paused. Pause does nothing while the screen rests; Resume while it rests is a full wake. One pending request per switch still applies.', ...this.quiet({ status: 'Online, screen in night light, voice paused with it', engage: 'Schedule on. No memories saved yet today; last saved yesterday at 6:10 PM.', voiceBtn: false, voiceRest: true, voiceLabel: 'Paused while the screen rests', lightLabel: 'Wake screen and voice' }) },
+      { id: '5', label: 'Device offline', sub: 'Header pass: chosen over state 1 because the taller hero with the amber dot and the inline note is the harder case for the header to sit on. No word since 4:10 PM. Last known voice/screen state is stale. Controls visible but unusable, with the reason inline, so no offline toast exists. Offline means the board is not running: the device is off, restarting, without a connection, or not running its Companion board. A device in Night light, Off, or scheduled sleep still reports and shows as online.', ...this.base({
         dateLine: 'Sun, Sep 6 · 6:30 PM Central', dot: '#e0b13a', status: 'Offline since 4:10 PM',
         engage: 'Voice and screen state unknown. Stella saved one memory today, at 1:22 PM.',
-        note: 'Pause and night light need the device online. Anything you send is saved.',
+        note: 'Pause and night light need his Companion online. Anything you send is saved and shows when it is back.',
         ctrlOpacity: .4,
         replies: [this.reply('The mailman left a package on the step.', '3:50 PM', true)],
-        reminders: [this.rem('Waiting', 'Evening medication', 'Set for 6:00 PM, until 7:00 PM · device offline', true), this.rem('Done', 'Morning medication', 'He said so · 8:15 AM')], remCount: '2 today',
-        board: [{ body: 'Soup is in the fridge, second shelf.', meta: 'Message · sent 5:40 PM · not yet on the device' }], boardCount: '1 not yet on the device', hdr: true
+        reminders: [this.rem('Waiting', 'Evening medication', 'Set for 6:00 PM, until 7:00 PM · Companion offline', true), this.rem('Done', 'Morning medication', 'He said so · 8:15 AM')], remCount: '2 today',
+        board: [{ body: 'Soup is in the fridge, second shelf.', meta: 'Message · sent 5:40 PM · not yet on his Companion' }], boardCount: '1 not yet on his Companion', hdr: true
       }) },
-      { id: '12', label: 'Device never seen', sub: 'Online false and no last-seen time, so no Offline since. Status reads Not seen yet; controls unusable with the reason. Device D12 is the same state.', ...this.base({
-        dateLine: 'Sun, Sep 6 · Central', dot: '#e0b13a', status: 'Not seen yet.',
-        engage: 'This device has never reported in. Voice and screen state unknown.',
-        note: 'Pause and night light need the device online. Anything you send is saved.',
-        ctrlOpacity: .4, markAll: '', replies: [], repliesEmpty: 'When Daniel asks Stella to pass something along, it shows up here.', reminders: [], remEmpty: 'No reminders today.', boardEmpty: 'Nothing on the screen right now.'
+      { id: '12', label: 'Device never seen', sub: 'Online false and no last-seen time, so no Offline since. Status reads Not seen yet; controls unusable with the reason. Device D12 is the same state. Before the first report the timezone is unknown and the header cannot say Central; after it the device writes a zone every 30 seconds, which can be its own default. This frame also covers a device whose Companion board is not running; the app cannot tell the two apart.', ...this.base({
+        dateLine: 'Sun, Sep 6', tzNote: 'Times are the device\u2019s. It has not reported yet.', dot: '#e0b13a', status: 'Not seen yet.',
+        engage: 'His Companion has never reported in. Voice and screen state unknown.',
+        note: 'Pause and night light need his Companion online. Anything you send is saved and shows when it is back.',
+        ctrlOpacity: .4, markAll: '', replies: [], repliesEmpty: 'When Daniel asks Stella to pass something along, it shows up here.', reminders: [], remEmpty: 'No reminders today.', boardEmpty: 'Nothing on his Companion right now.'
       }) },
-      { id: '13', label: 'Timezone not reported', sub: 'The device has not reported its timezone, so the header cannot say Central. Times are shown as the device gives them, with the line saying so. Every other surface that says Central has this variant; it is drawn once here.', ...this.quiet({ dateLine: 'Sun, Sep 6 · 6:30 PM', tzNote: 'Times are the device\u2019s. It has not reported its timezone yet.' }) },
       { id: '6', label: 'App offline', sub: 'Rebuild behavior: the current app covers the screen with a fixed overlay; the redesign draws a banner instead. Header pass: the banner sits beneath the header, above the hero. Phone has no connection. Whatever loaded stays; actions fail until it returns.', ...this.quiet({ hdr: true, headerPad: '16px 20px 24px', banner: 'No connection. Showing what loaded at 6:30 PM. Actions will fail until you are back online.' }) },
       { id: '7', label: 'Session ended', sub: 'Header pass: the sheet draws above the header, unchanged. Rebuild behavior: after 72 hours any action fails with an authorization error, and the shared banner (Auth A18) says so. Today the app stays on a dead screen.', ...this.quiet({ hdr: true, sheet: 'Your session ended. Sign in to pick up where you were.', sheetBody: 'You will go back to where you were.' }) },
       { id: '8', label: 'Opened from a link, session ended', sub: 'Rebuild behavior: the opened address is kept and the shared banner sits on sign-in. Today the app lands on the landing page instead.', ...this.base({ isMain: false, isSignin: true }) },
       { id: '9', label: 'First open after server idle', sub: 'Free-plan hosting only. First request can take about a minute; nothing is loaded yet.', ...this.base({ isMain: false, isWake: true }) },
-      { id: '10a', label: 'Loading', sub: 'Four sources load separately: device status, replies, notes, memories. Reminders and the board arrive in one request. While the first device status loads, the status line reads Checking the device rather than an empty skeleton.', ...this.base({ loading: true, status: 'Checking the device', dot: 'rgba(255,255,255,.4)', engage: '', markAll: '', remCount: '', unread: 0, voiceLabel: 'Pause voice' }) },
+      { id: '10a', label: 'Loading', sub: 'Four sources load separately: device status, replies, notes, memories. Reminders and the board arrive in one request. While the first device status loads, the status line reads Checking the device rather than an empty skeleton.', ...this.base({ loading: true, status: 'Checking his Companion', dot: 'rgba(255,255,255,.4)', engage: '', markAll: '', remCount: '', unread: 0, voiceLabel: 'Pause voice' }) },
       { id: '10b', label: 'One request failed', sub: 'Replies failed to load while everything else loaded. Plain words, no codes, Try again in place. Reminders and the board arrive together, so one cannot fail without the other.', ...this.quiet({ markAll: '', replies: [], unread: 0, repliesError: 'Could not load Daniel\u2019s replies.' }) },
       { id: '11', label: 'Empty sections, new household', sub: 'No reminders today, nothing on the board, no replies ever.', ...this.quiet({ engage: 'No memories saved yet.', markAll: '', replies: [], repliesEmpty: 'When Daniel asks Stella to pass something along, it shows up here.', reminders: [], remCount: '', remEmpty: 'No reminders today.', install: true }) }
     ];

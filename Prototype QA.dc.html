@@ -222,6 +222,20 @@ class Component extends DCLogic {
         await this.tapTo('Compose ' + w, 'C4 Post → C9a', /^Post/, {}, w + '/compose/C9a');
         await this.goto(w + '/compose/C12');
         await this.tapTo('Compose ' + w, 'C12 Discard → Today', /^Discard/, {}, w + '/today/F1');
+        // Reconciliation frames: C11f reachable and closes; A6 → A6b → A10; state 4 wake is a full wake
+        await this.goto(w + '/compose/C11f');
+        await this.tapTo('Compose ' + w, 'C11f Cancel → Today', /^Cancel$/, {}, w + '/today/F1');
+        await this.goto(w + '/today/A6');
+        await this.tapTo('Reconcile ' + w, 'A6 Stop repeating → A6b', /^Stop repeating/, {}, w + '/today/A6b');
+        await this.tapTo('Reconcile ' + w, 'A6b Stop repeating → A10', /^Stop repeating$/, {}, w + '/today/A10');
+        await this.goto(w + '/today/A6b');
+        await this.tapTo('Reconcile ' + w, 'A6b Cancel → F1', /^Cancel$/, {}, w + '/today/F1');
+        await this.goto(w + '/today/4');
+        await this.tapTo('Reconcile ' + w, 'State 4 Wake screen and voice → A1 pending', /^Wake screen and voice$/, {}, w + '/today/A1');
+        await this.waitFor(() => this.hash() === w + '/today/F1', 6000); await this.settle(2500);
+        await this.expectHash('Reconcile ' + w, 'A1 pending → F1 after the wait', w + '/today/F1');
+        await this.goto(w + '/device/D6');
+        await this.tapTo('Reconcile ' + w, 'D6 Wake screen and voice → D1', /^Wake screen and voice$/, {}, w + '/device/D1');
       }
       // 6. Desktop Escape
       if (!this.only) { st('Escape · desktop');
@@ -276,7 +290,6 @@ class Component extends DCLogic {
       st('Switcher · situations'); await this.goto('phone/today/F1'); await openPanel();
       const sit = [
         ['Device', 'Offline since 9:12 AM', 'phone/today/5'], ['Device', 'Never seen', 'phone/today/12'], ['Device', 'Online', 'phone/today/F1'],
-        ['Timezone', 'Not reported', 'phone/today/13'], ['Timezone', 'Reported (Central)', 'phone/today/F1'],
         ['Schedule', 'On', 'phone/today/4'], ['Schedule', 'Off', 'phone/today/F1'],
         ['App connection', 'App offline', 'phone/today/6'], ['App connection', 'Online', 'phone/today/F1'],
         ['Session', 'Ended', 'phone/today/7'], ['Session', 'Live', 'phone/today/F1']

@@ -41,11 +41,12 @@
 
       <sc-if value="{{ s.isPhoto }}" hint-placeholder-val="{{ false }}">
         <sc-if value="{{ s.photoChosen }}" hint-placeholder-val="{{ false }}">
-          <div style="position:relative; border-radius:16px; overflow:hidden; height:262px; background:repeating-linear-gradient(135deg,#e7e0d2 0 8px,#f3efe6 8px 16px); border:1px solid rgba(20,36,40,.08); display:flex; align-items:center; justify-content:center; font:12px ui-monospace,Menlo,monospace; color:#56676c">
+          <div style="position:relative; border-radius:16px; overflow:hidden; height:262px; background:repeating-linear-gradient(135deg,#e7e0d2 0 8px,#f3efe6 8px 16px); border:{{ s.photoBorder }}; display:flex; align-items:center; justify-content:center; font:12px ui-monospace,Menlo,monospace; color:#56676c">
             chosen photo, as taken
             <button style="position:absolute; right:10px; bottom:10px; height:36px; padding:0 14px; border-radius:999px; border:0; background:#142428; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">Change</button>
           </div>
           <div style="font-size:13px; color:#56676c; margin:-4px 0 0 4px">{{ s.photoMeta }}</div>
+          <sc-if value="{{ s.photoError }}" hint-placeholder-val="{{ false }}"><div style="display:flex; gap:8px; align-items:flex-start; margin:-2px 0 0 4px; font-size:14px; line-height:1.4; color:#a84a1c"><span style="width:8px; height:8px; border-radius:50%; background:#a84a1c; flex:none; margin-top:6px"></span><span>{{ s.photoError }}</span></div></sc-if>
         </sc-if>
         <sc-if value="{{ s.photoEmpty }}" hint-placeholder-val="{{ false }}">
           <button style="height:200px; border-radius:16px; border:1.5px dashed rgba(15,76,74,.45); background:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; cursor:pointer; color:#0f4c4a">
@@ -61,6 +62,7 @@
         <sc-if value="{{ s.textHint }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.4; color:#56676c; margin-top:-2px">{{ s.textHint }}</div></sc-if>
         <div style="font-size:17px; line-height:1.45; color:{{ s.textColor }}; white-space:pre-wrap; max-height:220px; overflow:hidden">{{ s.text }}</div>
       </div>
+      <sc-if value="{{ s.isMessage }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px; line-height:1.4; color:#56676c; margin:-6px 4px 0">Shown on his Companion one item at a time and read aloud once as 'You have a message'.</div></sc-if>
 
       <sc-if value="{{ s.isReminder }}" hint-placeholder-val="{{ false }}">
         <div style="background:#fff; border-radius:16px; border:1px solid rgba(20,36,40,.08); padding:4px 16px; display:flex; flex-direction:column">
@@ -71,6 +73,7 @@
               <button style="height:36px; padding:0 12px; border-radius:9px; border:0; background:{{ s.whenBg }}; color:{{ s.whenColor }}; font:{{ s.whenWeight }} 15px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ s.whenTime }}</button>
             </div>
           </div>
+          <div style="font-size:13px; line-height:1.4; color:#56676c; padding:0 0 12px; margin-top:-6px">Shown on his Companion and read aloud once at this time. Not while the screen is resting.</div>
           <div style="height:1px; background:rgba(20,36,40,.08)"></div>
           <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:52px">
             <div><div style="font-size:16px; font-weight:600">Until</div><div style="font-size:13px; color:#56676c">{{ s.untilNote }}</div></div>
@@ -92,7 +95,7 @@
               <button style="flex:1; height:40px; border-radius:999px; border:1.5px solid {{ r.border }}; background:{{ r.bg }}; color:{{ r.color }}; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap">{{ r.label }}</button>
             </sc-for>
           </div>
-          <div style="font-size:13px; line-height:1.4; color:#56676c">Saved as a label. The app does not yet create the next day’s reminder.</div>
+          <div style="font-size:13px; line-height:1.4; color:#56676c">Repeats on his Companion. Each day shows here as its own reminder with its own outcome.</div>
         </div>
       </sc-if>
 
@@ -152,7 +155,7 @@
       <div style="background:#0f4c4a; color:#fff; padding:16px 20px 24px">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; height:44px">
           <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:20px; line-height:1; letter-spacing:-.01em">Caregiver</div>
-          <button aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
+          <button aria-label="Daniel's Companion settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(255,255,255,.45); background:transparent; color:#fff; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></button>
         </div>
         <div style="margin-top:24px; font-size:13px; color:rgba(255,255,255,.7)">Sun, Sep 6 · 11:52 PM Central</div>
         <div style="display:flex; align-items:center; gap:10px; margin-top:6px">
@@ -273,10 +276,10 @@ class Component extends DCLogic {
   compose(kind, o) {
     const teal = '#0f4c4a', ph = '#8a969a';
     const base = {
-      isCompose: true, isToday: false, kind, isPhoto: kind === 'photo', isReminder: kind === 'reminder',
+      isCompose: true, isToday: false, kind, isPhoto: kind === 'photo', isReminder: kind === 'reminder', isMessage: kind === 'message',
       title: { message: 'New message', reminder: 'New reminder', photo: 'New photo' }[kind],
       textLabel: kind === 'photo' ? 'Caption (optional)' : 'What to say',
-      textHint: kind === 'photo' ? 'Shown with the photo, on Today, and used when searching photos.' : '', counter: '',
+      textHint: kind === 'photo' ? 'Read aloud with the photo, shown on Today, and the only words his Companion has for this photo.' : '', counter: '',
       text: { message: 'Something for Daniel\u2019s screen', reminder: 'What Stella should say', photo: 'Who or what is in this picture?' }[kind],
       textColor: ph, textMinHeight: kind === 'message' ? '160px' : kind === 'reminder' ? '96px' : '72px',
       cancelOpacity: 1, formOpacity: 1, showKeep: kind !== 'reminder',
@@ -285,7 +288,7 @@ class Component extends DCLogic {
       untilTime: 'Add an end time', untilBg: 'transparent', untilColor: teal, untilWeight: 600, untilBorder: '0', untilSet: false, untilNote: 'Optional. Same day; runs to 11:59 PM if left empty.',
       clearsLine: 'Clears when the Until time passes, or at 11:59 PM on the day you choose.',
       repeats: this.repeats(0), repeatNote: '', error: '',
-      photoChosen: false, photoEmpty: kind === 'photo', photoMeta: '',
+      photoChosen: false, photoEmpty: kind === 'photo', photoMeta: '', photoBorder: '1px solid rgba(20,36,40,.08)', photoError: '',
       primary: { message: 'Post to his screen', reminder: 'Add reminder', photo: 'Post photo' }[kind],
       primaryBg: 'rgba(15,76,74,.35)', primaryColor: '#fff', posting: false, footNote: '',
       toast: '', toastDot: '#e0b13a', toastAction: '', picker: null, sheet: '', sheetBody: '', sheetPrimary: '', sheetCancel: ''
@@ -306,7 +309,7 @@ class Component extends DCLogic {
       ],
       reminders: [
         this.rem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true),
-        this.rem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM')
+        this.rem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM')
       ], remCount: '5 today',
       board: [
         this.board({ photo: true, body: 'Sunday walk at the lake, last spring.', meta: 'Photo · pinned · posted 9:20 AM' })
@@ -322,17 +325,17 @@ class Component extends DCLogic {
     const photoFilled = { photoChosen: true, photoEmpty: false, photoMeta: '3.1 MB · uploaded as taken, so it takes a little longer', text: 'Sunday walk at the lake, last spring.', textColor: ink, keep: true, ready: true };
     const states = [
       { heading: 'Empty', headingNote: 'one kind per screen; Cancel returns to the picker' },
-      { id: 'C1', label: 'Message, empty', sub: 'Text and the keep switch, nothing else. The switch note states what Off means right now, so the clear time is never a surprise. Post stays inactive until there is text. The counter appears past 80 percent of 8,000 characters (C4). The stored flag behind the keep switch is called Safety warning in the current app; what the device does with it is unverified and is a founder question.', ...this.compose('message') },
-      { id: 'C2', label: 'Reminder, empty', sub: 'When is required and labelled as Daniel\u2019s time. Until is optional with its default spelled out. No keep switch: a reminder always clears when its window ends or at 11:59 PM on its own day, and the line under Until says so. Repeat defaults to Does not repeat and is saved as a label only. The counter appears past 80 percent of 500 characters.', ...this.compose('reminder') },
-      { id: 'C3', label: 'Photo, empty', sub: 'One tile opens the phone\u2019s picker (camera or library, the phone decides). Caption is optional; the hint says where it is used; the placeholder is the current app\u2019s.', ...this.compose('photo') },
+      { id: 'C1', label: 'Message, empty', sub: 'Text and the keep switch, nothing else. The switch note states what Off means right now, so the clear time is never a surprise. Post stays inactive until there is text. The counter appears past 80 percent of 8,000 characters (C4). The stored flag behind the keep switch is Safety warning in the current app. On his Companion it only prevents the nightly clear: no sound, no styling, no priority.', ...this.compose('message') },
+      { id: 'C2', label: 'Reminder, empty', sub: 'When is required and labelled as Daniel\u2019s time. Until is optional with its default spelled out. No keep switch: a reminder always clears when its window ends or at 11:59 PM on its own day, and the line under Until says so. Repeat defaults to Does not repeat. The device creates the next occurrence as its own reminder when the current one ends, so each day shows on Today with its own outcome. The counter appears past 80 percent of 500 characters.', ...this.compose('reminder') },
+      { id: 'C3', label: 'Photo, empty', sub: 'One tile opens the phone\u2019s picker (camera or library, the phone decides). Caption is optional; the hint says where it is used; the placeholder is the current app\u2019s. A family photo gets no image analysis on the device; the caption is its whole description. iPhone HEIC photos cannot be shown on his Companion; there is no decoder there. Engineering prerequisite: convert to JPEG on upload. Until then the app refuses HEIC (C11f).', ...this.compose('photo') },
       { heading: 'Filled', headingNote: 'clear time visible; validation before saving' },
       { id: 'C4', label: 'Message, filled, clears tonight, counter showing', sub: 'Posted at 11:52 PM the message clears in 7 minutes. The switch note carries that fact; the footer repeats it so it is read before the tap. The text is past 80 percent of the 8,000 limit, so the counter shows in amber; below that it is not drawn.', ...this.compose('message', { text: longMsg, textColor: ink, ready: true, counter: '6,412 of 8,000', footNote: 'Clears from his screen at 11:59 PM, in 7 minutes.' }) },
-      { id: 'C5', label: 'Message, filled, keep on', sub: 'Keep until I remove it on. The note flips to what On means; the footer note goes away because nothing expires. The stored flag is Safety warning in the current app; the device\u2019s handling is unverified, a founder question.', ...this.compose('message', { text: msg, textColor: ink, keep: true, ready: true }) },
+      { id: 'C5', label: 'Message, filled, keep on', sub: 'Keep until I remove it on. The note flips to what On means; the footer note goes away because nothing expires. The stored flag is Safety warning in the current app. On his Companion it only prevents the nightly clear: no sound, no styling, no priority.', ...this.compose('message', { text: msg, textColor: ink, keep: true, ready: true }) },
       { id: 'C6', label: 'Reminder, filled, native picker open', sub: 'The phone\u2019s own date and time picker, drawn here as a stand-in. Values already chosen show in the field as dark chips.', ...this.compose('reminder', Object.assign({}, remFilled, { untilTime: 'Add an end time', untilBg: 'transparent', untilColor: '#0f4c4a', untilSet: false, untilNote: 'Optional. Same day; runs to 11:59 PM if left empty.', ready: true, picker: [
         this.col(['Sat Sep 5', 'Sun Sep 6', 'Mon Sep 7', 'Tue Sep 8', 'Wed Sep 9'], 2), this.col(['8', '9', '10', '11', '12'], 2), this.col(['00', '15', '30', '45', '00'], 2), this.col(['', '', 'AM', 'PM', ''], 2)
       ] })) },
       { id: 'C7', label: 'Reminder, Until before When', sub: 'Checked on the phone before saving. The verbatim error sits under the field it belongs to; Add reminder stays inactive until it is fixed.', ...this.compose('reminder', Object.assign({}, remFilled, { untilTime: '9:30 AM', untilBorder: '1.5px solid ' + red, ready: false, error: 'The "until" time must be after the start time.' })) },
-      { id: 'C8', label: 'Photo, chosen, with caption', sub: 'Original shown as picked, with its size and a plain note on upload time. Change reopens the picker. The caption hint says where it is used. Keep is on here, so it never clears; it still sorts by time on Today.', ...this.compose('photo', photoFilled) },
+      { id: 'C8', label: 'Photo, chosen, with caption', sub: 'Original shown as picked, with its size and a plain note on upload time. Change reopens the picker. The caption hint says where it is used. Keep is on here, so it never clears; it still sorts by time on Today. A family photo gets no image analysis on the device; the caption is its whole description. iPhone HEIC photos cannot be shown on his Companion; there is no decoder there. Engineering prerequisite: convert to JPEG on upload. Until then the app refuses HEIC (C11f).', ...this.compose('photo', photoFilled) },
       { heading: 'Posting', headingNote: 'the app\u2019s words: Posting, Saving, Uploading' },
       { id: 'C9a', label: 'Message, posting', sub: 'Form dims and locks, Cancel goes quiet. Button keeps its place and shows the verb.', ...this.compose('message', { text: msg, textColor: ink, posting: true, primary: 'Posting' }) },
       { id: 'C9b', label: 'Reminder, saving', sub: 'Same shape. Until was left empty, so the note says the window runs to end of day.', ...this.compose('reminder', Object.assign({}, remFilled, { untilTime: 'Add an end time', untilBg: 'transparent', untilColor: '#0f4c4a', untilSet: false, untilNote: 'Optional. Same day; runs to 11:59 PM if left empty.', posting: true, primary: 'Saving' })) },
@@ -342,8 +345,8 @@ class Component extends DCLogic {
         board: [this.board({ photo: true, body: 'Sunday walk at the lake, last spring.', meta: 'Photo · pinned · posted 9:20 AM' }), this.board({ body: msg, meta: 'Message · posted 11:52 PM · clears in 7 min', hl: true })], boardCount: '2 on screen',
         toast: 'Sent. It clears at 11:59 PM.'
       }) },
-      { id: 'C10b', label: 'Reminder added', sub: 'Dated tomorrow, so it lands under the tomorrow group at the end of Reminders. Toast names the time it is set for; the app cannot say what the device will do with it.', ...this.today({ scroll: '-560px',
-        reminders: [this.rem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true), this.rem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · the device never announced it · ended 6:00 PM'), this.rem('Tomorrow', 'Dentist at 11. Alex picks you up at 10:30.', 'Set for 10:30 AM tomorrow, until 11:30 AM', false, 1, true)], remCount: '5 today · 1 tomorrow',
+      { id: 'C10b', label: 'Reminder added', sub: 'Dated tomorrow, so it lands under the tomorrow group at the end of Reminders. Toast names the time it is set for. His Companion shows it and reads it aloud once at that time unless the screen is resting; the app cannot confirm this instance.', ...this.today({ scroll: '-560px',
+        reminders: [this.rem('Waiting', 'Bedtime medication', 'Set for 11:00 PM, until 11:59 PM · Daily', true), this.rem('Never heard', 'Afternoon walk', 'Set for 5:00 PM · his Companion never announced it · ended 6:00 PM'), this.rem('Tomorrow', 'Dentist at 11. Alex picks you up at 10:30.', 'Set for 10:30 AM tomorrow, until 11:30 AM', false, 1, true)], remCount: '5 today · 1 tomorrow',
         toast: 'Added. Set for tomorrow at 10:30 AM.'
       }) },
       { id: 'C10c', label: 'Photo posted', sub: 'Kept, so the line reads kept until removed; it sorts by time under the pinned lake photo. Toast covers both places it went.', ...this.today({ scroll: '-1100px',
@@ -355,6 +358,7 @@ class Component extends DCLogic {
       { id: 'C11b', label: 'Server refused: empty text', sub: 'Only reachable with whitespace, which the phone check lets through. The server\u2019s refusal is translated, never shown raw. Post stays active so the fix is a tap away.', ...this.compose('message', { text: ' ', textColor: ink, ready: true, toast: 'Not saved. The message has no text.' }) },
       { id: 'C11c', label: 'Photo uploaded, indexing failed', sub: 'From Compose an indexing failure saves nothing the caregiver can see: no board item, no gallery entry. So the composer stays open with the photo and caption, and the toast is the same shape as offline, in plain words instead of the raw server error.', ...this.compose('photo', Object.assign({}, photoFilled, { toast: 'Not posted. Something went wrong on our side; the photo is still here.', toastAction: 'Try again' })) },
       { id: 'C11d', label: 'Photo, indexing not set up on this server', sub: 'Same kept photo and caption, no Try again: nothing the caregiver does will finish it. The toast says to ask the administrator.', ...this.compose('photo', Object.assign({}, photoFilled, { toast: 'Photos cannot be indexed on this server yet. The photo is still here. Ask your administrator.' })) },
+      { id: 'C11f', label: 'HEIC refused', sub: 'Rebuild behavior. The chosen photo is an iPhone HEIC, which his Companion cannot decode. The tile is marked, the line says what to do, and Post stays inactive. Engineering prerequisite: convert to JPEG on upload, after which this frame goes away.', ...this.compose('photo', { photoChosen: true, photoEmpty: false, photoMeta: '2.8 MB · HEIC', photoBorder: '1.5px solid ' + red, photoError: 'This photo format cannot be shown on his Companion. Choose a JPEG or take a new photo.', text: 'Who or what is in this picture?', keep: false, ready: false }) },
       { id: 'C11e', label: 'Session ended while posting', sub: 'Rebuild behavior: the write came back Invalid session. The draft stays on screen and the shared banner (Auth A18) says what happened; the app then goes to sign-in and returns here. Today the app stays on a dead screen.', ...this.compose('message', { text: msg, textColor: ink, ready: true, toast: 'Your session ended. Sign in to pick up where you were.' }) },
       { heading: 'Leaving', headingNote: 'no drafts exist; nothing is stored on the phone' },
       { id: 'C12', label: 'Cancel with unsaved text', sub: 'Asked only when there is text or a chosen photo. Names the loss plainly. Primary is the destructive act, red as on Today; Keep writing returns to the form.', ...this.compose('message', { text: msg, textColor: ink, ready: true, sheet: 'Discard this message?', sheetBody: 'It has not been sent. Caregiver keeps no drafts, so the text will be gone.', sheetPrimary: 'Discard', sheetCancel: 'Keep writing' }) }

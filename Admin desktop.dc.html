@@ -139,7 +139,7 @@
             </div>
             <div style="margin-top:16px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:16px; padding:0 20px">
               <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:10px 0">
-                <div style="font-size:16px; font-weight:600; line-height:1.3">Show the agreement at next start</div>
+                <div style="font-size:16px; font-weight:600; line-height:1.3">Show the agreement on his Companion</div>
                 <div style="width:51px; height:31px; border-radius:16px; background:{{ s.p.swBg }}; position:relative; flex:none; cursor:pointer"><div style="position:absolute; top:2px; left:{{ s.p.swKnob }}; width:27px; height:27px; border-radius:50%; background:#fff; box-shadow:0 2px 4px rgba(20,36,40,.3)"></div></div>
               </div>
               <div style="border-top:1px solid rgba(20,36,40,.1); padding:12px 0 14px; font-size:14px; line-height:1.45; color:#56676c">{{ s.p.eulaNote }} This switch saves on its own, right away, separate from Save below.</div>
@@ -257,7 +257,7 @@ class Component extends DCLogic {
     const d = Object.assign({ name: 'Daniel Morgan', nameError: '', assistant: 'Stella', aliases: 'Stella, Stellar', aliasError: '', listener: 'Device default', timeout: '', timeoutError: '', eula: false, lastSaved: 'Sun, Aug 30', savedBy: 'the administrator', read: 'today, 7:02 AM', toast: '', blocked: '' }, o);
     const fields = [
       this.field('Name', d.name, { placeholder: 'Required', error: d.nameError, hint: 'Required. Up to 200 characters. The device derives its own identifier from this name: spaces to underscores, lowercase.' }),
-      this.field('Assistant name', d.assistant, { placeholder: 'Device\u2019s own', hint: 'Up to 40 characters. What the device calls itself.' }),
+      this.field('Assistant name', d.assistant, { placeholder: 'Device\u2019s own', hint: 'Up to 40 characters. What his Companion calls itself.' }),
       this.field('Wake aliases', d.aliases, { placeholder: 'Device\u2019s own', error: d.aliasError, hint: 'Other ways the name is heard, comma separated. Up to 10, each up to 40 characters.' }),
       this.field('Listener', '', { seg: this.seg(['Device default', 'On', 'Off'], d.listener) }),
       this.field('Listener idle timeout', d.timeout, { placeholder: 'Device\u2019s own', error: d.timeoutError, hint: '10 to 600 seconds, whole number.' })
@@ -265,7 +265,7 @@ class Component extends DCLogic {
     const who = d.assistant ? 'Stella' : 'The device';
     const readLine = d.read ? who + ' has read this profile ' + d.read + '.' : who + ' has not read this profile yet.';
     const savedLine = (d.read ? 'From legavo-daniel.local. ' : '') + 'Last saved ' + d.lastSaved + ' by ' + d.savedBy + '. Nothing confirms the device applied the settings; the read time is the only signal.';
-    return this.base({ isPerson: true, back: 'Users', backHref: '#AD1', padTop: '12px', p: { title: 'Daniel Morgan', slug: 'daniel_morgan', fields, ok: !d.blocked, blocked: d.blocked, swBg: d.eula ? '#0f4c4a' : 'rgba(20,36,40,.2)', swKnob: d.eula ? '22px' : '2px', eulaNote: d.eula ? 'Asks the device to show its agreement at its next start. The app cannot confirm that it did. Marked accepted by the administrator on Sun, Aug 16.' : 'Marked accepted by the administrator on Sun, Aug 16. Turn on to ask the device to show its agreement at its next start.', readLine, savedLine }, toast: d.toast });
+    return this.base({ isPerson: true, back: 'Users', backHref: '#AD1', padTop: '12px', p: { title: 'Daniel Morgan', slug: 'daniel_morgan', fields, ok: !d.blocked, blocked: d.blocked, swBg: d.eula ? '#0f4c4a' : 'rgba(20,36,40,.2)', swKnob: d.eula ? '22px' : '2px', eulaNote: d.eula ? 'Asks his Companion to show its agreement screen, usually within a minute. The app cannot confirm that it did. Marked accepted by the administrator on Sun, Aug 16.' : 'Marked accepted by the administrator on Sun, Aug 16. Turn on to ask his Companion to show its agreement screen, usually within a minute.', readLine, savedLine }, toast: d.toast });
   }
   renderVals() {
     const tmp = 'Kq7mPx2vRt9wLn4B', tmp2 = 'Xw3nBq8zLp5tHv7D';
@@ -305,9 +305,9 @@ class Component extends DCLogic {
       { id: 'AD11b', label: 'Delete the only login for a person', sub: 'Shell only. One more consequence in the body.', ...this.list({ users: [rows(false)[1]], hl: 'alex.morgan', dialog: delOnlyDlg }) },
 
       { heading: 'Person settings', headingNote: 'a pushed page in a 640 px column; blank keeps the device\u2019s own' },
-      { id: 'AD12', label: 'Loaded for Daniel', sub: 'Full note. Person settings belong to the person, not to a login, so on desktop they are a pushed page of their own, reached from the panel\u2019s Person settings row, with the back row returning to Users rather than to one login. One 640 px column, as on Profile: the fields are text and a segmented control, one switch that saves on its own, one status card, and Save with its note on one line. Nothing is wider because nothing here is compared side by side.', ...this.person() },
+      { id: 'AD12', label: 'Loaded for Daniel', sub: 'Full note. Person settings belong to the person, not to a login, so on desktop they are a pushed page of their own, reached from the panel\u2019s Person settings row, with the back row returning to Users rather than to one login. One 640 px column, as on Profile: the fields are text and a segmented control, one switch that saves on its own, one status card, and Save with its note on one line. Nothing is wider because nothing here is compared side by side. Agreement switch: on the device a missing flag counts as accepted, so accepted here can mean never asked. Accepting on the device records \u201ckiosk\u201d, not a person. Stella has read this profile: the device stamps this at most once an hour, so it can lag a real read by up to an hour; the device itself refreshes every 60 seconds.', ...this.person() },
       { id: 'AD16', label: 'Never read by the device', sub: 'Shell only.', ...this.person({ read: '', lastSaved: 'today, 9:40 AM', savedBy: 'the administrator' }) },
-      { id: 'AD13', label: 'Agreement at next start', sub: 'Shell only. The switch saves on its own, right away.', ...this.person({ eula: true }) },
+      { id: 'AD13', label: 'Agreement on his Companion', sub: 'Shell only. The switch saves on its own, right away. The device checks the flag every 5 seconds behind a one-minute cache; it does not wait for a restart.', ...this.person({ eula: true }) },
       { id: 'AD14', label: 'Name refused: looks like an identifier', sub: 'Shell only. The other three refusals use the same slot.', ...this.person({ name: 'daniel_morgan', nameError: 'That looks like an identifier, not a name. Enter the name as it is spoken, with a space, like Daniel Morgan.' }) },
       { id: 'AD22', label: 'Timeout and alias refused', sub: 'Shell only.', ...this.person({ timeout: '5', timeoutError: '10 to 600 seconds.', aliases: 'Stella, Stellar, the assistant that lives in the kitchen by the window', aliasError: 'Each alias up to 40 characters.' }) },
       { id: 'AD18', label: 'Cannot open: identifier contains PLACEHOLDER', sub: 'Shell only. The way back is Users, since the page is the person\u2019s, not a login\u2019s.', ...this.person({ blocked: 'These settings cannot be opened: the person\u2019s identifier still contains PLACEHOLDER. The device setup has to be finished before they can be edited here.' }) },

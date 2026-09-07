@@ -15,7 +15,7 @@
   <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; margin-top:8px">Sign in, first sign-in, forgot and reset password, session end</div>
   <div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:8px">Signed-out surfaces, so no tab bar. Logon ID and password only; email is for the reset link. Error strings are verbatim from the server; the phone adds &ldquo;Passwords do not match&rdquo; and its own connection error. Sign out lands on sign-in with a toast (matches <a href="Settings.dc.html#S14">Settings S14</a>); today&rsquo;s routing to the landing page is noted in the doc. The public landing page, Terms and Privacy are the next surface. Gap flagged in A11: the app cannot know whether the reset email was sent.</div>
 </div>
-<div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:-28px; max-width:720px">Header pass: case B on every form frame, replacing the old wordmark row; the back row sits beneath it. Signed out, so no Daniel pill and no tab bar. The opening splash keeps its large wordmark and has no header. Product name is Caregiver. Spec on <a href="Today.dc.html#F1">Today F1</a>.</div>
+<div style="font-size:14px; line-height:1.5; color:rgba(20,36,40,.65); margin-top:-28px; max-width:720px">Header pass: case B on every form frame, replacing the old wordmark row; the back row sits beneath it. Signed out, so no Daniel pill and no tab bar. The opening splash keeps its large wordmark and has no header. Product name is Caregiver; the full name Legavo Caregiver appears only at introduction points (the sign-in brand block, the tab title, the installed name). Spec on <a href="Today.dc.html#F1">Today F1</a>.</div>
 </sc-if>
 <div style="display:flex; flex-wrap:wrap; gap:44px; align-items:flex-start">
 <sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
@@ -45,6 +45,7 @@
           <sc-if value="{{ s.back }}" hint-placeholder-val="{{ false }}"><a href="#A1" style="display:flex; align-items:center; gap:2px; color:#0f4c4a; text-decoration:none; font:600 16px 'Source Sans 3',sans-serif; height:44px; padding:0 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>{{ s.back }}</a></sc-if>
           
         </div>
+        <sc-if value="{{ s.brand }}" hint-placeholder-val="{{ false }}"><div style="margin-top:28px; flex:none"><div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; letter-spacing:-.01em; color:#0f4c4a">Legavo Caregiver</div><div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:6px">The family app for Legavo Companion</div></div></sc-if>
         <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:28px; line-height:1.1; letter-spacing:-.01em; margin-top:{{ s.titleTop }}; flex:none; text-wrap:pretty">{{ s.title }}</div>
         <sc-if value="{{ s.intro }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px; line-height:1.45; color:#56676c; margin-top:10px; text-wrap:pretty; flex:none">{{ s.intro }}</div></sc-if>
 
@@ -94,7 +95,7 @@
         </sc-if>
 
         <div style="flex:1"></div>
-        <div style="font-size:13px; line-height:1.5; color:#56676c; text-align:center; padding:16px 8px 0; text-wrap:pretty; flex:none">{{ s.foot }}<sc-if value="{{ s.footLinks }}" hint-placeholder-val="{{ true }}"><div style="margin-top:6px; display:flex; justify-content:center; gap:14px; flex-wrap:wrap"><a href="#" style="font-weight:600; text-decoration:none">About Caregiver</a><a href="#" style="font-weight:600; text-decoration:none">Texts opt-in</a><a href="#" style="font-weight:600; text-decoration:none">Terms</a><a href="#" style="font-weight:600; text-decoration:none">Privacy</a></div></sc-if></div>
+        <div style="font-size:13px; line-height:1.5; color:#56676c; text-align:center; padding:16px 8px 0; text-wrap:pretty; flex:none">{{ s.foot }}<sc-if value="{{ s.footLinks }}" hint-placeholder-val="{{ true }}"><div style="margin-top:6px; display:flex; justify-content:center; gap:14px; flex-wrap:wrap"><a href="#" style="font-weight:600; text-decoration:none">About Caregiver</a><a href="#" style="font-weight:600; text-decoration:none">Texts opt-in</a><a href="#" style="font-weight:600; text-decoration:none">Terms</a><a href="#" style="font-weight:600; text-decoration:none">Privacy</a></div></sc-if><sc-if value="{{ s.copyright }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px; color:#8a979b">{{ s.copyright }}</div></sc-if></div>
       </sc-if>
     </div>
 
@@ -118,9 +119,9 @@ class Component extends DCLogic {
     return { label, shown, color: value ? '#142428' : 'rgba(20,36,40,.4)', spacing: value && d.secret ? '.12em' : '0', eye: d.eye, border: d.error ? '1.5px solid #a8321c' : '1px solid rgba(20,36,40,.14)', hint: d.hint, hintColor: '#56676c' };
   }
   screen(o) {
-    const d = Object.assign({ isForm: true, isOpening: false, back: '', wordmark: true, title: '', intro: '', banner: '', bannerDot: '#e0b13a', bannerNote: '', rules: null, fields: null, error: '', errorNote: '', button: '', busy: false, disabled: false, wait: '', done: null, secondary: '', secondaryHref: '#', foot: '', footLinks: false, toast: '', toastDot: '#0f4c4a' }, o);
+    const d = Object.assign({ isForm: true, isOpening: false, back: '', wordmark: true, title: '', intro: '', banner: '', bannerDot: '#e0b13a', bannerNote: '', rules: null, fields: null, error: '', errorNote: '', button: '', busy: false, disabled: false, wait: '', done: null, secondary: '', secondaryHref: '#', foot: '', footLinks: false, brand: false, copyright: '', toast: '', toastDot: '#0f4c4a' }, o);
     const s = Object.assign({}, d); delete s.id; delete s.pw; delete s.pw2; delete s.tmp; delete s.shown; delete s.email;
-    s.titleTop = d.wordmark ? '28px' : '6px';
+    s.titleTop = d.brand ? '24px' : (d.wordmark ? '28px' : '6px');
     s.btnBg = d.disabled ? 'rgba(20,36,40,.12)' : '#0f4c4a';
     s.btnFg = d.disabled ? 'rgba(20,36,40,.45)' : '#fff';
     s.btnSpinner = d.busy ? this.spin('#fff') : null;
@@ -138,7 +139,7 @@ class Component extends DCLogic {
       return [F('Logon ID', d.id, { placeholder: 'Your logon ID', error: d.error }), F('Password', d.pw, { placeholder: 'Password', secret: !d.shown, eye: d.shown ? 'Hide' : 'Show', error: d.error })];
     };
     const signinFoot = 'Accounts are set up by the Caregiver administrator. You stay signed in on this phone for 72 hours.';
-    const signin = (o) => this.screen(Object.assign({ title: 'Sign in', fields: signinFields(o), button: 'Sign in', secondary: 'Forgot your password?', secondaryHref: '#A10', foot: signinFoot, footLinks: true }, o));
+    const signin = (o) => this.screen(Object.assign({ brand: true, copyright: '\u00a9 2026 Legavo Inc. All rights reserved.', title: 'Sign in', fields: signinFields(o), button: 'Sign in', secondary: 'Forgot your password?', secondaryHref: '#A10', foot: signinFoot, footLinks: true }, o));
 
     const pwRules = ['At least 10 characters.', 'Not your logon ID, your email address, or the part of your email before the @.'];
     const idRule = 'Logon ID: 3 to 64 characters. Letters, numbers, periods, underscores, or hyphens.';
@@ -159,7 +160,7 @@ class Component extends DCLogic {
 
     const states = [
       { heading: 'Sign in', headingNote: 'logon ID and password; server strings verbatim' },
-      { id: 'A1', label: 'Empty', sub: 'Wordmark, two fields, Show on the password, one button. Forgot password below; public pages in the foot. Logon ID is not case sensitive, so no hint about it. Nothing mentions the admin code.', ...signin({}) },
+      { id: 'A1', label: 'Empty', sub: 'Wordmark, two fields, Show on the password, one button. Forgot password below; public pages in the foot. Logon ID is not case sensitive, so no hint about it. Nothing mentions the admin code. Introduction point: the brand block reads Legavo Caregiver over The family app for Legavo Companion, and Legavo Inc. sits at the foot as the copyright line drawn on Public. The header wordmark on every signed-in screen stays Caregiver.', ...signin({}) },
       { id: 'A2', label: 'Password shown', sub: 'The control toggles Show and Hide; the value stays in the field.', ...signin({ id, pw: 'lakehouse-2019', shown: true }) },
       { id: 'A3', label: 'Wrong logon ID or password', sub: 'Verbatim. The server does not say which, so both fields are marked and the typed values stay. The note points to the only recovery available.', ...signin({ id, pw: 'lakehouse-2019', error: 'Invalid logon ID or password.', errorNote: 'Check both. If you have forgotten your password, use the link below.', fields: signinFields({ id, pw: 'lakehouse-2019', error: true }) }) },
       { id: 'A4', label: 'Too many attempts', sub: 'Verbatim (20 tries in 10 minutes). The note adds the wait the server actually applies. The button stays enabled; the server is the gate.', ...signin({ id, pw: 'lakehouse-2019', error: 'Too many login attempts. Try again later.', errorNote: 'Wait about 10 minutes before trying again.' }) },
@@ -187,7 +188,7 @@ class Component extends DCLogic {
       { id: 'A16', label: 'Link missing its token', sub: 'Verbatim. Usually a link that was cut short when copied. Same way out.', ...resetBad({ banner: 'This reset link is missing a token.', bannerDot: '#a8321c', bannerNote: 'The link may have been cut short when it was copied. Open it again from the email, or request a new one.', done: { title: 'Request a new link', body: 'Enter the email on your account and we send a fresh link. Any older links stop working.', note: '', button: 'Request a new link' }, secondary: 'Back to sign in', secondaryHref: '#A1' }) },
 
       { heading: 'Opening the app', headingNote: 'checking the saved session' },
-      { id: 'A17', label: 'Opening', sub: 'Brief moment while the phone checks its saved session. Valid: Today. Expired or invalid: the saved session is dropped and the person lands on Sign in with the A18 banner, the opened address kept (rebuild behavior). Today it lands on the landing page instead.', ...this.screen({ isForm: false, isOpening: true }) },
+      { id: 'A17', label: 'Opening', sub: 'Brief moment while the phone checks its saved session. Valid: Today. Expired or invalid: the saved session is dropped and the person lands on Sign in with the A18 banner, the opened address kept (rebuild behavior). Today it lands on the landing page instead. Tab title: Legavo Caregiver. The installed full name is Legavo Caregiver with the short name Caregiver, because home screens truncate at about twelve characters.', ...this.screen({ isForm: false, isOpening: true }) },
       { id: 'A0', label: 'Session ended, toast', sub: 'From Settings S14: the session ends and the app lands here with the toast, the same text as the A18 banner. Rebuild behavior; today it lands on the landing page instead.', ...signin({ toast: 'Your session ended. Sign in to pick up where you were.' }) }
     ];
     return { ...this.embedVals(), states: this.pickFrame(states), spinner: this.spin('#0f4c4a') };

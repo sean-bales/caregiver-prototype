@@ -44,7 +44,7 @@
           <a href="Profile desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Profile</a>
           <a href="Settings desktop.dc.html" style="display:inline-flex; align-items:center; height:36px; padding:0 14px; border-radius:999px; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; text-decoration:none" style-hover="background:#dfebe8">Settings</a>
         </div>
-        <a href="Device desktop.dc.html" aria-label="Daniel's device settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(15,76,74,.4); background:transparent; color:#0f4c4a; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></a>
+        <a href="Device desktop.dc.html" aria-label="Daniel's Companion settings" style="height:36px; padding:0 10px 0 6px; border-radius:999px; border:1.5px solid rgba(15,76,74,.4); background:transparent; color:#0f4c4a; display:flex; align-items:center; gap:8px; font:600 14px 'Source Sans 3',sans-serif; text-decoration:none; white-space:nowrap"><span style="width:24px; height:24px; border-radius:50%; background:#8fd3c7; color:#0f4c4a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">D</span>Daniel<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8; margin-left:-2px"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></svg></a>
       </div>
     </div>
 
@@ -62,7 +62,7 @@
       <sc-if value="{{ s.isEmpty }}" hint-placeholder-val="{{ false }}">
         <div style="padding:120px 0 0; max-width:480px; text-wrap:pretty">
           <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">No photos yet</div>
-          <div style="font-size:15px; line-height:1.5; color:#56676c; margin-top:10px">Photos Daniel adds on the device and photos the family shares both appear here. Add one to start.</div>
+          <div style="font-size:15px; line-height:1.5; color:#56676c; margin-top:10px">Photos Daniel adds on his Companion and photos the family shares both appear here. Add one to start.</div>
         </div>
       </sc-if>
       <sc-if value="{{ s.galleryFailed }}" hint-placeholder-val="{{ false }}">
@@ -204,7 +204,7 @@
           <div style="position:absolute; inset:0; background:rgba(0,0,0,.55); z-index:7">
             <div style="position:absolute; left:50%; top:360px; transform:translateX(-50%); width:440px; box-sizing:border-box; background:#f3efe6; color:#142428; border-radius:20px; padding:28px 28px 24px; box-shadow:0 24px 60px rgba(0,0,0,.4)">
               <div style="font-family:Fraunces,Georgia,serif; font-weight:600; font-size:22px; line-height:1.2">Delete this photo for Daniel?</div>
-              <div style="margin-top:10px; font-size:15px; line-height:1.45; color:#56676c">It leaves his gallery and search. A copy already on his screen stays until you remove it from Today. There is no undo.</div>
+              <div style="margin-top:10px; font-size:15px; line-height:1.45; color:#56676c">It leaves his gallery and search. It can still appear in the slideshow when his Companion is idle, and a copy already on his screen stays until you remove it from Today. There is no undo.</div>
               <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:24px">
                 <button style="height:44px; padding:0 16px; border-radius:999px; border:0; background:none; color:#0f4c4a; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Keep</button>
                 <button style="height:44px; padding:0 20px; border-radius:999px; border:0; background:#a8321c; color:#fff; font:600 15px 'Source Sans 3',sans-serif; cursor:pointer">Delete photo</button>
@@ -246,16 +246,16 @@ class Component extends DCLogic {
   }
   viewer(p, o) {
     const s = Object.assign({ isGallery: false, isViewer: true, imgOk: true, imgFail: false, failTitle: 'This photo did not load.', failNote: 'Try again, or check your connection.', failRetry: true, imgW: '853px', viewerLabel: p.ph + ' \u00b7 full photo, capped at 960 px wide', position: p.pos, vCaption: p.caption, actions: true, noteOpen: false, noteText: '', noteColor: '#fff', noteHint: 'Becomes the caption on Daniel\u2019s screen and on Today.', sendLabel: 'Send to his screen', confirm: false, toast: '' }, o);
-    s.vMeta = p.source === 'family' ? (p.by ? 'Shared by ' + p.by : 'Shared by family') : 'Added on the device';
+    s.vMeta = p.source === 'family' ? (p.by ? 'Shared by ' + p.by : 'Shared by family') : 'Added on his Companion';
     if (s.noteOpen) s.actions = false;
     return s;
   }
   renderVals() {
-    const margaret = this.photo({ caption: 'Margaret at the lake, 1966', ph: 'b&w print, woman on a dock', added: 'Added Sep 3 \u00b7 on the device', pos: '1 of 5' });
+    const margaret = this.photo({ caption: 'Margaret at the lake, 1966', ph: 'b&w print, woman on a dock', added: 'Added Sep 3 \u00b7 on his Companion', pos: '1 of 5' });
     const walk = this.photo({ caption: 'Sunday walk at the lake, last spring', ph: 'phone photo, lakeside path', added: 'Added Aug 30', source: 'family', by: 'Alex Morgan', pos: '2 of 5' });
     const farmhouse = this.photo({ caption: 'The Route 9 farmhouse, taken by Uncle Pete', ph: 'scanned print, white farmhouse', added: 'Added Aug 21', source: 'family', pos: '3 of 5' });
     const fair = this.photo({ caption: 'The grandkids at the county fair', ph: 'phone photo, two children, ferris wheel', added: 'Added Sep 5 \u00b7 posted from Today', source: 'family', pos: '4 of 5' });
-    const nocap = this.photo({ caption: '', ph: 'phone photo, kitchen table', added: 'Added Sep 1 \u00b7 on the device', pos: '5 of 5' });
+    const nocap = this.photo({ caption: '', ph: 'phone photo, kitchen table', added: 'Added Sep 1 \u00b7 on his Companion', pos: '5 of 5' });
     const pending = this.photo({ caption: 'Thanksgiving 2019', pending: true, by: 'Alex Morgan', source: 'family' });
     const pendingNoIndex = this.photo({ caption: 'Thanksgiving 2019', pending: true, by: 'Alex Morgan', source: 'family', pendingNote: 'Photos cannot be indexed on this server yet.' });
     const added = this.photo({ caption: 'Thanksgiving 2019', ph: 'phone photo, long table', source: 'family', by: 'Alex Morgan', added: 'Added just now', outline: '2px solid #0f4c4a' });
@@ -284,13 +284,13 @@ class Component extends DCLogic {
       { id: 'P8', label: 'Image failed to load', sub: 'Shell only. Caption and actions still show; plain words with a retry. Copy says connection, not phone.', ...this.viewer(farmhouse, { imgOk: false, imgFail: true }) },
       { id: 'P8b', label: 'Original file missing', sub: 'Shell only. No retry.', ...this.viewer(farmhouse, { imgOk: false, imgFail: true, failTitle: 'The original file is missing.', failNote: 'The record is here, but the photo itself is gone from the server.', failRetry: false }) },
       { heading: 'Send to his screen', headingNote: 'two clicks: reveal the note, then send' },
-      { id: 'P9', label: 'Note field open', sub: 'Shell only. The note opens under the caption in the left of the 960 px row; Cancel and Send take the actions\u2019 place on the right.', ...this.viewer(margaret, { noteOpen: true, noteText: 'This is Mom at Lake Storey the summer before you were married. You took this one.' }) },
-      { id: 'P9b', label: 'Sending with no note', sub: 'Shell only.', ...this.viewer(margaret, { noteOpen: true, noteText: 'What should Stella say about this photo?', noteColor: 'rgba(255,255,255,.4)', noteHint: 'With no note, the photo appears with no caption.', sendLabel: 'Send without a note' }) },
-      { id: 'P10', label: 'Sent', sub: 'Shell only. Toast bottom center, light on the dark viewer as on the phone.', ...this.viewer(margaret, { toast: 'Sent' }) },
+      { id: 'P9', label: 'Note field open', sub: 'Shell only. The note opens under the caption in the left of the 960 px row; Cancel and Send take the actions\u2019 place on the right. Stella reads exactly this, as \u201cA photo note: ...\u201d; with no note she says \u201cYou have a new photo note.\u201d', ...this.viewer(margaret, { noteOpen: true, noteText: 'This is Mom at Lake Storey the summer before you were married. You took this one.' }) },
+      { id: 'P9b', label: 'Sending with no note', sub: 'Shell only.', ...this.viewer(margaret, { noteOpen: true, noteText: 'What should Stella say about this photo?', noteColor: 'rgba(255,255,255,.4)', noteHint: 'With no note, the photo appears with no caption and Stella says only that a photo arrived.', sendLabel: 'Send without a note' }) },
+      { id: 'P10', label: 'Sent', sub: 'Shell only. Toast bottom center, light on the dark viewer as on the phone. Sent means saved. His Companion fetches the image itself from the shared store; if that fails nothing appears and nothing reports it.', ...this.viewer(margaret, { toast: 'Sent' }) },
       { heading: 'Delete', headingNote: 'leaves the gallery and search, no undo' },
-      { id: 'P11', label: 'Delete confirmation', sub: 'Shell only. The phone\u2019s sheet becomes a 440 px centered dialog per the Today rule; Keep is the text button beside the red primary.', ...this.viewer(margaret, { confirm: true }) },
+      { id: 'P11', label: 'Delete confirmation', sub: 'Shell only. The phone\u2019s sheet becomes a 440 px centered dialog per the Today rule; Keep is the text button beside the red primary. The device\u2019s idle slideshow can still show a deleted photo; the body says so.', ...this.viewer(margaret, { confirm: true }) },
       { heading: 'Recent memories', headingNote: 'below the gallery; the newest 30 items in two columns' },
-      { id: 'P12', label: 'With items', sub: 'Shell only. Two columns of the phone\u2019s cards under the gallery; with five photos the section starts well above the fold, so nothing is scrolled to.', ...this.gallery({ photos: five, showMemories: true, memories }) },
+      { id: 'P12', label: 'With items', sub: 'Shell only. Two columns of the phone\u2019s cards under the gallery; with five photos the section starts well above the fold, so nothing is scrolled to. From the recording: the text is Stella\u2019s condensation of what he said, lightly edited; verbatim only when a long dictation triggers the device\u2019s safety net. Times: the stamp is the device\u2019s own clock with no zone; the day can be off for a caregiver in another zone.', ...this.gallery({ photos: five, showMemories: true, memories }) },
       { id: 'P13', label: 'Empty', sub: 'Shell only. The empty sentence is capped at 560 px.', ...this.gallery({ photos: five, showMemories: true, memEmpty: true }) }
     ];
     return { ...this.embedVals(), frames: this.pickFrame(frames) };

@@ -255,6 +255,12 @@ class Component extends DCLogic {
     if (typeof target === 'function') target = target(ctx);
     if (!target) return false;
     if (target.startsWith('gap:')) { this.gap(target.slice(4)); return true; }
+    if (target.includes(' then ')) { // pending frame, then the confirmed one after the mock's 4-second wait
+      const [first, second] = target.split(' then ');
+      this.apply(first, ctx);
+      clearTimeout(this.thenT); this.thenT = setTimeout(() => { const cur = this.state.route; if (cur && cur.frame === first) this.apply(second, ctx); }, 4000);
+      return true;
+    }
     if (target === 'back') {
       const st = this.state.stack.slice(); const p = st.pop();
       this.setState({ stack: st });

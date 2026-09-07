@@ -21,10 +21,6 @@ export const SITUATIONS = [
     { id: 'offline', label: 'Offline since 9:12 AM', frames: { today: '5', device: 'D5' } },
     { id: 'never',   label: 'Never seen', frames: { today: '12', device: 'D12' } }
   ] },
-  { key: 'tz', title: 'Timezone', options: [
-    { id: 'reported', label: 'Reported (Central)', frames: {} },
-    { id: 'unknown',  label: 'Not reported', frames: { today: '13', device: 'D8b' } }
-  ] },
   { key: 'schedule', title: 'Schedule', options: [
     { id: 'off', label: 'Off', frames: {} },
     { id: 'on',  label: 'On', frames: { today: '4', device: 'D8' } }
@@ -50,7 +46,7 @@ export const SITUATIONS = [
     { id: 'admin', label: 'The administrator', frames: { admin: 'AD1', public: 'P16' } }
   ] }
 ];
-export const DEFAULT_SITUATION = { device: 'online', tz: 'reported', schedule: 'off', app: 'online', session: 'live', texts: 'off', who: 'alex' };
+export const DEFAULT_SITUATION = { device: 'online', schedule: 'off', app: 'online', session: 'live', texts: 'off', who: 'alex' };
 
 // Frames that layer one cannot reach and the situation lists do not name; the switcher's This screen list covers them.
 export function frameForSituation(surface, situation) {
@@ -70,38 +66,38 @@ export function situationForFrame(surface, frame) {
 // target: 'surface/frame' | 'frame' (same surface) | 'back' | 'tab:today' | 'push:device/D1' | 'gap:text' | function(ctx)
 const R = {
   today: [
-    ['F1,1,2,3,4,5,6,12,13,11,10b', 'send something', 'A3'],
-    ['F1,1,2,3,4,13,11,10b', 'pause voice', 'A1'], ['F1,1,2,3,13,11,10b', 'night light', 'A1'],
-    ['4', 'resume voice', 'gap:Resume voice has no accepted pending or confirmed frame beyond A1 and A2.'],
-    ['4', 'wake screen', 'gap:Wake screen has no accepted pending or confirmed frame beyond A1 and A2.'],
+    ['F1,1,2,3,4,5,6,12,11,10b', 'send something', 'A3'],
+    ['F1,1,2,3,11,10b', 'pause voice', 'A1'], ['F1,1,2,3,11,10b', 'night light', 'A1'],
+    // Resting screen (A3 of the reconciliation brief): Wake screen and voice is a full wake; the Voice row has no button.
+    ['4', 'wake screen and voice', 'A1 then F1'],
     ['A1', /pausing/, '4'], ['A1', /turning on/, 'A2'], ['A2', 'try again', 'A1'],
     ['A3', 'message', 'compose/C1'], ['A3', 'reminder', 'compose/C2'], ['A3', 'photo', 'compose/C3'], ['A3', 'cancel', 'F1'],
     ['*', 'mark all read', 'gap:Mark all read on this data has no accepted frame; state 3 shows the all-read case on the busy day.'],
     ['A4,A5', 'mark read', 'F1'], ['A4', 'today', 'F1'], ['A5', 'close', 'F1'],
-    ['F1,1,2,3,4,5,13,11,10b', 'mark read', ctx => ctx.cardText.includes('About') ? 'A5' : 'A4'],
+    ['F1,1,2,3,4,5,11,10b', 'mark read', ctx => ctx.cardText.includes('About') ? 'A5' : 'A4'],
     ['*', 'mark done', 'A8'], ['*', 'skip tonight', 'gap:The skipped row after Skip tonight has no accepted frame; A8 shows the marked-done row.'], ['*', 'skip', 'A7'],
-    ['A6', 'remove reminder', 'A9'], ['A9', 'remove reminder', 'A10'],
-    ['A6,A7,A9,A11,A12', 'cancel', 'F1'],
+    ['A6', /remove today|remove reminder/, 'A9'], ['A6', 'stop repeating', 'A6b'], ['A6b', 'stop repeating', 'A10'], ['A9', 'remove reminder', 'A10'],
+    ['A6,A6b,A7,A9,A11,A12', 'cancel', 'F1'],
     ['A11', 'open photo', 'A13'], ['A11', 'unpin', 'gap:Unpin has no accepted frame after the tap.'], ['A11', 'remove from the board', 'A12'],
     ['A12', 'remove from the board', 'gap:The board after Remove has no accepted frame; the toast is in the A19 catalogue ("Removed.").'],
     ['A13', '*', 'A14'], ['A14', 'close', 'F1'], ['A14', /options/, 'A11'],
     ['*', 'show me how', 'A15'], ['*', 'not now', 'F1'], ['A15,A16,A17', 'done', 'F1'], ['A16', 'install caregiver', 'gap:The phone\u2019s own install dialog is not drawn.'],
     ['7', 'sign in', 'auth/A18'], ['8', 'sign in', 'F1'], ['10b', 'try again', 'F1'], ['A18', 'try again', 'F1'],
     ['*', /options/, ctx => ctx.cardText.includes('posted') || ctx.cardText.includes('Message') || ctx.cardText.includes('Photo') ? 'A11' : 'A6'],
-    ['F1,1,2,3,4,5,13', '*', ctx => {
+    ['F1,1,2,3,4,5', '*', ctx => {
       const t = ctx.cardText;
       if (!ctx.inCard) return null;
       if (t.includes('· read') || ctx.cardHas('Mark read')) return t.includes('About') ? 'A5' : 'A4';
       if (/Set for|Reminded|He said so|He pressed|ended|marked/.test(t)) return 'A6';
-      if (/posted|not yet on the device/.test(t)) return 'A11';
+      if (/posted|not yet on his Companion/.test(t)) return 'A11';
       return null;
     }]
   ],
   compose: [
     ['C1,C2,C3,C4,C5,C6,C7,C8,C11a,C11b,C11c,C11d', /^message$/, 'C1'], ['C1,C2,C3,C4,C5,C6,C7,C8', /^reminder$/, 'C2'], ['C1,C2,C3,C4,C5,C6,C7,C8', /^photo$/, 'C3'],
-    ['C1,C2,C3', 'cancel', 'today/F1'], ['C4,C5,C6,C7,C8,C11a,C11b,C11c,C11d', 'cancel', 'C12'],
+    ['C1,C2,C3,C11f', 'cancel', 'today/F1'], ['C4,C5,C6,C7,C8,C11a,C11b,C11c,C11d', 'cancel', 'C12'],
     ['C12', 'discard', 'today/F1'], ['C12', 'keep writing', 'C4'],
-    ['C4,C5,C11a,C11b', /^post/, 'C9a'], ['C7', /add reminder|save/, 'C9b'], ['C8,C11c', /^post|^send|^add/, 'C9c'], ['C8', 'change', 'C3'],
+    ['C4,C5,C11a,C11b', /^post/, 'C9a'], ['C7', /add reminder|save/, 'C9b'], ['C8,C11c', /^post|^send|^add/, 'C9c'], ['C8,C11f', 'change', 'C3'], ['C11f', /^post/, 'gap:Post is inactive on C11f; the HEIC refusal has to be cleared first (Change).'],
     ['C11a,C11c', 'try again', ctx => ctx.frame === 'C11c' ? 'C9c' : 'C9a'], ['C11e', 'sign in', 'auth/A18'],
     ['C9a', '*', 'C10a'], ['C9b', '*', 'C10b'], ['C9c', '*', 'C10c'],
     ['C6', 'done', 'C7'], ['C6', '*', 'C7'],
@@ -111,8 +107,8 @@ const R = {
   ],
   device: [
     ['*', /^today$|^settings$|^story$|^profile$/, 'back'],
-    ['D1,D13,D6,D7,D8,D8a,D8b,D9,D10,D11,D15', /^off$/, 'D2'], ['D2', '*', 'D3'], ['D3', 'wake', 'D1'], ['D4', 'try again', 'D2'],
-    ['*', 'pause voice', 'D6'], ['D6', 'resume voice', 'D1'], ['*', 'night light', 'D6'], ['D6', 'wake', 'D1'],
+    ['D1,D13,D6,D7,D8,D8a,D9,D10,D11,D15', /^off$/, 'D2'], ['D2', '*', 'D3'], ['D3', /^wake/, 'D1'], ['D4', 'try again', 'D2'],
+    ['*', 'pause voice', 'D6'], ['*', 'night light', 'D6'], ['D6', /^wake/, 'D1'],
     ['D15', 'try again', 'D7'],
     ['*', /schedule/, ctx => ctx.frame === 'D8' || ctx.frame === 'D8a' ? 'D1' : 'D8a'],
     ['*', /live|conversation/, ctx => ctx.frame === 'D10' || ctx.frame === 'D11' ? 'D9' : 'D10'],
@@ -177,7 +173,7 @@ export const RULES = R;
 
 // Common rules that run before the surface rules on signed-in surfaces.
 export const COMMON = [
-  [/device settings|^d ?daniel$|^daniel$/, 'push:device/*'],
+  [/device settings|companion settings|^d ?daniel$|^daniel$/, 'push:device/*'],
   [/^today$/, 'tab:today'], [/^story$/, 'tab:story'], [/^profile$/, 'tab:profile'], [/^settings$/, 'tab:settings']
 ];
 export const SIGNED_IN = ['today', 'compose', 'device', 'chapters', 'photos', 'profile', 'settings'];
