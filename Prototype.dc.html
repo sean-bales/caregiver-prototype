@@ -283,7 +283,9 @@ class Component extends DCLogic {
     let raw = ctl ? (ctl.getAttribute('aria-label') || ctl.textContent || '') : '';
     if (!ctl) { // tab items and segments are plain divs: take the nearest short-text ancestor
       let n = el; for (let i = 0; i < 4 && n && n !== e.currentTarget; i++, n = n.parentElement) {
-        const tx = (n.innerText || '').trim(); if (tx && tx.length <= 24 && !tx.includes('\n')) { raw = tx; break; }
+        // tab items read "2\nToday" when they carry a badge: drop 1-2 char lines (badge counts) before testing
+        const tx = (n.innerText || '').trim().split('\n').map(x => x.trim()).filter(x => x.length > 2).join('\n');
+        if (tx && tx.length <= 24 && !tx.includes('\n')) { raw = tx; break; }
       }
     }
     // A hidden "Today" heading sits above the Story header in Chapters; only the tab bar row counts as a tab tap

@@ -4,51 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Caregiver prototype</title>
-<meta name="description" content="What changed in the Caregiver family app prototype, why, and what is still open.">
+<meta name="description" content="Proposed changes to the Caregiver app's navigation and screens, with the reason for each change and links to the prototype.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    color-scheme: light dark;
-    --ink: #142428;
-    --ink-soft: #3a4f55;
-    --ink-mute: #56676c;
-    --paper: #f3efe6;
-    --paper-deep: #e7e0d2;
-    --line: rgba(20, 36, 40, .14);
-    --teal: #0f4c4a;
-    --teal-bright: #1a6b67;
-    --teal-ink: #f3efe6;
-    --mint: #8fd3c7;
-    --accent: #c45c26;
-    --accent-deep: #a84a1c;
-    --card: #ffffff;
-    --tag-you: #e0b13a;
-    --tag-assumed: #8fd3c7;
-    --focus: #1a6b67;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ink: #ebe6da;
-      --ink-soft: #c5c9c1;
-      --ink-mute: #9aa8a5;
-      --paper: #101d1d;
-      --paper-deep: #17292a;
-      --line: rgba(235, 230, 218, .16);
-      --teal: #0b3736;
-      --teal-bright: #8fd3c7;
-      --teal-ink: #ebe6da;
-      --mint: #8fd3c7;
-      --accent: #e08553;
-      --accent-deep: #f0a074;
-      --card: #172a2b;
-      --tag-you: #e0b13a;
-      --tag-assumed: #8fd3c7;
-      --focus: #8fd3c7;
-    }
-  }
-  :root[data-theme="dark"] {
+    color-scheme: dark;
     --ink: #ebe6da;
     --ink-soft: #c5c9c1;
     --ink-mute: #9aa8a5;
@@ -62,11 +24,8 @@
     --accent: #e08553;
     --accent-deep: #f0a074;
     --card: #172a2b;
-    --tag-you: #e0b13a;
-    --tag-assumed: #8fd3c7;
     --focus: #8fd3c7;
   }
-
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -84,49 +43,24 @@
   h1, h2, h3 { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 500; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
   p { margin: 0; }
   .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-mute); }
-
-  /* Shell: rail plus column */
   .shell { max-width: 880px; margin: 0 auto; }
-  .rail { position: sticky; top: 0; align-self: start; height: 100vh; padding: 40px 24px 40px 32px; display: flex; flex-direction: column; gap: 28px; border-right: 1px solid var(--line); }
-  .wordmark { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 600; color: var(--ink); text-decoration: none; }
-  .wordmark small { display: block; font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 400; color: var(--ink-mute); letter-spacing: .02em; }
-  .toc { display: flex; flex-direction: column; gap: 4px; list-style: none; margin: 0; padding: 0; }
-  .toc a { display: block; padding: 8px 10px; border-radius: 8px; color: var(--ink-soft); text-decoration: none; font-weight: 600; font-size: 15px; border-left: 2px solid transparent; }
-  .toc a[aria-current="true"] { color: var(--ink); background: var(--paper-deep); border-left-color: var(--accent); }
-  .rail .cta { margin-top: auto; }
-
   .col { padding: 0 48px 96px; }
-  .slide { padding: 72px 0 56px; border-bottom: 1px solid var(--line); scroll-margin-top: 24px; }
-  .slide { border-bottom: 0; }
+  .slide { padding: 72px 0 56px; scroll-margin-top: 24px; }
   .slide > .inner { max-width: 66ch; }
   .slide h2 { font-size: 40px; line-height: 1.1; margin: 10px 0 20px; }
   .slide .lede { font-size: 21px; line-height: 1.45; color: var(--ink-soft); margin-bottom: 28px; }
   .prose { display: flex; flex-direction: column; gap: 16px; }
   .prose p { max-width: 66ch; }
-
-  /* Opener */
   .opener { background: var(--teal); color: var(--teal-ink); border-radius: 0 0 28px 28px; padding: 64px 48px 56px; margin: 0 -48px 8px; }
   .opener .eyebrow { color: var(--mint); }
   .opener h1 { font-size: 46px; line-height: 1.08; max-width: 18ch; margin: 12px 0 22px; }
   .opener .lede { font-size: 20px; line-height: 1.5; max-width: 60ch; color: var(--teal-ink); opacity: .92; }
   .opener .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-
   .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { background: var(--accent-deep); }
   .btn-ghost { background: transparent; color: var(--teal-ink); border-color: rgba(243, 239, 230, .45); }
   .btn-ghost:hover { border-color: var(--teal-ink); }
-  .btn-outline { background: transparent; color: var(--ink); border-color: var(--line); }
-  .btn-outline:hover { border-color: var(--ink-soft); }
-  .btn-primary.wide { width: 100%; justify-content: center; }
-
-  /* How to read: three plain steps */
-  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 36px; }
-  .step { display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 2px solid var(--line); }
-  .step b { font-size: 16px; }
-  .step p { font-size: 16px; color: var(--ink-soft); }
-
-  /* The map */
   .map { display: flex; flex-direction: column; margin-top: 8px; }
   .row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 8px 28px; padding: 22px 0; border-top: 1px solid var(--line); }
   .row:last-child { border-bottom: 1px solid var(--line); }
@@ -134,47 +68,16 @@
   .was small { display: block; font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 4px; }
   .now { display: flex; flex-direction: column; gap: 8px; }
   .now .to { font-weight: 700; font-size: 18px; }
-  .now .to .arrow { color: var(--accent); font-weight: 600; margin-right: 6px; }
   .now p { color: var(--ink-soft); font-size: 17px; max-width: 60ch; }
-  .frames { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-  .frame { font-size: 14px; font-weight: 600; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); color: var(--teal-bright); text-decoration: none; background: var(--card); }
-  .frame:hover { border-color: var(--teal-bright); }
-
-  /* The tab strip, drawn */
   .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 28px 0 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); overflow: hidden; }
   .tab { padding: 14px 8px 12px; text-align: center; font-weight: 600; font-size: 15px; color: var(--ink-soft); border-right: 1px solid var(--line); position: relative; }
   .tab:last-child { border-right: 0; }
   .tab.on { color: var(--teal-bright); }
   .tab .badge { position: absolute; top: 6px; right: calc(50% - 38px); min-width: 18px; height: 18px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 11px; line-height: 18px; text-align: center; padding: 0 5px; }
   .caption { font-size: 14px; color: var(--ink-mute); margin-bottom: 24px; }
-
-  /* Open items */
-  .items { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
-  .item { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 6px 22px; padding: 20px 0; border-top: 1px solid var(--line); }
-  .item:last-child { border-bottom: 1px solid var(--line); }
-  .tag { align-self: start; justify-self: start; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 9px; border-radius: 6px; color: #142428; margin-top: 3px; }
-  .tag.you { background: var(--tag-you); }
-  .tag.assumed { background: var(--tag-assumed); }
-  .tag.defect { background: var(--paper-deep); color: var(--ink); }
-  .item b { display: block; font-size: 18px; margin-bottom: 2px; }
-  .item p { color: var(--ink-soft); font-size: 17px; max-width: 60ch; }
-  .group { margin-top: 36px; }
-  .group h3 { font-size: 24px; margin-bottom: 4px; }
-  .group .sub { color: var(--ink-mute); font-size: 16px; margin-bottom: 10px; }
-
-  .close { margin-top: 48px; padding: 28px; border-radius: 18px; background: var(--paper-deep); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
-  .close p { max-width: 44ch; color: var(--ink-soft); }
-  footer { padding: 32px 0 0; font-size: 14px; color: var(--ink-mute); max-width: 66ch; }
-
   @media (max-width: 860px) {
     body { font-size: 17px; }
     .shell { display: block; }
-    .rail { position: sticky; top: 0; z-index: 5; height: auto; padding: 12px 16px; border-right: 0; border-bottom: 1px solid var(--line); background: var(--paper); display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; }
-    .wordmark small { display: none; }
-    .toc { flex-direction: row; gap: 2px; justify-self: end; }
-    .toc a { padding: 6px 8px; font-size: 13px; border-left: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0; }
-    .toc a[aria-current="true"] { background: transparent; border-bottom-color: var(--accent); }
-    .rail .cta { display: none; }
     .col { padding: 0 20px 64px; }
     .opener { margin: 0 -20px; padding: 44px 20px 40px; border-radius: 0 0 22px 22px; }
     .opener h1 { font-size: 32px; }
@@ -182,9 +85,15 @@
     .slide { padding: 52px 0 40px; scroll-margin-top: 70px; }
     .slide h2 { font-size: 30px; }
     .slide .lede { font-size: 18px; }
-    .steps { grid-template-columns: 1fr; gap: 14px; }
-    .row, .item { grid-template-columns: 1fr; gap: 6px; }
+    .row { grid-template-columns: 1fr; gap: 6px; }
     .tab { font-size: 13px; padding: 12px 4px 10px; }
+  }
+  #what { padding-top: 0; padding-bottom: 0; }
+  #what .opener { margin-bottom: 0; }
+  #changed { padding-top: 24px; margin-inline: -48px; }
+  #changed > .inner { max-width: none; }
+  @media (max-width: 860px) {
+    #changed { margin-inline: 0; }
   }
 </style>
 </head>
@@ -194,12 +103,12 @@
     <section class="slide" id="what">
       <div class="opener">
         <p class="eyebrow">Caregiver, the family app</p>
-        <h1>The app, reorganized</h1>
-        <p class="lede">A clickable prototype of the Caregiver family app, phone and desktop, every screen and state. Built from what the app does today. Nothing is coded yet. Anything the app can't do yet is marked "rebuild behavior".</p>
+        <h1>Proposed changes to the Caregiver app</h1>
+        <p class="lede">I reorganized the app so daily updates and actions are on the home screen, and related features are grouped together. The phone and desktop prototypes show the proposed screens.</p>
         <div class="actions">
           <a class="btn btn-primary" href="Prototype.dc.html#phone/today/F1">Phone prototype</a>
           <a class="btn btn-primary" href="Prototype.dc.html#desktop/today/F1">Desktop prototype</a>
-          <a class="btn btn-ghost" href="Prototype.dc.html#index">Index of every screen</a>
+          <a class="btn btn-ghost" href="Prototype.dc.html#index">All prototype screens</a>
         </div>
       </div>
     </section>
@@ -207,81 +116,61 @@
     <section class="slide" id="changed">
       <div class="inner">
         <p class="eyebrow">What changed</p>
-        <h2>Seven pages became four tabs</h2>
-        <p class="lede">Most old pages were one job that belonged inside another page.</p>
-        <div class="prose">
-          <p>A family member opens this for under a minute to check three things: is the device on, did Daniel leave a message, what happened with the medication reminder. The old home page led with memoir progress. The new one leads with those three.</p>
-        </div>
-        <div class="tabs" aria-hidden="true">
-          <div class="tab on">Today<span class="badge">2</span></div>
-          <div class="tab">Story</div>
-          <div class="tab">Profile</div>
-          <div class="tab">Settings</div>
-        </div>
-        <p class="caption">The new tab bar. Daniel's name in the header opens his device.</p>
+        <h2>Related features are grouped into four tabs</h2>
+        <p class="lede">Today contains daily updates and actions. Story contains chapters, photos, and memories. Profile holds information about the person receiving care. Settings contains device and account options.</p>
 
         <div class="map">
           <div class="row">
-            <div class="was"><small>Was</small>Home</div>
+            <div class="was"><small>Current page</small>Home</div>
             <div class="now">
-              <div class="to"><span class="arrow">now</span>Today</div>
-              <p>Replies, today's reminders and their outcomes, device controls, the board. The progress bar is gone.</p>
-              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/today/F1">Phone</a><a class="frame" href="Prototype.dc.html#desktop/today/F1">Desktop</a></div>
+              <div class="to">The home screen prioritizes daily care</div>
+              <p>The home screen should show what matters most to the user when they open the app. Today brings replies, reminders and their outcomes, and device status together. The current home screen emphasizes memoir progress; the prototype removes the progress bar and keeps chapters in Story.</p>
             </div>
           </div>
           <div class="row">
-            <div class="was"><small>Was</small>Notes</div>
+            <div class="was"><small>Current page</small>Notes</div>
             <div class="now">
-              <div class="to"><span class="arrow">now</span>Split three ways</div>
-              <p>Composer: "Send something" on Today. Device controls: Today, with the full screen under Settings. Text settings: Settings.</p>
-              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/compose/C1">Send something</a><a class="frame" href="Prototype.dc.html#phone/device/D1">Device</a><a class="frame" href="Prototype.dc.html#phone/settings/S3">Texts</a></div>
+              <div class="to">Messages and device controls are accessible from Today</div>
+              <p>Notes currently combines sending content, controlling the device, and setting up texts. "Send something" and basic device controls move to Today so users can act from the screen they check. Full device controls and text setup are in Settings.</p>
             </div>
           </div>
           <div class="row">
-            <div class="was"><small>Was</small>Chapters</div>
+            <div class="was"><small>Current page</small>Chapters</div>
             <div class="now">
-              <div class="to"><span class="arrow">now</span>Story</div>
-              <p>Same chapters and family notes. Narrower reading line on desktop.</p>
-              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/chapters/S1">Chapters</a><a class="frame" href="Prototype.dc.html#phone/chapters/S4">A chapter</a></div>
+              <div class="to">Chapters are part of Story</div>
+              <p>Chapters and family notes belong with the photos and memories that make up the person's story. On desktop, a narrower text column makes long chapters easier to read.</p>
             </div>
           </div>
           <div class="row">
-            <div class="was"><small>Was</small>Photos, Contribute, Activity</div>
+            <div class="was"><small>Current pages</small>Photos, Contribute, Activity</div>
             <div class="now">
-              <div class="to"><span class="arrow">now</span>Story, one gallery</div>
-              <p>Upload on the gallery, recent memories under it. Open a photo to send it to Daniel's screen.</p>
-              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/photos/P1">Gallery</a><a class="frame" href="Prototype.dc.html#phone/photos/P7">A photo</a></div>
+              <div class="to">Photo uploads and recent memories are in the gallery</div>
+              <p>Users should be able to add photos where they view them. The gallery in Story includes uploads and recent memories, replacing separate Contribute and Activity pages. Opening a photo also gives users the option to send it to the device.</p>
             </div>
           </div>
           <div class="row">
-            <div class="was"><small>Was</small>Profile</div>
+            <div class="was"><small>Current page</small>Profile</div>
             <div class="now">
-              <div class="to"><span class="arrow">now</span>Profile</div>
-              <p>Same content. Edit one section at a time. Shows whether Stella has read the latest save.</p>
-              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/profile/PR1">Profile</a></div>
+              <div class="to">Profile stays in the main navigation</div>
+              <p>Family details, preferences, and conversation guidance need to be easy to find and update. Profile keeps its own tab, with editing by section so users can focus on the information they want to change. It also shows when the profile was saved and whether the device has retrieved it.</p>
             </div>
           </div>
           <div class="row">
-            <div class="was"><small>Was</small>Sign out</div>
+            <div class="was"><small>Current action</small>Sign out</div>
             <div class="now">
-              <div class="to"><span class="arrow">now</span>Settings</div>
-              <p>With Device, Texts, and add to home screen.</p>
-              <div class="frames"><a class="frame" href="Prototype.dc.html#phone/settings/S1">Settings</a></div>
+              <div class="to">Account and setup options are together in Settings</div>
+              <p>Sign out moves into Settings with device controls, text setup, and the option to add the app to the phone's home screen. This gives users one place for setup and account tasks.</p>
             </div>
           </div>
           <div class="row">
-            <div class="was"><small>Was</small>Admin</div>
+            <div class="was"><small>Current page</small>Admin</div>
             <div class="now">
-              <div class="to"><span class="arrow">now</span>Admin</div>
-              <p>Same table. On desktop, grouped by person with a side panel.</p>
-              <div class="frames"><a class="frame" href="Prototype.dc.html#desktop/admin/AD1">Desktop</a></div>
+              <div class="to">Admin groups logins by person</div>
+              <p>On desktop, administrators can see which logins belong to each person receiving care. Login details open in a side panel so the list stays visible.</p>
             </div>
           </div>
         </div>
 
-        <div class="prose" style="margin-top:28px">
-          <p>Names: the app already calls itself Caregiver, so the prototype does. Legavo Inc. is the company. Stella is the assistant. The device has no name yet.</p>
-        </div>
       </div>
     </section>
 

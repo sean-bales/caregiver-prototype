@@ -173,6 +173,14 @@ class Component extends DCLogic {
         await this.tapTo('Tabs ' + w, 'Story → Profile', 'Profile', { zone: z }, w + '/profile/PR1');
         await this.tapTo('Tabs ' + w, 'Profile → Settings', 'Settings', { zone: z }, w + '/settings/S1');
         await this.tapTo('Tabs ' + w, 'Settings → Today', 'Today', { zone: z }, w + '/today/F1');
+        if (w === 'phone') for (const [from, part] of [['chapters/S1', 'icon'], ['photos/P1', 'icon'], ['settings/S1', 'badge'], ['device/D1', 'item'], ['profile/PR1', 'icon']]) {
+          await this.goto('phone/' + from);
+          const lab = this.find('Today', { zone: 'bottom' }); const item = lab && lab.parentElement;
+          const t = item && (part === 'icon' ? item.querySelector('svg path, svg') : part === 'badge' ? [...item.querySelectorAll('span')].find(x => x !== lab) : item);
+          if (!t) { this.add('Tabs phone', from + ' → Today via ' + part, false, 'tab item not found'); continue; }
+          const before = this.hash(); this.clickEl(t); await this.waitFor(() => this.hash() !== before, 1200); await this.settle(2500);
+          await this.expectHash('Tabs phone', from + ' → Today via ' + part, 'phone/today/F1');
+        }
         await this.goto(w + '/photos/P1');
         await this.tapTo('Tabs ' + w, 'Photos → Story tab', 'Story', { zone: z }, w + '/chapters/S1');
         await this.tapTo('Tabs ' + w, 'Chapters → Photos segment', 'Photos', {}, w + '/photos/P1');
