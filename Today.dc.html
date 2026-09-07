@@ -250,7 +250,7 @@
   </sc-if>
 
   <sc-if value="{{ s.isTodayPhone }}" hint-placeholder-val="{{ true }}">
-  <div data-screen-label="{{ s.label }}" style="width:390px; min-height:844px; background:#f3efe6; border-radius:40px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+  <div data-screen-label="{{ s.label }}" style="width:390px; min-height:844px; height:{{ phoneH }}; background:#f3efe6; border-radius:40px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 6px rgba(20,36,40,.12), 0 20px 50px rgba(20,36,40,.14); position:relative; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
 
     <sc-if value="{{ s.isWake }}" hint-placeholder-val="{{ false }}">
       <div style="flex:1; background:#0f4c4a; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px">
@@ -276,7 +276,7 @@
     </sc-if>
 
     <sc-if value="{{ s.isMain }}" hint-placeholder-val="{{ true }}">
-    <div style="flex:1; display:flex; flex-direction:column; padding-bottom:110px">
+    <div style="flex:1; display:flex; flex-direction:column; padding-bottom:110px; overflow-y:{{ mainScroll }}; scrollbar-width:none; min-height:0">
       <sc-if value="{{ s.hdr }}" hint-placeholder-val="{{ false }}">
         <!-- app header, dark case: transparent over the teal block -->
         <div style="background:#0f4c4a; color:#fff; padding:16px 20px 0">
@@ -482,7 +482,7 @@
 <script type="text/x-dc" data-dc-script data-props='{"frame":{"editor":"text","default":"","tsType":"string","section":"Embed"}}'>
 class Component extends DCLogic {
   pickFrame(list) { const f = this.props.frame; if (!f) return list; return list.filter(s => s.id === f).map(s => ({ ...s, annot: null, catalogueOnly: false })); }
-  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px' }; }
+  embedVals() { const e = !!this.props.frame; return { notEmbed: !e, wrapPad: e ? '0' : '44px', wrapGap: e ? '0' : '40px', phoneH: e ? '844px' : 'auto', mainScroll: e ? 'auto' : 'visible' }; }
   chip(outcome) {
     return {
       'Done': { bg: '#dfebe8', fg: '#0f4c4a', border: '0' },

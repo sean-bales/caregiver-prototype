@@ -67,7 +67,7 @@
   <div style="display:flex; justify-content:{{ frameJustify }}; align-items:flex-start; padding:{{ framePad }}; box-sizing:border-box; min-height:100vh">
     <sc-if value="{{ isPhone }}" hint-placeholder-val="{{ true }}">
       <div style="position:relative; flex:none; background:#142428; border-radius:58px; padding:14px; box-shadow:0 30px 70px rgba(20,36,40,.35), inset 0 0 0 2px rgba(255,255,255,.08)">
-        <div onClick="{{ onFrameClick }}" style="width:390px; height:844px; border-radius:44px; overflow:auto; scrollbar-width:none; background:#f3efe6; position:relative">
+        <div onClick="{{ onFrameClick }}" style="width:390px; height:844px; border-radius:44px; overflow:hidden; background:#f3efe6; position:relative; display:flex; flex-direction:column">
           
           <sc-if value="{{ show.today }}" hint-placeholder-val="{{ false }}"><dc-import name="Today" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
           <sc-if value="{{ show.compose }}" hint-placeholder-val="{{ false }}"><dc-import name="Compose" frame="{{ frame }}" hint-size="390px,844px"></dc-import></sc-if>
@@ -270,6 +270,7 @@ class Component extends DCLogic {
       this.setState(s => ({ stack: [...s.stack, { surface: r.surface, frame: r.frame }] }));
       target = target.slice(5);
     }
+    if (target.endsWith('/*')) { const s = target.slice(0, -2); target = s + '/' + this.landing(s); } // '*' = the frame the current situation calls for
     if (target.includes('/')) { const [s, f] = target.split('/'); this.go(r.width, s, f); }
     else this.go(r.width, r.surface, target);
     return true;
@@ -285,17 +286,31 @@ class Component extends DCLogic {
         const tx = (n.innerText || '').trim(); if (tx && tx.length <= 24 && !tx.includes('\n')) { raw = tx; break; }
       }
     }
+    // A hidden "Today" heading sits above the Story header in Chapters; only the tab bar row counts as a tab tap
+    const vpRect = e.currentTarget.getBoundingClientRect();
+    const inTabBar = e.clientY > vpRect.bottom - 100;
+    const tabM = raw.trim().match(/^(today|story|profile|settings)\s*\d*$/i); // nav pills may carry an unread badge ("Today 2")
+    const isTabWord = !!tabM; if (isTabWord) raw = tabM[1];
+    if (isTabWord && !ctl && !inTabBar) raw = '';
     const label = raw.replace(/\s+/g, ' ').replace(/[…\u2026]+$/, '').trim().toLowerCase().replace(/^[^a-z0-9]+/, '');
     if (window.__protoDebug) console.log('[proto click]', r.surface, r.frame, JSON.stringify(label));
-    const card = el.closest('[data-anchor], [style*="cursor: pointer"]:not(button):not(a), [style*="border-radius: 16px"], [style*="border-radius: 14px"], [style*="border-radius: 12px"], [style*="border-radius: 10px"], [style*="background: rgb(255, 255, 255)"]');
+    // Tab bar taps (phone) and header nav pills (desktop, real controls) resolve before any card heuristic; Device keeps its own back rule
+    if (isTabWord && ((inTabBar && !ctl) || (ctl && r.surface !== 'device' && this.R.SIGNED_IN.includes(r.surface)))) {
+      const t = this.R.TABS[raw.trim().toLowerCase()];
+      if (t) { this.apply('tab:' + raw.trim().toLowerCase(), {}); return; }
+    }
+    const card = inTabBar ? null : el.closest('[data-anchor], [style*="cursor: pointer"]:not(button):not(a), [style*="border-radius: 16px"], [style*="border-radius: 14px"], [style*="border-radius: 12px"], [style*="border-radius: 10px"], [style*="background: rgb(255, 255, 255)"]');
     const cardText = card ? (card.innerText || '') : '';
     const ctx = {
       frame: r.frame, surface: r.surface, width: r.width, label, inCard: !!card, cardText, situation: this.state.situation,
       cardHas: s => cardText.includes(s),
       inField: !!el.closest('input, textarea, [style*="height: 52px"], [style*="height: 48px"], [style*="min-height: 120px"]')
     };
-    const rules = [...(this.R.RULES[r.surface] || []).map(x => ({ frames: x[0], label: x[1], target: x[2] }))];
-    if (this.R.SIGNED_IN.includes(r.surface)) rules.push(...this.R.COMMON.map(x => ({ frames: '*', label: x[0], target: x[1] })));
+    // Shared header controls (Daniel pill, nav) resolve before a surface's catch-all card rules; Device keeps its own back rule first
+    const rules = [];
+    if (this.R.SIGNED_IN.includes(r.surface) && r.surface !== 'device') rules.push(...this.R.COMMON.map(x => ({ frames: '*', label: x[0], target: x[1] })));
+    rules.push(...(this.R.RULES[r.surface] || []).map(x => ({ frames: x[0], label: x[1], target: x[2] })));
+    if (r.surface === 'device') rules.push(...this.R.COMMON.map(x => ({ frames: '*', label: x[0], target: x[1] })));
     for (const rule of rules) {
       if (rule.frames !== '*' && !rule.frames.split(',').includes(r.frame)) continue;
       if (rule.label !== '*') {

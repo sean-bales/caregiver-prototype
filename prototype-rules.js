@@ -140,7 +140,7 @@ const R = {
     ['PR1,PR7,PR8,PR3', '*', ctx => ctx.inCard ? 'PR2' : null]
   ],
   settings: [
-    ['*', /^settings$/, 'S1'], ['*', /^texts/, 'S3'], ['*', /^device/, 'push:device/D1'], ['*', 'sign out', 'auth/A0'],
+    ['*', /^settings$/, 'S1'], ['*', /^texts/, 'S3'], ['*', /^device/, 'push:device/*'], ['*', 'sign out', 'auth/A0'],
     ['S3,S9,S17', /send code/, 'S4'], ['S4,S5,S12', 'verify', 'S6'], ['S4,S5,S12', 'send a new code', 'S4'], ['S6', '*', 'S7a'],
     ['S7a,S16', 'send a test text', 'S7b'], ['S7a,S7b,S16,S10', 'use a different number', 'S12'], ['S7a,S7b,S16', /switch|turn off|texts on/, 'S15'], ['S15', /switch|turn on/, 'S7a'],
     ['*', 'show me how', 'gap:Settings install instructions are on the card itself; Today A15 to A17 hold the sheets.'],
@@ -177,7 +177,7 @@ export const RULES = R;
 
 // Common rules that run before the surface rules on signed-in surfaces.
 export const COMMON = [
-  [/device settings|^daniel$|^ddaniel$/, 'push:device/D1'],
+  [/device settings|^d ?daniel$|^daniel$/, 'push:device/*'],
   [/^today$/, 'tab:today'], [/^story$/, 'tab:story'], [/^profile$/, 'tab:profile'], [/^settings$/, 'tab:settings']
 ];
 export const SIGNED_IN = ['today', 'compose', 'device', 'chapters', 'photos', 'profile', 'settings'];

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e6e1d6;font-family:"Source Sans 3",Helvetica,Arial,sans-serif;color:#142428}a{color:#0f4c4a}a:hover{color:#1a6b67}</style></helmet>
+<div style="min-height:100vh; padding:24px; box-sizing:border-box; display:flex; flex-direction:column; gap:18px; font-family:'Source Sans 3',Helvetica,Arial,sans-serif; color:#142428">
+  <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
+    <div style="flex:1; min-width:240px">
+      <div style="font:600 12px 'Source Sans 3',sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#56676c">Caregiver prototype · QA pass</div>
+      <div style="font:600 24px/1.2 'Source Sans 3',sans-serif; margin-top:4px">Render, navigation and back behavior</div>
+    </div>
+    <div style="display:flex; gap:14px; align-items:center; font:600 14px ui-monospace,Menlo,monospace">
+      <span style="color:#1f7a5c">{{ pass }} pass</span><span style="color:#b5841a">{{ warn }} check</span><span style="color:#a8321c">{{ fail }} fail</span>
+    </div>
+    <button onClick="{{ runSwitcher }}" style="height:40px; padding:0 18px; border:1px solid rgba(20,36,40,.25); border-radius:999px; background:none; color:#142428; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">Switcher only</button>
+    <button onClick="{{ run }}" style="height:40px; padding:0 18px; border:0; border-radius:999px; background:#142428; color:#fff; font:600 14px 'Source Sans 3',sans-serif; cursor:pointer">{{ runLabel }}</button>
+  </div>
+  <div style="font:400 13px ui-monospace,Menlo,monospace; color:#3a4f55; min-height:18px">{{ status }}</div>
+  <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap">
+    <div style="flex:1; min-width:320px; background:#fff; border:1px solid rgba(20,36,40,.08); border-radius:14px; padding:6px 16px">
+      <sc-for list="{{ results }}" as="r" hint-placeholder-count="0">
+        <div style="display:grid; grid-template-columns:56px 150px minmax(0,1fr); gap:0 12px; padding:8px 0; border-top:1px solid rgba(20,36,40,.07); font-size:13px; line-height:1.4">
+          <div style="font:700 11px/1.6 ui-monospace,Menlo,monospace; color:{{ r.color }}">{{ r.mark }}</div>
+          <div style="color:#56676c">{{ r.group }}</div>
+          <div><span style="font-weight:600">{{ r.name }}</span> <span style="color:#3a4f55">{{ r.detail }}</span></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="flex:none; width:532px; height:385px; overflow:hidden; border-radius:10px; box-shadow:0 2px 8px rgba(20,36,40,.15); background:#e6e1d6">
+      <iframe ref="{{ frameRef }}" onLoad="{{ onFrameLoad }}" src="Prototype.dc.html#phone/today/F1" style="width:1520px; height:1100px; border:0; transform:scale(.35); transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { results: [], running: false, status: 'Loads the prototype in the frame on the right, then drives it. Press Run.', loaded: false };
+  frameRef = React.createRef();
+  errors = [];
+  get win() { return this.frameRef.current && this.frameRef.current.contentWindow; }
+  get doc() { return this.win && this.win.document; }
+  sleep(ms) { // MessageChannel ticks are not throttled in hidden tabs, unlike setTimeout chains
+    return new Promise(r => { const end = Date.now() + ms; const ch = new MessageChannel(); ch.port1.onmessage = () => { if (Date.now() >= end) { ch.port1.close(); r(); } else ch.port2.postMessage(0); }; ch.port2.postMessage(0); });
+  }
+  async waitFor(fn, ms = 3000) { const t0 = Date.now(); while (Date.now() - t0 < ms) { try { const v = fn(); if (v) return v; } catch (e) {} await this.sleep(60); } return null; }
+  screen() { const d = this.doc; if (!d) return null; return d.querySelector('div[style*="width: 390px"][style*="height: 844px"]') || d.querySelector('div[style*="width: 1440px"]'); }
+  hash() { return this.win ? this.win.location.hash.replace(/^#/, '') : ''; }
+  async goto(h, max) { this.win.location.hash = '#' + h; await this.sleep(80); await this.settle(max); }
+  async settle(max = 5000) {
+    let last = -1, stable = 0; const t0 = Date.now();
+    while (Date.now() - t0 < max) { const s = this.screen(); const n = s ? s.innerText.length : 0; if (n > 40 && n === last) { if (++stable >= 3) break; } else stable = 0; last = n; await this.sleep(110); }
+  }
+  find(m, opt = {}) {
+    const s = this.screen(); if (!s) return null;
+    const rx = m instanceof RegExp ? m : new RegExp('^' + m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$', 'i');
+    const sr = s.getBoundingClientRect();
+    const els = [...s.querySelectorAll('*')].filter(el => {
+      if (el.closest('svg')) return false;
+      const raw = (el.innerText || '').trim(); if (!raw || raw.length > 80) return false;
+      const t = raw.replace(/\s+/g, ' '); // drop icon glyphs, avatar initials and badges (lines of 1-2 chars)
+      const t2 = raw.split('\n').map(x => x.trim()).filter(x => x.length > 2).join(' ');
+      if (!rx.test(t) && !(t2 && rx.test(t2))) return false;
+      const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return false;
+      if (opt.zone === 'bottom' && r.top < sr.bottom - 110) return false;
+      if (opt.zone === 'top' && r.top > sr.top + 150) return false;
+      if (opt.zone === 'body' && (r.top < sr.top + 150 || r.top > sr.bottom - 110)) return false;
+      if (opt.right && r.left < sr.left + sr.width / 2) return false;
+      return true;
+    });
+    const deep = els.filter(e => !els.some(o => o !== e && e.contains(o)));
+    return (opt.last ? deep[deep.length - 1] : deep[0]) || null;
+  }
+  card() {
+    const s = this.screen(); if (!s) return null; const sr = s.getBoundingClientRect();
+    return [...s.querySelectorAll('[style*="border-radius: 16px"], [style*="border-radius: 14px"]')].find(el => { const r = el.getBoundingClientRect(); return r.width > 120 && r.height > 60 && r.top > sr.top + 150 && r.top < sr.bottom - 150; }) || null;
+  }
+  clickEl(el) {
+    const r = el.getBoundingClientRect();
+    el.dispatchEvent(new this.win.MouseEvent('click', { bubbles: true, cancelable: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, view: this.win }));
+  }
+  gapText() { const t = this.doc && [...this.doc.querySelectorAll('div')].find(d => d.style.zIndex === '70'); return t ? t.innerText.trim() : ''; }
+  async tap(m, opt = {}) {
+    const el = opt.card ? this.card() : this.find(m, opt);
+    if (!el) return { found: false };
+    const before = this.hash(); this.clickEl(el);
+    await this.waitFor(() => this.hash() !== before, 1200); await this.settle(2500);
+    return { found: true, hash: this.hash(), text: (el.innerText || '').trim().slice(0, 30) };
+  }
+  esc() { this.doc.dispatchEvent(new this.win.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); }
+  onFrameLoad = () => {
+    const w = this.win; if (!w) return;
+    w.addEventListener('error', e => this.errors.push({ hash: this.hash(), msg: String(e.message || e.error) }));
+    const ce = w.console.error.bind(w.console); w.console.error = (...a) => { this.errors.push({ hash: this.hash(), msg: a.map(String).join(' ').slice(0, 160) }); ce(...a); };
+    this.setState({ loaded: true, status: 'Prototype loaded. Press Run.' });
+  };
+  add(group, name, ok, detail) {
+    const color = ok === true ? '#1f7a5c' : ok === 'warn' ? '#b5841a' : '#a8321c', mark = ok === true ? 'PASS' : ok === 'warn' ? 'CHECK' : 'FAIL';
+    this.setState(s => ({ results: [...s.results, { group, name, ok, detail, color, mark }] }));
+  }
+  async expectHash(group, name, want, extra = '') {
+    const got = this.hash(); const gap = this.gapText();
+    this.add(group, name, got === want, extra + want + ' → ' + got + (gap ? ' · toast: ' + gap : ''));
+    return got === want;
+  }
+  async tapTo(group, name, m, opt, want) {
+    const r = await this.tap(m, opt);
+    if (!r.found) { this.add(group, name, false, 'control "' + (m instanceof RegExp ? m.source : m) + '" not found on ' + this.hash()); return false; }
+    return this.expectHash(group, name, want, 'tap "' + r.text + '": ');
+  }
+  run = async (ev, only) => {
+    if (this.state.running || !this.win) return;
+    this.only = only === 'switcher';
+    this.errors = []; this.setState({ results: [], running: true });
+    const st = s => this.setState({ status: s });
+    const R = await import('./prototype-rules.js');
+    const TABW = { today: 'Today', chapters: 'Story', photos: 'Story', profile: 'Profile', settings: 'Settings' };
+    const teal = 'rgb(15, 76, 74)';
+    try {
+      // 1. Every surface renders at its base frame on both widths
+      if (!this.only) for (const w of ['phone', 'desktop']) for (const k of R.ORDER) {
+        const s = R.SURFACES[k]; st('Render · ' + w + '/' + k); await this.goto(w + '/' + k + '/' + s.base);
+        const sc = this.screen(); const n = sc ? sc.innerText.length : 0;
+        const sw = [...this.doc.querySelectorAll('button')].find(b => /Switcher/.test(b.textContent));
+        const idOk = sw && sw.textContent.includes(s.base);
+        this.add('Render ' + w, s.label + ' ' + s.base, n > 40 && idOk, n > 40 ? n + ' chars of UI' + (idOk ? ', switcher shows ' + s.base : ', switcher label wrong') : 'screen empty');
+      }
+      // 2. Nav placement on root tabs
+      if (!this.only) for (const k of ['today', 'chapters', 'photos', 'profile', 'settings']) {
+        const s = R.SURFACES[k];
+        st('Placement · phone/' + k); await this.goto('phone/' + k + '/' + s.base);
+        const tabs = ['Today', 'Story', 'Profile', 'Settings'].map(t => this.find(t, { zone: 'bottom' }));
+        const missing = ['Today', 'Story', 'Profile', 'Settings'].filter((t, i) => !tabs[i]);
+        this.add('Phone nav', s.label + ': tab bar at bottom', missing.length === 0, missing.length ? 'missing ' + missing.join(', ') : 'all four tabs in the bottom 110 px');
+        const act = tabs[['Today', 'Story', 'Profile', 'Settings'].indexOf(TABW[k])];
+        const col = act && this.win.getComputedStyle(act).color;
+        this.add('Phone nav', s.label + ': active tab is ' + TABW[k], col === teal, 'label color ' + col);
+        const pill = this.find(/^Daniel$/, { zone: 'top', right: true });
+        this.add('Phone nav', s.label + ': Daniel pill in header, right', !!pill, pill ? 'found' : 'not found in top-right');
+        st('Placement · desktop/' + k); await this.goto('desktop/' + k + '/' + s.base);
+        const dn = ['Today', 'Story', 'Profile', 'Settings'].map(t => this.find(t, { zone: 'top', right: true }));
+        const dm = ['Today', 'Story', 'Profile', 'Settings'].filter((t, i) => !dn[i]);
+        this.add('Desktop nav', s.label + ': header nav pills', dm.length === 0, dm.length ? 'missing ' + dm.join(', ') : 'all four pills in the header, right');
+        const da = dn[['Today', 'Story', 'Profile', 'Settings'].indexOf(TABW[k])];
+        const bg = da && this.win.getComputedStyle(da.closest('a,button,div')).backgroundColor;
+        this.add('Desktop nav', s.label + ': active pill is ' + TABW[k], bg === teal, 'pill background ' + bg);
+        const bottomTabs = ['Today', 'Story', 'Profile', 'Settings'].filter(t => this.find(t, { zone: 'bottom' }));
+        this.add('Desktop nav', s.label + ': no phone tab bar', bottomTabs.length === 0, bottomTabs.length ? 'found ' + bottomTabs.join(', ') + ' at the bottom' : 'none at the bottom');
+      }
+      // Pushed pages and signed-out surfaces
+      if (!this.only) for (const w of ['phone', 'desktop']) {
+        st('Placement · ' + w + ' pushed'); await this.goto(w + '/device/D1');
+        const back = this.find(/^(Today|Settings|Story|Profile|Back)$/, { zone: 'top' });
+        this.add('Pushed ' + w, 'Device: back row under header', !!back, back ? 'reads "' + back.innerText.trim() + '"' : 'no back row in the top 150 px');
+        await this.goto(w + '/settings/S3');
+        const b2 = this.find(/^(Settings|Back)$/, { zone: 'top' });
+        this.add('Pushed ' + w, 'Texts S3: back row under header', !!b2, b2 ? 'reads "' + b2.innerText.trim() + '"' : 'no back row in the top 150 px');
+        for (const k of ['auth', 'admin', 'public']) {
+          await this.goto(w + '/' + k + '/' + R.SURFACES[k].base);
+          const bt = ['Today', 'Story', 'Profile', 'Settings'].filter(t => this.find(t, { zone: w === 'phone' ? 'bottom' : 'top' }));
+          this.add('Signed out ' + w, R.SURFACES[k].label + ': no app nav', bt.length === 0, bt.length ? 'found ' + bt.join(', ') : 'none');
+        }
+      }
+      // 3. Tab navigation
+      if (!this.only) for (const w of ['phone', 'desktop']) {
+        const z = w === 'phone' ? 'bottom' : 'top'; st('Tabs · ' + w);
+        await this.goto(w + '/today/F1');
+        await this.tapTo('Tabs ' + w, 'Today → Story', 'Story', { zone: z }, w + '/chapters/S1');
+        await this.tapTo('Tabs ' + w, 'Story → Profile', 'Profile', { zone: z }, w + '/profile/PR1');
+        await this.tapTo('Tabs ' + w, 'Profile → Settings', 'Settings', { zone: z }, w + '/settings/S1');
+        await this.tapTo('Tabs ' + w, 'Settings → Today', 'Today', { zone: z }, w + '/today/F1');
+        await this.goto(w + '/photos/P1');
+        await this.tapTo('Tabs ' + w, 'Photos → Story tab', 'Story', { zone: z }, w + '/chapters/S1');
+        await this.tapTo('Tabs ' + w, 'Chapters → Photos segment', 'Photos', {}, w + '/photos/P1');
+      }
+      // 4. Push and back
+      if (!this.only) for (const w of ['phone', 'desktop']) {
+        st('Back · ' + w); const backRe = /^(Today|Settings|Story|Profile|Back)$/;
+        await this.goto(w + '/today/F1');
+        await this.tapTo('Back ' + w, 'Today → Daniel pill', /^Daniel$/, { zone: 'top', right: true }, w + '/device/D1');
+        await this.tapTo('Back ' + w, 'Device back → Today', backRe, { zone: 'top' }, w + '/today/F1');
+        await this.goto(w + '/settings/S1');
+        await this.tapTo('Back ' + w, 'Settings → Device row', /^Device/, { zone: 'body' }, w + '/device/D1');
+        await this.tapTo('Back ' + w, 'Device back → Settings', backRe, { zone: 'top' }, w + '/settings/S1');
+        await this.tapTo('Back ' + w, 'Settings → Texts row', /^Texts/, { zone: 'body' }, w + '/settings/S3');
+        await this.tapTo('Back ' + w, 'Texts back → Settings', /^(Settings|Back)$/, { zone: 'top' }, w + '/settings/S1');
+        await this.goto(w + '/today/5');
+        await this.tapTo('Back ' + w, 'Offline Today → Daniel lands on D5', /^Daniel$/, { zone: 'top', right: true }, w + '/device/D5');
+        await this.tapTo('Back ' + w, 'Device back → Today keeps offline (5)', backRe, { zone: 'top' }, w + '/today/5');
+        await this.goto(w + '/chapters/S1');
+        await this.tapTo('Back ' + w, 'Chapter card → S4', null, { card: true }, w + '/chapters/S4');
+        await this.tapTo('Back ' + w, 'Chapter back → list', /^(Story|Back to chapters|Chapters)$/, { zone: 'top' }, w + '/chapters/S1');
+        await this.goto(w + '/photos/P1');
+        await this.tapTo('Back ' + w, 'Photo tile → P6', /^phone photo/, {}, w + '/photos/P6');
+        await this.tapTo('Back ' + w, 'Photo back row → gallery', /^(Photos|Close|Done|Back)$/, { zone: 'top' }, w + '/photos/P1');
+        await this.goto(w + '/profile/PR1');
+        await this.tapTo('Back ' + w, 'Profile About row → PR2 edit', /^About/, {}, w + '/profile/PR2');
+        await this.tapTo('Back ' + w, 'Profile Discard → PR1', /^(Discard|Cancel)$/, {}, w + '/profile/PR1');
+      }
+      // 5. Compose flow
+      if (!this.only) for (const w of ['phone', 'desktop']) {
+        st('Compose · ' + w);
+        await this.goto(w + '/today/F1');
+        await this.tapTo('Compose ' + w, 'Send something → A3', /^Send something$/, {}, w + '/today/A3');
+        await this.tapTo('Compose ' + w, 'A3 Message → C1', /^Message$/, {}, w + '/compose/C1');
+        await this.tapTo('Compose ' + w, 'C1 Cancel → Today', /^Cancel$/, {}, w + '/today/F1');
+        await this.goto(w + '/compose/C4');
+        await this.tapTo('Compose ' + w, 'C4 Cancel → C12 discard prompt', /^Cancel$/, {}, w + '/compose/C12');
+        await this.tapTo('Compose ' + w, 'C12 Keep writing → C4', /^Keep writing$/, {}, w + '/compose/C4');
+        await this.tapTo('Compose ' + w, 'C4 Post → C9a', /^Post/, {}, w + '/compose/C9a');
+        await this.goto(w + '/compose/C12');
+        await this.tapTo('Compose ' + w, 'C12 Discard → Today', /^Discard/, {}, w + '/today/F1');
+      }
+      // 6. Desktop Escape
+      if (!this.only) { st('Escape · desktop');
+      await this.goto('desktop/compose/C4'); this.esc(); await this.waitFor(() => this.hash() !== 'desktop/compose/C4', 1200); await this.settle(2500);
+      await this.expectHash('Escape', 'Compose C4 → Today', 'desktop/today/F1');
+      await this.goto('desktop/today/A3'); this.esc(); await this.waitFor(() => this.hash() !== 'desktop/today/A3', 1200); await this.settle(2500);
+      await this.expectHash('Escape', 'Today A3 popover → F1', 'desktop/today/F1');
+      await this.goto('phone/today/A3'); this.esc(); await this.sleep(400);
+      await this.expectHash('Escape', 'Phone ignores Escape', 'phone/today/A3'); }
+      // 7. Auth boundaries
+      if (!this.only) for (const w of ['phone', 'desktop']) {
+        st('Auth · ' + w);
+        await this.goto(w + '/auth/A1');
+        await this.tapTo('Auth ' + w, 'A1 Sign in → Today', /^Sign in$/, { last: true }, w + '/today/F1');
+        await this.goto(w + '/public/P1');
+        await this.tapTo('Auth ' + w, 'Public Sign in → Auth', /^Sign in$/, {}, w + '/auth/A1');
+        await this.goto(w + '/admin/AD1');
+        await this.tapTo('Auth ' + w, 'Admin Sign out → Auth', /^Sign out$/, {}, w + '/auth/A1');
+        await this.goto(w + '/settings/S1');
+        await this.tapTo('Auth ' + w, 'Settings Sign out → A0', /^Sign out$/, {}, w + '/auth/A0');
+        await this.goto(w + '/today/7');
+        await this.tapTo('Auth ' + w, 'Session ended → Sign in → A18', /^Sign in$/, {}, w + '/auth/A18');
+        await this.tapTo('Auth ' + w, 'A18 Sign in → Today', /^Sign in$/, { last: true }, w + '/today/F1');
+      }
+      // 8. Switcher width toggle
+      st('Switcher'); await this.goto('phone/today/F1');
+      if (![...this.doc.querySelectorAll('div')].some(d => d.style.position === 'fixed' && d.style.width === '380px')) { const sw = [...this.doc.querySelectorAll('button')].find(b => /Switcher/.test(b.textContent)); sw && sw.click(); await this.sleep(250); }
+      const dbtn = [...this.doc.querySelectorAll('button')].find(b => b.textContent.trim() === 'Desktop');
+      this.add('Switcher', 'Panel opens with width toggle', !!dbtn, dbtn ? 'Desktop button present' : 'no Desktop button');
+      if (dbtn) { dbtn.click(); await this.waitFor(() => this.hash().startsWith('desktop'), 1200); await this.settle(2500); await this.expectHash('Switcher', 'Phone → Desktop keeps frame', 'desktop/today/F1'); }
+      const cl = [...this.doc.querySelectorAll('button')].find(b => b.textContent.trim() === 'Close'); cl && cl.click(); await this.sleep(200);
+      // Switcher panel controls
+      const pbtn = t => [...this.doc.querySelectorAll('button')].find(b => b.textContent.trim() === t);
+      const panel = () => [...this.doc.querySelectorAll('div')].find(d => d.style.position === 'fixed' && d.style.width === '380px');
+      const openPanel = async () => { if (!panel()) { const b = [...this.doc.querySelectorAll('button')].find(x => /Switcher/.test(x.textContent)); b && b.click(); await this.sleep(250); } return !!panel(); };
+      const clickP = async (t, wait = 2500) => { const b = pbtn(t); if (!b) return false; const before = this.hash(); b.click(); await this.waitFor(() => this.hash() !== before, 900); await this.settle(wait); return true; };
+      const groupBtn = (title, label) => { const p = panel(); if (!p) return null; const g = [...p.querySelectorAll('div')].filter(d => d.textContent.trim() === title).pop(); let wrap = g; while (wrap && wrap !== p && !wrap.querySelector('button')) wrap = wrap.parentElement; return wrap && wrap !== p && [...wrap.querySelectorAll('button')].find(b => b.textContent.trim() === label) || null; };
+      const clickG = async (title, label) => { const b = groupBtn(title, label); if (!b) return false; const before = this.hash(); b.click(); await this.waitFor(() => this.hash() !== before, 900); await this.settle(2500); return true; };
+      st('Switcher · panel'); await this.goto('phone/today/F1'); await openPanel();
+      this.add('Switcher', 'Panel opens from the edge tab', !!panel(), panel() ? 'panel visible' : 'no panel');
+      this.esc(); await this.sleep(250); this.add('Switcher', 'Escape closes the panel', !panel(), panel() ? 'still open' : 'closed');
+      await openPanel(); const cb = pbtn('Close'); cb && cb.click(); await this.sleep(250); this.add('Switcher', 'Close button closes the panel', !panel(), panel() ? 'still open' : 'closed');
+      await openPanel();
+      const notes = panel() && [...panel().querySelectorAll('div')].find(d => d.textContent.trim() === 'Notes'); const noteText = notes && notes.nextElementSibling && notes.nextElementSibling.textContent.trim();
+      this.add('Switcher', 'Frame notes load for F1', !!noteText && !/Loading/.test(noteText), noteText ? noteText.slice(0, 70) + '…' : 'no notes');
+      // Markers
+      st('Switcher · markers'); await this.goto('phone/today/6'); await openPanel();
+      const marker = () => [...this.doc.querySelectorAll('div')].filter(d => d.style.backgroundColor === 'rgb(196, 92, 38)' && d.style.pointerEvents !== 'none' && d.closest('[style*="pointer-events: none"]')).length;
+      await clickP('Markers off', 200); this.add('Switcher', 'Markers on shows rebuild markers on frame 6', pbtn('Markers on') && marker() > 0, (pbtn('Markers on') ? 'button reads Markers on' : 'button did not toggle') + ', ' + marker() + ' marker(s) drawn');
+      await clickP('Markers on', 200); this.add('Switcher', 'Markers off hides them', pbtn('Markers off') && marker() === 0, marker() + ' marker(s) drawn');
+      // Situation chips
+      st('Switcher · situations'); await this.goto('phone/today/F1'); await openPanel();
+      const sit = [
+        ['Device', 'Offline since 9:12 AM', 'phone/today/5'], ['Device', 'Never seen', 'phone/today/12'], ['Device', 'Online', 'phone/today/F1'],
+        ['Timezone', 'Not reported', 'phone/today/13'], ['Timezone', 'Reported (Central)', 'phone/today/F1'],
+        ['Schedule', 'On', 'phone/today/4'], ['Schedule', 'Off', 'phone/today/F1'],
+        ['App connection', 'App offline', 'phone/today/6'], ['App connection', 'Online', 'phone/today/F1'],
+        ['Session', 'Ended', 'phone/today/7'], ['Session', 'Live', 'phone/today/F1']
+      ];
+      for (const [g, l, want] of sit) { const ok = await clickG(g, l); if (!ok) { this.add('Situation', g + ' · ' + l, false, 'chip not found'); continue; } await this.expectHash('Situation', g + ' · ' + l, want); }
+      const act = groupBtn('Session', 'Live'); this.add('Situation', 'Active chip highlighted', act && this.win.getComputedStyle(act).backgroundColor === 'rgb(143, 211, 199)', act ? 'bg ' + this.win.getComputedStyle(act).backgroundColor : 'no chip');
+      // Situation carries into other surfaces
+      await clickG('Device', 'Offline since 9:12 AM'); await pbtn('Device') && (await clickP('Device')); await this.expectHash('Situation', 'Offline carries: This screen → Device lands on D5', 'phone/device/D5');
+      await clickG('Session', 'Ended'); await this.expectHash('Situation', 'Session ended on Device → D14', 'phone/device/D14');
+      await clickP('Settings'); await this.expectHash('Situation', 'Session ended carries: This screen → Settings lands on S14', 'phone/settings/S14');
+      await clickG('Session', 'Live'); await this.expectHash('Situation', 'Session live on Settings → S1', 'phone/settings/S1');
+      await clickG('Texts', 'On'); await this.expectHash('Situation', 'Texts on → S2', 'phone/settings/S2');
+      await clickG('Texts', 'Viewer role'); await this.expectHash('Situation', 'Viewer role → S11', 'phone/settings/S11');
+      await clickG('Signed in as', 'Signed out'); await this.expectHash('Situation', 'Signed out on Settings redirects to Auth A1 with a gap toast', 'phone/auth/A1');
+      await clickG('Signed in as', 'The administrator'); await this.expectHash('Situation', 'Administrator on Auth redirects to Admin AD1', 'phone/admin/AD1');
+      await clickG('Signed in as', 'Alex Morgan'); await this.expectHash('Situation', 'Alex Morgan on Admin stays on the base frame', 'phone/admin/AD1');
+      // This screen: surfaces and frame list
+      st('Switcher · this screen'); await this.goto('phone/today/F1'); await openPanel(); await clickP('Reset'); await openPanel();
+      for (const k of R.ORDER) { const s = R.SURFACES[k]; const ok = await clickP(s.label); if (!ok) { this.add('This screen', s.label, false, 'button not found'); continue; } await this.expectHash('This screen', s.label + ' → ' + s.base, 'phone/' + k + '/' + s.base); }
+      const active = pbtn(R.SURFACES.public.label); this.add('This screen', 'Active surface highlighted', active && this.win.getComputedStyle(active).backgroundColor === 'rgb(143, 211, 199)', active ? 'bg ' + this.win.getComputedStyle(active).backgroundColor : 'none');
+      await clickP('Today'); const list = panel() && [...panel().querySelectorAll('button')].filter(b => b.children.length === 2 && /^[A-Z0-9]+[a-z]?$/.test(b.firstElementChild.textContent.trim()));
+      this.add('This screen', 'Frame list for Today', list && list.length > 10, (list ? list.length : 0) + ' frame rows');
+      const a3 = list && list.find(b => b.firstElementChild.textContent.trim() === 'A3'); if (a3) { a3.click(); await this.waitFor(() => this.hash() === 'phone/today/A3', 900); await this.settle(2500); } await this.expectHash('This screen', 'Frame row A3 opens A3', 'phone/today/A3');
+      const hl = list && [...panel().querySelectorAll('button')].find(b => b.firstElementChild && b.firstElementChild.textContent.trim() === 'A3'); this.add('This screen', 'Current frame row highlighted', hl && this.win.getComputedStyle(hl).backgroundColor === 'rgba(143, 211, 199, 0.22)', hl ? 'bg ' + this.win.getComputedStyle(hl).backgroundColor : 'no row');
+      // Reset and index link
+      st('Switcher · reset'); await clickG('Device', 'Never seen'); await clickP('Reset'); await this.expectHash('Switcher', 'Reset returns to phone Today F1', 'phone/today/F1');
+      const on = groupBtn('Device', 'Online'); this.add('Switcher', 'Reset clears the situation', on && this.win.getComputedStyle(on).backgroundColor === 'rgb(143, 211, 199)', on ? 'Online chip bg ' + this.win.getComputedStyle(on).backgroundColor : 'no chip');
+      // Width toggle where no counterpart exists
+      await this.goto('phone/today/A15'); await openPanel(); await clickP('Desktop'); const gapT = this.gapText(); this.add('Switcher', 'Desktop toggle on phone-only A15 falls back with a toast', this.hash() === 'desktop/today/F1' && /no desktop counterpart/.test(gapT), this.hash() + (gapT ? ' · toast: ' + gapT : ' · no toast'));
+      await openPanel(); await clickP('Phone'); await this.expectHash('Switcher', 'Phone toggle back keeps F1', 'phone/today/F1');
+      const idx = panel() && [...panel().querySelectorAll('a')].find(a => a.textContent.trim() === 'Frame index'); if (idx) { idx.click(); await this.sleep(600); } this.add('Switcher', 'Frame index link opens the index', this.hash() === 'index', 'hash ' + this.hash());
+      // 9. Frame index: every link renders
+      if (!this.only) { st('Index'); await this.goto('index', 1500);
+      const hrefs = [...new Set([...this.doc.querySelectorAll('a[href^="#phone/"], a[href^="#desktop/"]')].map(a => a.getAttribute('href').slice(1)))];
+      this.add('Index', 'Frame links found', hrefs.length > 0, hrefs.length + ' links');
+      let bad = 0, i = 0;
+      for (const h of hrefs) {
+        st('Index · ' + (++i) + '/' + hrefs.length + ' · ' + h); await this.goto(h, 3000);
+        const sc = this.screen(); const n = sc ? sc.innerText.length : 0; const id = h.split('/')[2];
+        const swb = [...this.doc.querySelectorAll('button')].find(b => /Switcher/.test(b.textContent));
+        const ok = n > 10 && swb && swb.textContent.includes(id); // splash frames (Auth A17) carry only the wordmark
+        if (!ok) { bad++; this.add('Index', h, false, n > 40 ? 'switcher shows wrong id' : 'screen empty (' + n + ' chars)'); }
+      }
+      this.add('Index', 'All frames render', bad === 0, (hrefs.length - bad) + ' of ' + hrefs.length + ' rendered with the right frame id'); }
+    } catch (e) { this.add('Runner', 'Unexpected error', false, String(e)); }
+    if (this.errors.length) { const seen = {}; this.errors.forEach(e => { const k = e.hash + '|' + e.msg; if (!seen[k]) { seen[k] = 1; this.add('Console', e.hash, false, e.msg); } }); }
+    else this.add('Console', 'Prototype console', true, 'no errors during the run');
+    st('Done.'); this.setState({ running: false });
+    await this.goto('phone/today/F1');
+  };
+  renderVals() {
+    const { results, running, status } = this.state;
+    return { results, status, frameRef: this.frameRef, onFrameLoad: this.onFrameLoad, run: this.run, runSwitcher: e => this.run(e, 'switcher'),
+      runLabel: running ? 'Running…' : 'Run QA pass',
+      pass: results.filter(r => r.ok === true).length, warn: results.filter(r => r.ok === 'warn').length, fail: results.filter(r => r.ok === false).length };
+  }
+}
+</script>
+</body>
+</html>
